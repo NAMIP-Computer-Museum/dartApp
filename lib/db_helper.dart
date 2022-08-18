@@ -6,6 +6,8 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:io' as io;
 
+import 'models/component.dart';
+
 class DBHelper {
 
   static Database? _db;
@@ -21,14 +23,29 @@ class DBHelper {
     await _db?.close();
   }
 
-  void printDb() async {
-    var myDb = await db;
-    print(myDb);
+  Future<List<Component>> getData() async {
+    Database? myDb = await db;
     final List<Map<String, Object?>>? maps = await myDb?.query('GENERAL');
-    print(jsonEncode(maps));
+    if (maps == null) return List.empty();
+    List<Component> components = List.empty(growable: true);
+    final String response = await rootBundle.loadString("assets/data/componentsImagesData.json");
+    final Map data = await json.decode(response);
+    for (int i = 0; i < maps.length; i++) {
+      Map copy = Map.from(maps[i]);
+      // copy.remove("DescFR");
+      // copy.remove("DescEN");
+      // copy.remove("DescNL");
+      // copy.remove("DescMotFR");
+      // copy.remove("DescMotEN");
+      // copy.remove("DescMotNL");
+      copy["logo"] = data[copy["ID"].toString()];
+      //print(copy);
+      components.add(Component.fromMap(copy));
+    }
+    return components;
   }
 
-  Future<Database?> initDb() async {
+  Future<Database?> initDb() async { // code by https://blog.devgenius.io/adding-sqlite-db-file-from-the-assets-internet-in-flutter-3ec42c14cd44
     io.Directory applicationDirectory = await getApplicationDocumentsDirectory();
 
     String dbPathEnglish = join(applicationDirectory.path, dbName);

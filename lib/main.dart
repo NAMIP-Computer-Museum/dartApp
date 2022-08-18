@@ -10,9 +10,6 @@ import 'home_pages/home_page_bottom_navigation_bar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  print("test\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\ntest\n");
-  var dbHelper = DBHelper();
-  dbHelper.printDb();
   runApp(const MyApp());
 }
 

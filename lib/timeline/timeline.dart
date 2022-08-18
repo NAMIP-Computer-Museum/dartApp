@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:nam_ip_museum/db_helper.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../models/component.dart';
@@ -26,7 +27,7 @@ class _TimelineState2 extends State<MyTimeline> {
   bool isCheckedIHM = false;
   bool isCheckedApp = false;
 
-  final List<Component> components = List.empty(growable: true);
+  List<Component> components = List.empty(growable: true);
   List<Component> componentsSelected = List.empty();
 
   @override
@@ -54,39 +55,30 @@ class _TimelineState2 extends State<MyTimeline> {
     }
     switch (_dropdownValue.toLowerCase()) {
       case 'début':
-        componentsSelected = componentsSelected.where((element) => int.parse(element.date) < 1973).toList();
+        componentsSelected = componentsSelected.where((element) => (element.date) < 1973).toList();
         break;
       case 'phase 1':
-        componentsSelected = componentsSelected.where((element) => int.parse(element.date) >= 1973 && int.parse(element.date) < 1977).toList();
+        componentsSelected = componentsSelected.where((element) => (element.date) >= 1973 && (element.date) < 1977).toList();
         break;
       case 'phase 2':
-        componentsSelected = componentsSelected.where((element) => int.parse(element.date) >= 1977 && int.parse(element.date) < 1992).toList();
+        componentsSelected = componentsSelected.where((element) => (element.date) >= 1977 && (element.date) < 1992).toList();
         break;
       case 'phase 3':
-        componentsSelected = componentsSelected.where((element) => int.parse(element.date) >= 1992).toList();
+        componentsSelected = componentsSelected.where((element) => (element.date) >= 1992).toList();
         break;
     }
   }
 
   Future<void> readData() async {
-    final String response = await rootBundle.loadString("data/componentsData.json");
-    final List<dynamic> data = await json.decode(response);
+    DBHelper dbHelper = DBHelper();
+    components = await dbHelper.getData();
     setState(() {
-      for (int i = 0; i < data.length; i++) {
-        components.add(Component(
-          name: data[i]['name'],
-          desc: data[i]['desc'],
-          logo: data[i]['img'],
-          date: data[i]['date'],
-          type: Component.convertStringToTypeComponent(data[i]['type']),
-        ));
-      }
       components.sort((a, b) => a.date.compareTo(b.date));
       componentsSelected = components.where((element) => element.type == typeComponent.micro).toList();
     });
   }
 
-  Widget timelineTile(String title, String description, String icon, String date, bool isFirst, bool isLast) {
+  Widget timelineTile(String title, String description, String icon, int date, bool isFirst, bool isLast) {
     Color getIndicatorColor(int date) {
       if (date < 1973) {
         return Colors.blue;
@@ -105,17 +97,17 @@ class _TimelineState2 extends State<MyTimeline> {
       isFirst: isFirst,
       isLast: isLast,
       beforeLineStyle: LineStyle(
-        color: getIndicatorColor(int.parse(date)),
+        color: getIndicatorColor((date)),
       ),
       indicatorStyle: IndicatorStyle(
         indicatorXY: 0.0,
-        color: getIndicatorColor(int.parse(date)),
+        color: getIndicatorColor((date)),
       ),
       startChild: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
           height: double.infinity,
-          child: Text(date, style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold))),
+          child: Text(date.toString(), style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold))),
       ),
       endChild: GestureDetector(
         onTap: () {
@@ -137,7 +129,7 @@ class _TimelineState2 extends State<MyTimeline> {
                   !isChecked ? Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: NetworkImage(icon),
+                        backgroundImage: AssetImage(icon),
                         backgroundColor: Colors.white,
                       ),
                       const SizedBox(width: 10),
@@ -353,7 +345,7 @@ class _TimelineState2 extends State<MyTimeline> {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Column(
                       children: componentsSelected.map((e) {
-                        return timelineTile(e.name, e.desc, e.logo, e.date, componentsSelected.indexOf(e) == 0, componentsSelected.indexOf(e) == componentsSelected.length - 1);
+                        return timelineTile(e.name, e.descFr, e.logo, e.date, componentsSelected.indexOf(e) == 0, componentsSelected.indexOf(e) == componentsSelected.length - 1);
                       }).toList(),
                     ),
                   ),
