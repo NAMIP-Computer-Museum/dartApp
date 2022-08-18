@@ -35,6 +35,8 @@ dependencies:
   video_player: ^2.4.6
   youtube_player_flutter: ^8.0.0
   sqflite: ^2.0.3+1
+  path: ^1.8.1
+  path_provider: ^2.0.11
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -72,8 +74,18 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/componentsImages/app/
+    - assets/componentsImages/cpu/
+    - assets/componentsImages/ihm/
+    - assets/componentsImages/mainframe/
+    - assets/componentsImages/meca/
+    - assets/componentsImages/micro/
+    - assets/componentsImages/mini/
+    - assets/componentsImages/moderne/
+    - assets/componentsImages/os/
+    - assets/data/
+    - assets/db/
     - assets/quiz/
-    - data/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

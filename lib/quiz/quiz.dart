@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:nam_ip_museum/quiz/final_screen_quiz.dart';
 
 import '../home_pages/home_page.dart';
+import '../models/quiz_infos.dart';
 
 class Quiz extends StatefulWidget {
   final String? difficulty;
@@ -240,12 +241,4 @@ class _QuizState extends State<Quiz> {
       )
     );
   }
-}
-
-class QuizInfos {
-  final String img;
-  final String question;
-  final List<dynamic> answers;
-  final String answer;
-  QuizInfos({required this.img, required this.question, required this.answers, required this.answer});
 }

@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
+import '../models/component.dart';
+import '../models/type_component.dart';
 import 'datasheet.dart';
 
 class MyTimeline extends StatefulWidget {
@@ -363,40 +365,4 @@ class _TimelineState2 extends State<MyTimeline> {
       )
     );
   }
-}
-
-class Component {
-  String name;
-  String desc;
-  String logo;
-  String date;
-  typeComponent type;
-
-  Component({required this.name, required this.desc, required this.logo, required this.date, required this.type});
-
-  static typeComponent convertStringToTypeComponent(String type) {
-    switch (type.toLowerCase()) {
-      case 'micro':
-        return typeComponent.micro;
-      case 'os':
-        return typeComponent.os;
-      case 'cpu':
-        return typeComponent.cpu;
-      case 'ihm':
-        return typeComponent.ihm;
-      case 'app':
-        return typeComponent.app;
-      default:
-        return typeComponent.error;
-    }
-  }
-}
-
-enum typeComponent {
-  micro,
-  os,
-  cpu,
-  ihm,
-  app,
-  error
 }
