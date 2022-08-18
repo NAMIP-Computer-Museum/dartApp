@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:video_player/video_player.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:get/get.dart';
+import 'package:nam_ip_museum/videos/video.dart';
+
+import '../models/video.dart';
 
 class HomeVideos extends StatefulWidget {
   const HomeVideos({Key? key}) : super(key: key);
@@ -11,81 +15,114 @@ class HomeVideos extends StatefulWidget {
 }
 
 class _HomeVideosState extends State<HomeVideos> {
-  late VideoPlayerController _controller;
-  late YoutubePlayerController _youtubeController;
+  List<VideoData> videos = List.empty(growable: true);
 
   @override
   void initState() {
+    readData();
     super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    _controller = VideoPlayerController.asset("assets/nam_ip_video.mp4")
-      ..initialize().then((_) {
-        setState(() {
-          _controller.play();
-        });
-      });
+  }
 
-    _youtubeController = YoutubePlayerController(
-      initialVideoId: 'ZObtWtld-g0',
-    );
+  Future<void> readData() async {
+    String location;
+    if(Get.locale?.languageCode == 'fr') {
+      location = 'assets/data/videosFrData.json';
+    } else {
+      location = 'assets/data/videosEnData.json';
+    }
+    final String response = await rootBundle.loadString(location);
+    final List data = await json.decode(response);
+    for (int i = 0; i < data.length; i++) {
+      videos.add(VideoData.fromMap(data[i]));
+    }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(
-      builder: (context, orientation) {
-        PreferredSizeWidget appBar = const PreferredSize(child: SizedBox(height: 0,), preferredSize: Size.fromHeight(0));
-        if (orientation == Orientation.portrait) {
-          appBar = AppBar(
-            backgroundColor: Colors.red.shade900,
-          );
-          SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
-        } else {
-          SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-        }
-        return Scaffold(
-          backgroundColor: Colors.black,
-          appBar: appBar,
-          body: Center(
-            child: _controller.value.isInitialized
-                ? GestureDetector(
-              onTap: () {
-                setState(() {
-                  _controller.value.isPlaying
-                      ? _controller.pause()
-                      : _controller.play();
-                });
-              },
-              child:
-              // YoutubePlayer(
-              //   controller: _youtubeController,
-              //   showVideoProgressIndicator: false,
-              // )
-              AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              ),
-            )
-                : const CircularProgressIndicator(),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red.shade900,
+      ),
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.red.shade700,
+              border: const Border.symmetric(horizontal: BorderSide(color: Colors.white, width: 2)),
+            ),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Liste de Vidéos'.tr, style: const TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold)),
+              )),
           ),
-        );
-      }
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/binaryBackground.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: videos.map((e) {
+                    Widget divider;
+                    if(videos.indexOf(e) != videos.length - 1) {
+                      divider = const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Divider(color: Colors.white, thickness: 2),
+                      );
+                    } else {
+                      divider = const SizedBox(height: 0);
+                    }
+                    return Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Video(url: e.url,))),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 75,
+                            child: Row(
+                              children: [
+                                const Icon(Icons.play_circle_outline, size: 50, color: Colors.white),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(e.name, style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                                        const SizedBox(height: 5),
+                                        Flexible(
+                                          child: Text(e.description,
+                                            style: const TextStyle(color: Colors.grey, fontSize: 15),
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )
+                          ),
+                        ),
+                        divider
+                      ]
+                    );
+                  }).toList(),
+                )
+              ),
+            ),
+          )
+        ],
+      )
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
   }
 }

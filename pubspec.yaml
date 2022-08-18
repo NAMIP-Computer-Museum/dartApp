@@ -37,6 +37,7 @@ dependencies:
   sqflite: ^2.0.3+1
   path: ^1.8.1
   path_provider: ^2.0.11
+  flick_video_player: ^0.5.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -86,7 +87,7 @@ flutter:
     - assets/data/
     - assets/db/
     - assets/quiz/
-    - assets/videos
+    - assets/videos/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

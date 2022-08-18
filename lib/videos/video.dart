@@ -1,3 +1,4 @@
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
@@ -16,6 +17,7 @@ class Video extends StatefulWidget {
 class _VideoState extends State<Video> {
   late VideoPlayerController _controller;
   late YoutubePlayerController _youtubeController;
+  late FlickManager _flickManager;
 
   @override
   void initState() {
@@ -26,7 +28,6 @@ class _VideoState extends State<Video> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    print(widget.url);
     _controller = VideoPlayerController.asset(widget.url)
       ..initialize().then((_) {
         setState(() {
@@ -36,6 +37,10 @@ class _VideoState extends State<Video> {
 
     _youtubeController = YoutubePlayerController(
       initialVideoId: 'ZObtWtld-g0',
+    );
+
+    _flickManager = FlickManager(
+      videoPlayerController: _controller,
     );
   }
 
@@ -65,15 +70,17 @@ class _VideoState extends State<Video> {
                       : _controller.play();
                 });
               },
-              child:
+              child: FlickVideoPlayer(
+                flickManager: _flickManager,
+              ),
               // YoutubePlayer(
               //   controller: _youtubeController,
               //   showVideoProgressIndicator: false,
               // )
-              AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              ),
+              // AspectRatio(
+              //   aspectRatio: _controller.value.aspectRatio,
+              //   child: VideoPlayer(_controller),
+              // ),
             )
                 : const CircularProgressIndicator(),
           ),
@@ -86,6 +93,8 @@ class _VideoState extends State<Video> {
   void dispose() {
     super.dispose();
     _controller.dispose();
+    _youtubeController.dispose();
+    _flickManager.dispose();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

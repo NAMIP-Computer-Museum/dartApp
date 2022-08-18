@@ -345,7 +345,19 @@ class _TimelineState2 extends State<MyTimeline> {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Column(
                       children: componentsSelected.map((e) {
-                        return timelineTile(e.name, e.descFr, e.logo, e.date, componentsSelected.indexOf(e) == 0, componentsSelected.indexOf(e) == componentsSelected.length - 1);
+                        String desc;
+                        switch (Get.locale?.languageCode) {
+                          case 'fr':
+                            desc = e.descFr;
+                            break;
+                          case 'nl':
+                            desc = e.descNL;
+                            break;
+                          default:
+                            desc = e.descEn;
+                            break;
+                        }
+                        return timelineTile(e.name, desc, e.logo, e.date, componentsSelected.indexOf(e) == 0, componentsSelected.indexOf(e) == componentsSelected.length - 1);
                       }).toList(),
                     ),
                   ),
