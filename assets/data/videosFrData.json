@@ -3,42 +3,42 @@
     "id":71,
     "title":"Video Micral N",
     "description":"Video montrant la création de l'ordinateur français Micral N",
-    "videoURL": "assets/videosMicral.mp4"
+    "videoURL": "assets/videos/Micral.mp4"
   },
   {
     "id":55,
     "title":"Video Altaïr 8800",
     "description":"Présentation de la création d'un Altaïr 8800",
-    "videoURL": "assets/videosaltair01.mp4"
+    "videoURL": "assets/videos/altair01.mp4"
   },
   {
     "id":402,
     "title":"Video Application DBase",
     "description" : "Présentation de l'application DBase",
-    "videoURL" : "assets/videosDBASE.mp4"
+    "videoURL" : "assets/videos/DBASE.mp4"
   },
   {
     "id":401,
     "title":"Video Application Deluxe Paint",
     "description" : "Présentation de l'application Deluxe Paint",
-    "videoURL" : "assets/videosDeluxePaint.mp4"
+    "videoURL" : "assets/videos/DeluxePaint.mp4"
   },
   {
     "id":400,
     "title":"Video Application VisiCalc",
     "description" : "Présentation de l'application VisiCalc",
-    "videoURL" : "assets/videosVisicalc.mp4"
+    "videoURL" : "assets/videos/Visicalc.mp4"
   },
   {
     "id":405,
     "title":"Video Application Word",
     "description" : "Présentation de l'application Word",
-    "videoURL" : "assets/videosWord.mp4"
+    "videoURL" : "assets/videos/Word.mp4"
   },
   {
     "id" : 301,
     "title" : "Video Mother of All demos",
     "description" : "Présentation de la conférence Mother of all demos",
-    "videoURL" : "assets/videosTheMotherofAllDemos.mp4"
+    "videoURL" : "assets/videos/TheMotherofAllDemos.mp4"
   }
 ]

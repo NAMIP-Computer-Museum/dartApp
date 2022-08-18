@@ -28,6 +28,7 @@ class _VideoState extends State<Video> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    print(widget.url);
     _controller = VideoPlayerController.asset(widget.url)
       ..initialize().then((_) {
         setState(() {
@@ -39,9 +40,9 @@ class _VideoState extends State<Video> {
       initialVideoId: 'ZObtWtld-g0',
     );
 
-    _flickManager = FlickManager(
-      videoPlayerController: _controller,
-    );
+    //_flickManager = FlickManager(
+    //  videoPlayerController: _controller,
+    //);
   }
 
   @override
@@ -70,17 +71,18 @@ class _VideoState extends State<Video> {
                       : _controller.play();
                 });
               },
-              child: FlickVideoPlayer(
-                flickManager: _flickManager,
-              ),
+              child:
+              // FlickVideoPlayer(
+              //   flickManager: _flickManager,
+              // ),
               // YoutubePlayer(
               //   controller: _youtubeController,
               //   showVideoProgressIndicator: false,
               // )
-              // AspectRatio(
-              //   aspectRatio: _controller.value.aspectRatio,
-              //   child: VideoPlayer(_controller),
-              // ),
+              AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: VideoPlayer(_controller),
+              ),
             )
                 : const CircularProgressIndicator(),
           ),
