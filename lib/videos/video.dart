@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import 'advanced_overlay_widget.dart';
+
 class Video extends StatefulWidget {
 
   final String url;
@@ -28,7 +30,6 @@ class _VideoState extends State<Video> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    print(widget.url);
     _controller = VideoPlayerController.asset(widget.url)
       ..initialize().then((_) {
         setState(() {
@@ -40,23 +41,26 @@ class _VideoState extends State<Video> {
       initialVideoId: 'ZObtWtld-g0',
     );
 
-    //_flickManager = FlickManager(
-    //  videoPlayerController: _controller,
-    //);
+    _flickManager = FlickManager(
+     videoPlayerController: _controller,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return OrientationBuilder(
       builder: (context, orientation) {
+        FlickVideoPlayer videoPlayer = FlickVideoPlayer(
+          flickManager: _flickManager,
+        );
         PreferredSizeWidget appBar = const PreferredSize(preferredSize: Size.fromHeight(0), child: SizedBox(height: 0,));
         if (orientation == Orientation.portrait) {
           appBar = AppBar(
             backgroundColor: Colors.red.shade900,
           );
-          SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+          //SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
         } else {
-          SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+          //SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
         }
         return Scaffold(
           backgroundColor: Colors.black,
@@ -72,19 +76,45 @@ class _VideoState extends State<Video> {
                 });
               },
               child:
-              // FlickVideoPlayer(
-              //   flickManager: _flickManager,
+              // AspectRatio(
+              //   aspectRatio: _controller.value.aspectRatio,
+              //   child: videoPlayer
               // ),
               // YoutubePlayer(
               //   controller: _youtubeController,
               //   showVideoProgressIndicator: false,
               // )
-              AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
+              Stack(
+                fit: orientation == Orientation.portrait ? StackFit.loose : StackFit.expand,
+                children: [
+                  AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: VideoPlayer(_controller),
+                  ),
+                  Positioned.fill(
+                    child: AdvancedOverlayWidget(
+                      controller: _controller,
+                      onClickedFullScreen: () {
+                        if (orientation == Orientation.portrait) {
+                          SystemChrome.setPreferredOrientations([
+                            DeviceOrientation.portraitUp,
+                            DeviceOrientation.portraitDown,
+                          ]);
+                          SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+                        } else {
+                          SystemChrome.setPreferredOrientations([
+                            DeviceOrientation.landscapeLeft,
+                            DeviceOrientation.landscapeRight,
+                          ]);
+                          SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+                        }
+                      },
+                    ),
+                  ),
+                ],
               ),
             )
-                : const CircularProgressIndicator(),
+                : const CircularProgressIndicator(color: Colors.white),
           ),
         );
       }

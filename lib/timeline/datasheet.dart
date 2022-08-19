@@ -52,7 +52,7 @@ class _DatasheetState extends State<Datasheet> {
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
-              Container(color: Colors.white, child: Image.network(widget.img)),
+              Container(color: Colors.white, child: Image.asset(widget.img)),
               const SizedBox(height: 20),
               Text(widget.title, style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
               const Divider(color: Colors.white, thickness: 2),
