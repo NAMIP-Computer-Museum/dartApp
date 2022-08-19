@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/db_helper.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -78,7 +75,7 @@ class _TimelineState2 extends State<MyTimeline> {
     });
   }
 
-  Widget timelineTile(String title, String description, String icon, int date, bool isFirst, bool isLast) {
+  Widget timelineTile(String title, String description, String icon, int date, bool isFirst, bool isLast, int id, typeComponent type) {
     Color getIndicatorColor(int date) {
       if (date < 1973) {
         return Colors.blue;
@@ -115,6 +112,8 @@ class _TimelineState2 extends State<MyTimeline> {
             img: icon,
             title: title,
             description: description,
+            id: id,
+            type: type,
           )));
         },
         child: Padding(
@@ -179,24 +178,24 @@ class _TimelineState2 extends State<MyTimeline> {
                     },
                     items: [ // TODO couleur à changer surement
                       DropdownMenuItem(
-                        child: Text('friseEntiere'.tr, style: const TextStyle(color: Colors.black)),
                         value: 'Frise Entière',
+                        child: Text('friseEntiere'.tr, style: const TextStyle(color: Colors.black)),
                       ),
                       DropdownMenuItem(
-                        child: Text('debut'.tr, style: const TextStyle(color: Colors.indigo)),
                         value: 'Début',
+                        child: Text('debut'.tr, style: const TextStyle(color: Colors.indigo)),
                       ),
                       DropdownMenuItem(
-                        child: Text('phase1'.tr, style: const TextStyle(color: Colors.green)),
                         value: 'Phase 1',
+                        child: Text('phase1'.tr, style: const TextStyle(color: Colors.green)),
                       ),
                       DropdownMenuItem(
-                        child: Text('phase2'.tr, style: const TextStyle(color: Colors.pink)),
                         value: 'Phase 2',
+                        child: Text('phase2'.tr, style: const TextStyle(color: Colors.pink)),
                       ),
                       DropdownMenuItem(
-                        child: Text('phase3'.tr, style: const TextStyle(color: Colors.orange)),
                         value: 'Phase 3',
+                        child: Text('phase3'.tr, style: const TextStyle(color: Colors.orange)),
                       ),
                     ],
                   ),
@@ -357,7 +356,7 @@ class _TimelineState2 extends State<MyTimeline> {
                             desc = e.descEn;
                             break;
                         }
-                        return timelineTile(e.name, desc, e.logo, e.date, componentsSelected.indexOf(e) == 0, componentsSelected.indexOf(e) == componentsSelected.length - 1);
+                        return timelineTile(e.name, desc, e.logo, e.date, componentsSelected.indexOf(e) == 0, componentsSelected.indexOf(e) == componentsSelected.length - 1, e.id, e.type);
                       }).toList(),
                     ),
                   ),

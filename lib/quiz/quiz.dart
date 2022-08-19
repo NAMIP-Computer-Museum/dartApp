@@ -121,7 +121,7 @@ class _QuizState extends State<Quiz> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Text((avancement + 1).toString() + " / 10", style: const TextStyle(color: Colors.white, fontSize: 12)),
+                        Text("${avancement + 1} / 10", style: const TextStyle(color: Colors.white, fontSize: 12)),
                       ],
                     ),
                   ),
@@ -184,13 +184,13 @@ class _QuizState extends State<Quiz> {
                                     Text(quiz[avancement].answers[index], style: const TextStyle(color: Colors.white, fontSize: 17)),
                                     quizAnswers[index] == 2 ?
                                     const CircleAvatar(
-                                      child: Icon(Icons.close_rounded, color: Colors.white),
                                       backgroundColor: Colors.red,
+                                      child: Icon(Icons.close_rounded, color: Colors.white),
                                     )
                                         : quizAnswers[index] == 1 ?
                                     const CircleAvatar(
-                                      child: Icon(Icons.check, color: Colors.white),
                                       backgroundColor: Colors.green,
+                                      child: Icon(Icons.check, color: Colors.white),
                                     )
                                         : const SizedBox(width: 0),
                                   ],

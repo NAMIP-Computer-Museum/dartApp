@@ -42,12 +42,12 @@ class _HomePageState extends State<HomePage> {
                     child: Container(
                       width: 0.2 * width,
                       padding: const EdgeInsets.symmetric(horizontal: 6),
-                      child: Image.asset('assets/france.png'),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 2),
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.red.shade900,
                       ),
+                      child: Image.asset('assets/france.png'),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -56,12 +56,12 @@ class _HomePageState extends State<HomePage> {
                     child: Container(
                       width: 0.2 * width,
                       padding: const EdgeInsets.symmetric(horizontal: 6),
-                      child: Image.asset('assets/netherlands.png'),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 2),
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.red.shade900,
                       ),
+                      child: Image.asset('assets/netherlands.png'),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -70,12 +70,12 @@ class _HomePageState extends State<HomePage> {
                     child: Container(
                       width: 0.2 * width,
                       padding: const EdgeInsets.symmetric(horizontal: 6),
-                      child: Image.asset('assets/united-kingdom.png'),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 2),
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.red.shade900,
                       ),
+                      child: Image.asset('assets/united-kingdom.png'),
                     ),
                   ),
                 ],
@@ -87,7 +87,6 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const Introduction()));
                   },
-                  child: Text('introduction'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
                     shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -95,6 +94,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                   ),
+                  child: Text('introduction'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                 ),
               ),
               const SizedBox(height: 5),
@@ -104,7 +104,6 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => const QrCodeTest()));
                   },
-                  child: Text('rechercher'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
                     shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -112,6 +111,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                   ),
+                  child: Text('rechercher'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                 ),
               ),
               const SizedBox(height: 5),
@@ -121,7 +121,6 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MyTimeline()));
                   },
-                  child: Text('ligne_du_temps'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
                     shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -129,6 +128,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                   ),
+                  child: Text('ligne_du_temps'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                 ),
               ),
               const SizedBox(height: 5),
@@ -138,7 +138,6 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeVideos()));
                   },
-                  child: Text('videos'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
                     shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -146,6 +145,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                   ),
+                  child: Text('videos'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                 ),
               ),
               const SizedBox(height: 5),
@@ -155,7 +155,6 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const QuizzDificulty()));
                   },
-                  child: Text('quiz'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
                     shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -163,6 +162,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                   ),
+                  child: Text('quiz'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                 ),
               ),
               const SizedBox(height: 5),
@@ -172,7 +172,6 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AboutUs()));
                   },
-                  child: Text('a_propos'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
                     shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -180,6 +179,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                   ),
+                  child: Text('a_propos'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                 ),
               )
             ],

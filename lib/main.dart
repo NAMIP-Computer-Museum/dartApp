@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:nam_ip_museum/db_helper.dart';
 import 'package:nam_ip_museum/translation_messages.dart';
 
-import 'home_pages/home_page_drawer.dart';
 import 'home_pages/home_page.dart';
-import 'home_pages/home_page_bottom_navigation_bar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

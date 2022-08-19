@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nam_ip_museum/db_helper.dart';
+import 'package:nam_ip_museum/models/type_component.dart';
 
 import '../home_pages/home_page.dart';
 
@@ -8,8 +10,10 @@ class Datasheet extends StatefulWidget {
   final String img;
   final String title;
   final String description;
+  final int id;
+  final typeComponent type;
 
-  const Datasheet({Key? key, required this.img, required this.title, required this.description}) : super(key: key);
+  const Datasheet({Key? key, required this.img, required this.title, required this.description, required this.id, required this.type}) : super(key: key);
 
   @override
   State<Datasheet> createState() => _DatasheetState();
@@ -18,6 +22,7 @@ class Datasheet extends StatefulWidget {
 class _DatasheetState extends State<Datasheet> {
 
   List<String> descTab = List.empty(growable: true);
+  late final Map<String, Object?>? maps;
 
   @override
   void initState() {
@@ -28,14 +33,39 @@ class _DatasheetState extends State<Datasheet> {
       descTab.add("MS-DOS");
     }
     descTab.add(descCopy);
+
+    readData();
     super.initState();
+  }
+
+  Future<void> readData() async {
+    DBHelper dbHelper = DBHelper();
+    maps = await dbHelper.getComponentData(widget.id, typeComponentToString(widget.type));
+    print(maps);
+  }
+
+  String typeComponentToString(typeComponent type) {
+    switch (type) {
+      case typeComponent.micro:
+        return 'MICRO';
+      case typeComponent.os:
+        return 'OS';
+      case typeComponent.cpu:
+        return 'CPU';
+      case typeComponent.ihm:
+        return 'IHM';
+      case typeComponent.app:
+        return 'APP';
+      case typeComponent.error:
+        return "";
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.red.shade600,
       appBar: AppBar(
         title: const Text('NAM IP Museum'),
         backgroundColor: Colors.red.shade900,
@@ -80,7 +110,8 @@ class _DatasheetState extends State<Datasheet> {
                                   child: Text("MS-DOS is a computer operating system developed by Microsoft for the IBM PC. It is the successor to the DOS operating system. It was first released in the mid-1980s, and is the most widely used operating system in the world. MS-DOS is a proprietary operating system that is licensed under the Microsoft Software License."),
                                 ),
                                 GestureDetector(
-                                  onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Datasheet(img: "", title: "MS-DOS", description: "MS-DOS is a computer operating system developed by Microsoft for the IBM PC. It is the successor to the DOS operating system. It was first released in the mid-1980s, and is the most widely used operating system in the world. MS-DOS is a proprietary operating system that is licensed under the Microsoft Software License."))),
+                                  //TODO
+                                  //onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Datasheet(img: "", title: "MS-DOS", description: "MS-DOS is a computer operating system developed by Microsoft for the IBM PC. It is the successor to the DOS operating system. It was first released in the mid-1980s, and is the most widely used operating system in the world. MS-DOS is a proprietary operating system that is licensed under the Microsoft Software License."))),
                                   child: Center(
                                     child: Container(
                                       width: width2 * 0.6,

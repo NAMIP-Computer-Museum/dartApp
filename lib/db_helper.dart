@@ -32,7 +32,7 @@ class DBHelper {
     final Map data = await json.decode(response);
     for (int i = 0; i < maps.length; i++) {
       Map copy = Map.from(maps[i]);
-      // copy.remove("DescFR");
+      //copy.remove("DescFR");
       // copy.remove("DescEN");
       // copy.remove("DescNL");
       // copy.remove("DescMotFR");
@@ -43,6 +43,12 @@ class DBHelper {
       components.add(Component.fromMap(copy));
     }
     return components;
+  }
+
+  Future<Map<String, Object?>?> getComponentData(int id, String type) async {
+    Database? myDb = await db;
+    final List<Map<String, Object?>>? maps = await myDb?.rawQuery("SELECT * FROM  $type WHERE ID = $id");
+    return maps?.length == 1 ? maps![0] : null;
   }
 
   Future<Database?> initDb() async { // code by https://blog.devgenius.io/adding-sqlite-db-file-from-the-assets-internet-in-flutter-3ec42c14cd44
