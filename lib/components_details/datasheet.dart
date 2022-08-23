@@ -52,9 +52,12 @@ class _DatasheetState extends State<Datasheet> {
   }
 
   Future<void> readData() async {
-    DBHelper dbHelper = DBHelper();
-    componentData = (await dbHelper.getComponentData(widget.id, typeComponentToString(widget.type), widget.annee))!;
-    print(componentData);
+    if (['micro', 'os', 'cpu', 'ihm', 'app'].contains(widget.type.toString().substring(14))) {
+      DBHelper dbHelper = DBHelper();
+      componentData = (await dbHelper.getComponentData(widget.id, typeComponentToString(widget.type), widget.annee))!;
+    } else {
+      componentData = {};
+    }
     setState(() {});
   }
 
@@ -108,7 +111,7 @@ class _DatasheetState extends State<Datasheet> {
                     Text(widget.title, style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
                     const Divider(color: Colors.white, thickness: 2),
                     DatasheetLegend(type: widget.type, data: componentData),
-                    const Divider(color: Colors.white, thickness: 2),
+                    componentData.isEmpty ? const SizedBox(height: 0, width: 0) : const Divider(color: Colors.white, thickness: 2),
                     RichText(
                       text: TextSpan(
                         children: descTab.map((e) {
