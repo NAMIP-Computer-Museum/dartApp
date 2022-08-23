@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/db_helper.dart';
 import 'package:nam_ip_museum/models/component.dart';
 import 'package:nam_ip_museum/models/type_component.dart';
 import 'package:nam_ip_museum/components_details/component_image.dart';
 import 'package:nam_ip_museum/components_details/legendeDatasheet.dart';
+import 'package:nam_ip_museum/videos/video.dart';
 
 import '../home_pages/home_page.dart';
 
@@ -36,6 +40,7 @@ class _DatasheetState extends State<Datasheet> {
 
   List<String> descTab = List.empty(growable: true);
   late final Map<String, Object?> componentData;
+  String urlVideo = '';
 
   @override
   void initState() {
@@ -58,6 +63,15 @@ class _DatasheetState extends State<Datasheet> {
     } else {
       componentData = {};
     }
+    String location;
+    if(Get.locale?.languageCode == 'fr') {
+      location = 'assets/data/videosFrData.json';
+    } else {
+      location = 'assets/data/videosEnData.json';
+    }
+    final String response = await rootBundle.loadString(location);
+    final List data = await json.decode(response);
+    urlVideo = data.firstWhere((element) => element['id'] == widget.id, orElse: () => {'videoURL': ''})['videoURL'];
     setState(() {});
   }
 
@@ -163,7 +177,8 @@ class _DatasheetState extends State<Datasheet> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    GestureDetector(
+                    urlVideo.isNotEmpty ? GestureDetector(
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Video(url: urlVideo,))),
                       child: Container(
                         width: width * 0.6,
                         height: 40,
@@ -172,10 +187,10 @@ class _DatasheetState extends State<Datasheet> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
-                            child: Text('video'.tr, style: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold))
+                          child: Text('video'.tr, style: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold))
                         ),
                       ),
-                    ),
+                    ) : const SizedBox(height: 0, width: 0),
                     const SizedBox(height: 20),
                   ],
                 ),
