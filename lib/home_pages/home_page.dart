@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nam_ip_museum/informations/about_us.dart';
 import 'package:nam_ip_museum/quiz/quiz_difficulty.dart';
 import 'package:nam_ip_museum/rechercher/qr_code_test.dart';
+import 'package:nam_ip_museum/rechercher/test_http.dart';
 import 'package:nam_ip_museum/timeline/home_timeline.dart';
 import 'package:nam_ip_museum/videos/home_videos.dart';
 
@@ -103,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                 width: 0.5 * width,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const QrCodeTest()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const TestHTTP()));
                   },
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
