@@ -5,16 +5,16 @@ import 'package:timeline_tile/timeline_tile.dart';
 
 import '../models/component.dart';
 import '../models/type_component.dart';
-import 'datasheet.dart';
+import '../components_details/datasheet.dart';
 
-class MyTimeline extends StatefulWidget {
-  const MyTimeline({Key? key}) : super(key: key);
+class TimelineMicro extends StatefulWidget {
+  const TimelineMicro({Key? key}) : super(key: key);
 
   @override
-  State<MyTimeline> createState() => _TimelineState2();
+  State<TimelineMicro> createState() => _TimelineState2();
 }
 
-class _TimelineState2 extends State<MyTimeline> {
+class _TimelineState2 extends State<TimelineMicro> {
 
   String _dropdownValue = 'Frise Entière';
   bool isChecked = false;
@@ -36,19 +36,19 @@ class _TimelineState2 extends State<MyTimeline> {
   void setComponentsSelected() {
     componentsSelected = List<Component>.from(components);
     if (!isCheckedMicro) {
-      componentsSelected = componentsSelected.where((element) => element.type != typeComponent.micro).toList();
+      componentsSelected = componentsSelected.where((element) => element.type != TypeComponent.micro).toList();
     }
     if (!isCheckedOS) {
-      componentsSelected = componentsSelected.where((element) => element.type != typeComponent.os).toList();
+      componentsSelected = componentsSelected.where((element) => element.type != TypeComponent.os).toList();
     }
     if (!isCheckedCPU) {
-      componentsSelected = componentsSelected.where((element) => element.type != typeComponent.cpu).toList();
+      componentsSelected = componentsSelected.where((element) => element.type != TypeComponent.cpu).toList();
     }
     if (!isCheckedIHM) {
-      componentsSelected = componentsSelected.where((element) => element.type != typeComponent.ihm).toList();
+      componentsSelected = componentsSelected.where((element) => element.type != TypeComponent.ihm).toList();
     }
     if (!isCheckedApp) {
-      componentsSelected = componentsSelected.where((element) => element.type != typeComponent.app).toList();
+      componentsSelected = componentsSelected.where((element) => element.type != TypeComponent.app).toList();
     }
     switch (_dropdownValue.toLowerCase()) {
       case 'début':
@@ -68,14 +68,14 @@ class _TimelineState2 extends State<MyTimeline> {
 
   Future<void> readData() async {
     DBHelper dbHelper = DBHelper();
-    components = await dbHelper.getData();
+    components = await dbHelper.getComponentsMicro();
     setState(() {
       components.sort((a, b) => a.date.compareTo(b.date));
-      componentsSelected = components.where((element) => element.type == typeComponent.micro).toList();
+      componentsSelected = components.where((element) => element.type == TypeComponent.micro).toList();
     });
   }
 
-  Widget timelineTile(String title, String description, String icon, int date, bool isFirst, bool isLast, int id, typeComponent type) {
+  Widget timelineTile(String title, String description, String icon, int date, bool isFirst, bool isLast, int id, TypeComponent type) {
     Color getIndicatorColor(int date) {
       if (date < 1973) {
         return Colors.blue;
@@ -114,6 +114,7 @@ class _TimelineState2 extends State<MyTimeline> {
             description: description,
             id: id,
             type: type,
+            annee: date,
           )));
         },
         child: Padding(
@@ -234,6 +235,7 @@ class _TimelineState2 extends State<MyTimeline> {
                   child: SizedBox(
                     height: 50,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Row(
                           children: [

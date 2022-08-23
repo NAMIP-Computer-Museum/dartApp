@@ -38,6 +38,7 @@ dependencies:
   path: ^1.8.1
   path_provider: ^2.0.11
   flick_video_player: ^0.5.0
+  http: ^0.13.5
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -88,6 +89,12 @@ flutter:
     - assets/db/
     - assets/quiz/
     - assets/videos/
+    - assets/legend_components_images/
+    - assets/legend_components_images/app/
+    - assets/legend_components_images/cpu/
+    - assets/legend_components_images/ihm/
+    - assets/legend_components_images/micro/
+    - assets/legend_components_images/os/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

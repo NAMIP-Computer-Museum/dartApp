@@ -38,12 +38,12 @@ class _QuizState extends State<Quiz> {
     String stringImagesData = "";
     switch (widget.difficulty) {
       case "easy":
-        stringData = "data/quizDataForKids.json";
-        stringImagesData = "data/quizImagesDataForKids.json";
+        stringData = "assets/data/quizDataForKids.json";
+        stringImagesData = "assets/data/quizImagesDataForKids.json";
         break;
       case "difficult":
-        stringData = "data/quizData.json";
-        stringImagesData = "data/quizImagesData.json";
+        stringData = "assets/data/quizData.json";
+        stringImagesData = "assets/data/quizImagesData.json";
         break;
       default :
         break;

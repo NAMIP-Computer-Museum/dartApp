@@ -1,3 +1,4 @@
+import 'package:nam_ip_museum/models/perma_period.dart';
 import 'package:nam_ip_museum/models/type_component.dart';
 
 class Component {
@@ -8,7 +9,8 @@ class Component {
   late String descNL;
   late String logo;
   late int date;
-  late typeComponent type;
+  late TypeComponent type;
+  late PermaPeriod? period;
 
   Component({required this.id, required this.name, required this.descFr, required this.descEn, required this.descNL,
     required this.logo, required this.date, required this.type});
@@ -18,26 +20,52 @@ class Component {
     name = map["Nom"];
     descFr = map["DescFR"];
     descEn = map["DescEN"];
-    descNL = map["DescNL"];
+    descNL = map["DescNL"] ?? "";
     logo = map["logo"];
     date = map["Annee"];
     type = convertStringToTypeComponent(map["TYPE"]);
+    period = convertStringToPermaPeriod(map["PERIODE"]);
   }
 
-  static typeComponent convertStringToTypeComponent(String type) {
+  static TypeComponent convertStringToTypeComponent(String type) {
     switch (type.toLowerCase()) {
       case 'micro':
-        return typeComponent.micro;
+        return TypeComponent.micro;
       case 'os':
-        return typeComponent.os;
+        return TypeComponent.os;
       case 'cpu':
-        return typeComponent.cpu;
+        return TypeComponent.cpu;
       case 'ihm':
-        return typeComponent.ihm;
+        return TypeComponent.ihm;
       case 'app':
-        return typeComponent.app;
+        return TypeComponent.app;
+      case 'machine':
+        return TypeComponent.machine;
+      case 'org':
+        return TypeComponent.org;
+      case 'event':
+        return TypeComponent.event;
+      case 'error':
+
       default:
-        return typeComponent.error;
+        return TypeComponent.error;
+    }
+  }
+
+  static PermaPeriod? convertStringToPermaPeriod(String? period) {
+    switch (period?.toLowerCase()) {
+      case 'micro':
+        return PermaPeriod.micro;
+      case 'meca':
+        return PermaPeriod.meca;
+      case 'mainframe':
+        return PermaPeriod.mainframe;
+      case 'mini':
+        return PermaPeriod.mini;
+      case 'moderne':
+        return PermaPeriod.moderne;
+      default:
+        return null;
     }
   }
 }
