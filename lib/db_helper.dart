@@ -42,6 +42,12 @@ class DBHelper {
       Map copy = Map.from(maps[i]);
       copy["logo"] = data[copy["ID"].toString()];
       components.add(Component.fromMap(copy));
+      //copy.remove('DescMotFR');
+      copy.remove('DescMotEN');
+      copy.remove('DescMotNL');
+      copy.remove('DescNL');
+      copy.remove('DescEN');
+      print(copy);
     }
     return components;
   }
@@ -67,6 +73,12 @@ class DBHelper {
     Map<String, Object?> copy = Map.from(maps![0]);
     copy['année'] = annee;
     return maps.length == 1 ? copy : null;
+  }
+
+  Future<List<Map<String, Object?>>?> getKeywords(int id) async {
+    Database? myDb = await db;
+    final List<Map<String, Object?>>? maps = await myDb?.rawQuery('SELECT * FROM MOTCLE WHERE IDObjetDesc = $id');
+    return maps;
   }
 
   Future<Database?> initDb() async { // code by https://blog.devgenius.io/adding-sqlite-db-file-from-the-assets-internet-in-flutter-3ec42c14cd44

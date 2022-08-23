@@ -8,7 +8,7 @@ class Introduction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar( // TODO voir les appbars
         title: const Text('NAM IP Museum'),
         backgroundColor: Colors.red.shade900,
         shape: const Border(

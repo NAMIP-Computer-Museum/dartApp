@@ -59,6 +59,7 @@ class _DatasheetState extends State<Datasheet> {
   Future<void> readData() async {
     if (['micro', 'os', 'cpu', 'ihm', 'app'].contains(widget.type.toString().substring(14))) {
       DBHelper dbHelper = DBHelper();
+      dbHelper.getKeywords(widget.id);
       componentData = (await dbHelper.getComponentData(widget.id, typeComponentToString(widget.type), widget.annee))!;
     } else {
       componentData = {};
