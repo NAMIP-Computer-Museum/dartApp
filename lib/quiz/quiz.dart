@@ -7,6 +7,7 @@ import 'package:nam_ip_museum/quiz/final_screen_quiz.dart';
 
 import '../home_pages/home_page.dart';
 import '../models/quiz_infos.dart';
+import '../widgets.dart';
 
 class Quiz extends StatefulWidget {
   final String? difficulty;
@@ -77,22 +78,7 @@ class _QuizState extends State<Quiz> {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red.shade900,
-        shape: const Border(
-          bottom: BorderSide(
-            color: Colors.white,
-            width: 2,
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.home),
-            onPressed: () => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-            const HomePage()), (Route<dynamic> route) => false),
-          )
-        ],
-      ),
+      appBar: Widgets.appBar(context),
       body: Builder(
         builder: (context) {
           if (quiz.isNotEmpty) {

@@ -3,6 +3,7 @@ import 'package:nam_ip_museum/components_details/datasheet.dart';
 
 import '../db_helper.dart';
 import '../models/component.dart';
+import '../widgets.dart';
 
 class Rechercher extends StatefulWidget {
   const Rechercher({Key? key}) : super(key: key);
@@ -40,9 +41,7 @@ class _RechercherState extends State<Rechercher> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red.shade900,
-      ),
+      appBar: Widgets.appBar(context),
       body: Container(
         height: double.infinity,
         decoration: const BoxDecoration(

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import '../widgets.dart';
 import 'advanced_overlay_widget.dart';
 
 class Video extends StatefulWidget {
@@ -55,9 +56,7 @@ class _VideoState extends State<Video> {
         );
         PreferredSizeWidget appBar = const PreferredSize(preferredSize: Size.fromHeight(0), child: SizedBox(height: 0,));
         if (orientation == Orientation.portrait) {
-          appBar = AppBar(
-            backgroundColor: Colors.red.shade900,
-          );
+          appBar = Widgets.appBar(context);
           //SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
         } else {
           //SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);

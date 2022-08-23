@@ -10,6 +10,7 @@ import 'package:nam_ip_museum/models/type_component.dart';
 import 'package:nam_ip_museum/components_details/component_image.dart';
 import 'package:nam_ip_museum/components_details/legendeDatasheet.dart';
 import 'package:nam_ip_museum/videos/video.dart';
+import 'package:nam_ip_museum/widgets.dart';
 
 import '../home_pages/home_page.dart';
 
@@ -98,17 +99,7 @@ class _DatasheetState extends State<Datasheet> {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.red.shade600,
-      appBar: AppBar(
-        title: const Text('NAM IP Museum'),
-        backgroundColor: Colors.red.shade900,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.home),
-            onPressed: () => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-            const HomePage()), (Route<dynamic> route) => false),
-          )
-        ],
-      ),
+      appBar: Widgets.appBar(context),
       body: Builder(
         builder: (context) {
           Widget returnWidget = const SizedBox(height: 0, width: 0);

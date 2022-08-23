@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../home_pages/home_page.dart';
+import 'package:nam_ip_museum/widgets.dart';
 
 class ComponentImage extends StatelessWidget {
   final String img;
@@ -10,16 +9,7 @@ class ComponentImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red.shade900,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.home),
-            onPressed: () => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-            const HomePage()), (Route<dynamic> route) => false),
-          )
-        ],
-      ),
+      appBar: Widgets.appBar(context),
       body: Container(
         color: Colors.black,
         child: Center(

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:nam_ip_museum/videos/video.dart';
 
 import '../models/video.dart';
+import '../widgets.dart';
 
 class HomeVideos extends StatefulWidget {
   const HomeVideos({Key? key}) : super(key: key);
@@ -41,9 +42,7 @@ class _HomeVideosState extends State<HomeVideos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red.shade900,
-      ),
+      appBar: Widgets.appBar(context),
       body: Column(
         children: [
           Container(

@@ -6,6 +6,7 @@ import 'package:timeline_tile/timeline_tile.dart';
 import '../models/component.dart';
 import '../models/type_component.dart';
 import '../components_details/datasheet.dart';
+import '../widgets.dart';
 
 class TimelineMicro extends StatefulWidget {
   const TimelineMicro({Key? key}) : super(key: key);
@@ -153,10 +154,7 @@ class _TimelineState2 extends State<TimelineMicro> {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('NAM IP Museum'),
-        backgroundColor: Colors.red.shade900,
-      ),
+      appBar: Widgets.appBar(context),
       body: Container(
         color: Colors.red.shade700,
         child: Column(

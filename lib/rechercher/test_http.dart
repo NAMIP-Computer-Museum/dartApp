@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../widgets.dart';
+
 class TestHTTP extends StatefulWidget {
   const TestHTTP({Key? key}) : super(key: key);
 
@@ -31,9 +33,7 @@ class _TestHTTPState extends State<TestHTTP> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Test HTTP'),
-      ),
+      appBar: Widgets.appBar(context),
       body: SingleChildScrollView(
         child: Container(
           color: Colors.black,

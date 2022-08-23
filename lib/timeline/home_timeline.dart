@@ -4,6 +4,8 @@ import 'package:nam_ip_museum/quiz/quiz.dart';
 import 'package:nam_ip_museum/timeline/timeline_micro.dart';
 import 'package:nam_ip_museum/timeline/timeline_perma.dart';
 
+import '../widgets.dart';
+
 class HomeTimeline extends StatelessWidget {
   const HomeTimeline({Key? key}) : super(key: key);
 
@@ -11,15 +13,7 @@ class HomeTimeline extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red.shade900,
-        shape: const Border(
-            bottom: BorderSide(
-                color: Colors.white,
-                width: 2
-            )
-        ),
-      ),
+      appBar: Widgets.appBar(context),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

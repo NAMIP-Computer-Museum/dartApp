@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/home_pages/home_page.dart';
+import 'package:nam_ip_museum/widgets.dart';
 
 class Manual extends StatelessWidget {
   const Manual({Key? key}) : super(key: key);
@@ -8,23 +9,7 @@ class Manual extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('NAM IP Museum'),
-        backgroundColor: Colors.red.shade900,
-        shape: const Border(
-          bottom: BorderSide(
-            color: Colors.white,
-            width: 2
-          )
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.home),
-            onPressed: () => Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                const HomePage()), (Route<dynamic> route) => false),
-          )
-        ],
-      ),
+      appBar: Widgets.appBar(context),
       body: SingleChildScrollView(
         child: Container(
           decoration: const BoxDecoration(

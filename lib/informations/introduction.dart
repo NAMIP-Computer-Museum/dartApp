@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nam_ip_museum/widgets.dart';
 import '../informations/manual.dart';
 
 class Introduction extends StatelessWidget {
@@ -8,16 +9,7 @@ class Introduction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( // TODO voir les appbars
-        title: const Text('NAM IP Museum'),
-        backgroundColor: Colors.red.shade900,
-        shape: const Border(
-          bottom: BorderSide(
-            color: Colors.white,
-            width: 2
-          )
-        ),
-      ),
+      appBar: Widgets.appBar(context),
       body: SingleChildScrollView(
         child: Center(
           child: Column(

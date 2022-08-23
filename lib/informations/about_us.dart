@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../widgets.dart';
+
 class AboutUs extends StatelessWidget {
   const AboutUs({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('NAM IP Museum'),
-        backgroundColor: Colors.red.shade900,
-        shape: const Border(
-          bottom: BorderSide(
-            color: Colors.white,
-            width: 2
-          )
-        ),
-      ),
+      appBar: Widgets.appBar(context),
       body: Container(
         height: double.infinity, //TODO vérifier qu'il n'y pas d'overflow
         decoration: const BoxDecoration(

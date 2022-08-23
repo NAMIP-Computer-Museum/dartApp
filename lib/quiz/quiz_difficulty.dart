@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/quiz/quiz.dart';
 
+import '../widgets.dart';
+
 class QuizzDificulty extends StatelessWidget {
   const QuizzDificulty({Key? key}) : super(key: key);
 
@@ -9,15 +11,7 @@ class QuizzDificulty extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red.shade900,
-        shape: const Border(
-          bottom: BorderSide(
-            color: Colors.white,
-            width: 2
-          )
-        ),
-      ),
+      appBar: Widgets.appBar(context),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
