@@ -27,6 +27,11 @@ class Component {
     period = convertStringToPermaPeriod(map["PERIODE"]);
   }
 
+  @override
+  String toString() {
+    return '$name, $descFr';
+  }
+
   static TypeComponent convertStringToTypeComponent(String type) {
     switch (type.toLowerCase()) {
       case 'micro':

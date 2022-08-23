@@ -42,7 +42,6 @@ class DBHelper {
       Map copy = Map.from(maps[i]);
       copy["logo"] = data[copy["ID"].toString()];
       components.add(Component.fromMap(copy));
-      print(copy);
     }
     return components;
   }
@@ -58,7 +57,6 @@ class DBHelper {
       Map copy = Map.from(maps[i]);
       copy["logo"] = data["0${copy["ID"]}"];
       components.add(Component.fromMap(copy));
-      print(copy);
     }
     return components;
   }

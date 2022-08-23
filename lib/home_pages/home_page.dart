@@ -8,7 +8,7 @@ import 'package:nam_ip_museum/timeline/home_timeline.dart';
 import 'package:nam_ip_museum/videos/home_videos.dart';
 
 import '../informations/introduction.dart';
-import '../timeline/timeline_micro.dart';
+import '../rechercher/rechercher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,160 +31,162 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/logoNAMIP.png', width: 0.7 * width, fit: BoxFit.fitWidth),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () => Get.updateLocale(const Locale('fr', '')),
-                    child: Container(
-                      width: 0.2 * width,
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white, width: 2),
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.red.shade900,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/logoNAMIP.png', width: 0.7 * width, fit: BoxFit.fitWidth),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () => Get.updateLocale(const Locale('fr', '')),
+                      child: Container(
+                        width: 0.2 * width,
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white, width: 2),
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.red.shade900,
+                        ),
+                        child: Image.asset('assets/france.png'),
                       ),
-                      child: Image.asset('assets/france.png'),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  GestureDetector(
-                    onTap: () => Get.updateLocale(const Locale('nl', '')),
-                    child: Container(
-                      width: 0.2 * width,
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white, width: 2),
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.red.shade900,
+                    const SizedBox(width: 10),
+                    GestureDetector(
+                      onTap: () => Get.updateLocale(const Locale('nl', '')),
+                      child: Container(
+                        width: 0.2 * width,
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white, width: 2),
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.red.shade900,
+                        ),
+                        child: Image.asset('assets/netherlands.png'),
                       ),
-                      child: Image.asset('assets/netherlands.png'),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  GestureDetector(
-                    onTap: () => Get.updateLocale(const Locale('en', '')),
-                    child: Container(
-                      width: 0.2 * width,
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white, width: 2),
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.red.shade900,
+                    const SizedBox(width: 10),
+                    GestureDetector(
+                      onTap: () => Get.updateLocale(const Locale('en', '')),
+                      child: Container(
+                        width: 0.2 * width,
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white, width: 2),
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.red.shade900,
+                        ),
+                        child: Image.asset('assets/united-kingdom.png'),
                       ),
-                      child: Image.asset('assets/united-kingdom.png'),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: 0.5 * width,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Introduction()));
-                  },
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                    ),
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                  ),
-                  child: Text('introduction'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 5),
-              SizedBox(
-                width: 0.5 * width,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const TestHTTP()));
-                  },
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: 0.5 * width,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Introduction()));
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                     ),
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    child: Text('introduction'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   ),
-                  child: Text('rechercher'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                 ),
-              ),
-              const SizedBox(height: 5),
-              SizedBox(
-                width: 0.5 * width,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeTimeline()));
-                  },
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: 0.5 * width,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Rechercher()));
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                     ),
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    child: Text('rechercher'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   ),
-                  child: Text('ligne_du_temps'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                 ),
-              ),
-              const SizedBox(height: 5),
-              SizedBox(
-                width: 0.5 * width,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeVideos()));
-                  },
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: 0.5 * width,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeTimeline()));
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                     ),
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    child: Text('ligne_du_temps'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   ),
-                  child: Text('videos'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                 ),
-              ),
-              const SizedBox(height: 5),
-              SizedBox(
-                width: 0.5 * width,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const QuizzDificulty()));
-                  },
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: 0.5 * width,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeVideos()));
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                     ),
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    child: Text('videos'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   ),
-                  child: Text('quiz'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                 ),
-              ),
-              const SizedBox(height: 5),
-              SizedBox(
-                width: 0.5 * width,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AboutUs()));
-                  },
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: 0.5 * width,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const QuizzDificulty()));
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                     ),
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    child: Text('quiz'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   ),
-                  child: Text('a_propos'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                 ),
-              )
-            ],
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: 0.5 * width,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AboutUs()));
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    ),
+                    child: Text('a_propos'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       )

@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/db_helper.dart';
+import 'package:nam_ip_museum/models/component.dart';
 import 'package:nam_ip_museum/models/type_component.dart';
 import 'package:nam_ip_museum/components_details/component_image.dart';
 import 'package:nam_ip_museum/components_details/legendeDatasheet.dart';
@@ -9,14 +10,23 @@ import 'package:nam_ip_museum/components_details/legendeDatasheet.dart';
 import '../home_pages/home_page.dart';
 
 class Datasheet extends StatefulWidget {
-  final String img;
-  final String title;
-  final String description;
-  final int id;
-  final TypeComponent type;
-  final int annee;
+  late final String img;
+  late final String title;
+  late final String description;
+  late final int id;
+  late final TypeComponent type;
+  late final int annee;
 
-  const Datasheet({Key? key, required this.img, required this.title, required this.description, required this.id, required this.type, required this.annee}) : super(key: key);
+  Datasheet({Key? key, required this.img, required this.title, required this.description, required this.id, required this.type, required this.annee}) : super(key: key);
+
+  Datasheet.fromComponent({Key? key, required Component component}) : super(key: key) {
+    img = component.logo;
+    title = component.name;
+    description = component.descFr;
+    id = component.id;
+    type = component.type;
+    annee = component.date;
+  }
 
   @override
   State<Datasheet> createState() => _DatasheetState();
