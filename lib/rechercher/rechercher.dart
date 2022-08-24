@@ -43,7 +43,6 @@ class _RechercherState extends State<Rechercher> {
     return Scaffold(
       appBar: Widgets.appBar(context),
       body: Container(
-        height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/binaryBackground.png'),

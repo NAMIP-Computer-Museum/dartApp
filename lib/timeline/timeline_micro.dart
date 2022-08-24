@@ -76,7 +76,7 @@ class _TimelineState2 extends State<TimelineMicro> {
     });
   }
 
-  Widget timelineTile(String title, String description, String icon, int date, bool isFirst, bool isLast, int id, TypeComponent type) {
+  Widget timelineTile(Component component, bool isFirst, bool isLast) {
     Color getIndicatorColor(int date) {
       if (date < 1973) {
         return Colors.blue;
@@ -95,28 +95,21 @@ class _TimelineState2 extends State<TimelineMicro> {
       isFirst: isFirst,
       isLast: isLast,
       beforeLineStyle: LineStyle(
-        color: getIndicatorColor((date)),
+        color: getIndicatorColor((component.date)),
       ),
       indicatorStyle: IndicatorStyle(
         indicatorXY: 0.0,
-        color: getIndicatorColor((date)),
+        color: getIndicatorColor((component.date)),
       ),
       startChild: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
           height: double.infinity,
-          child: Text(date.toString(), style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold))),
+          child: Text(component.date.toString(), style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold))),
       ),
       endChild: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Datasheet(
-            img: icon,
-            title: title,
-            description: description,
-            id: id,
-            type: type,
-            annee: date,
-          )));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Datasheet.fromComponent(component: component)));
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -125,17 +118,17 @@ class _TimelineState2 extends State<TimelineMicro> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+                  Text(component.name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
                   const SizedBox(height: 8),
                   !isChecked ? Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: AssetImage(icon),
+                        backgroundImage: AssetImage(component.logo),
                         backgroundColor: Colors.white,
                       ),
                       const SizedBox(width: 10),
                       Flexible(
-                        child: Text(description, style: const TextStyle(fontSize: 14, color: Colors.white), maxLines: 4, overflow: TextOverflow.ellipsis)
+                        child: Text(component.descFr, style: const TextStyle(fontSize: 14, color: Colors.white), maxLines: 4, overflow: TextOverflow.ellipsis)
                       ),
                     ],
                   ) : Container(),
@@ -160,8 +153,8 @@ class _TimelineState2 extends State<TimelineMicro> {
         child: Column(
           children: [
             Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 2),
+              decoration: const BoxDecoration(
+                border: Border.symmetric(vertical: BorderSide(color: Colors.white, width: 2)),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -217,12 +210,8 @@ class _TimelineState2 extends State<TimelineMicro> {
               ),
             ),
             Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.white, width: 2),
-                  left: BorderSide(color: Colors.white, width: 2),
-                  right: BorderSide(color: Colors.white, width: 2),
-                ),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white, width: 2),
               ),
               child: FittedBox(
                 fit: BoxFit.fitWidth,
@@ -356,7 +345,7 @@ class _TimelineState2 extends State<TimelineMicro> {
                             desc = e.descEn;
                             break;
                         }
-                        return timelineTile(e.name, desc, e.logo, e.date, componentsSelected.indexOf(e) == 0, componentsSelected.indexOf(e) == componentsSelected.length - 1, e.id, e.type);
+                        return timelineTile(e, componentsSelected.indexOf(e) == 0, componentsSelected.indexOf(e) == componentsSelected.length - 1);
                       }).toList(),
                     ),
                   ),

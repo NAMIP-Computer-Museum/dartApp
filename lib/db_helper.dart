@@ -35,20 +35,7 @@ class DBHelper {
     Database? myDb = await db;
     final List<Map<String, Object?>>? maps = await myDb?.query('GENERAL');
     if (maps == null) return List.empty();
-    List<Component> components = List.empty(growable: true);
-    final String response = await rootBundle.loadString("assets/data/componentsImagesData.json");
-    final Map data = await json.decode(response);
-    for (int i = 0; i < maps.length; i++) {
-      Map copy = Map.from(maps[i]);
-      copy["logo"] = data[copy["ID"].toString()];
-      components.add(Component.fromMap(copy));
-      //copy.remove('DescMotFR');
-      copy.remove('DescMotEN');
-      copy.remove('DescMotNL');
-      copy.remove('DescNL');
-      copy.remove('DescEN');
-      print(copy);
-    }
+    List<Component> components = await getCopyListWithLogo(maps, false);
     return components;
   }
 
@@ -56,14 +43,7 @@ class DBHelper {
     Database? myDb = await db2;
     final List<Map<String, Object?>>? maps = await myDb?.query('GENERAL');
     if (maps == null) return List.empty();
-    List<Component> components = List.empty(growable: true);
-    final String response = await rootBundle.loadString("assets/data/componentsImagesData.json");
-    final Map data = await json.decode(response);
-    for (int i = 0; i < maps.length; i++) {
-      Map copy = Map.from(maps[i]);
-      copy["logo"] = data["0${copy["ID"]}"];
-      components.add(Component.fromMap(copy));
-    }
+    List<Component> components = await getCopyListWithLogo(maps, true);
     return components;
   }
 
@@ -79,6 +59,27 @@ class DBHelper {
     Database? myDb = await db;
     final List<Map<String, Object?>>? maps = await myDb?.rawQuery('SELECT * FROM MOTCLE WHERE IDObjetDesc = $id');
     return maps;
+  }
+
+  Future<Component?> getComponentByID(int id) async {
+    Database? myDb = await db;
+    final List<Map<String, Object?>>? maps = await myDb?.rawQuery('SELECT * FROM GENERAL WHERE ID = $id');
+    if (maps?.length != 1) return null;
+    List<Component> components = await getCopyListWithLogo(maps!, false);
+    return components.first;
+  }
+
+  Future<List<Component>> getCopyListWithLogo(List<Map<String, Object?>> maps, bool isPerma) async {
+    final String s = isPerma ? '0' : '';
+    List<Component> components = List.empty(growable: true);
+    final String response = await rootBundle.loadString("assets/data/componentsImagesData.json");
+    final Map data = await json.decode(response);
+    for (int i = 0; i < maps.length; i++) {
+      Map copy = Map.from(maps[i]);
+      copy["logo"] = data[s + copy["ID"].toString()];
+      components.add(Component.fromMap(copy));
+    }
+    return components;
   }
 
   Future<Database?> initDb() async { // code by https://blog.devgenius.io/adding-sqlite-db-file-from-the-assets-internet-in-flutter-3ec42c14cd44

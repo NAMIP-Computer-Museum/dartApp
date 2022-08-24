@@ -7,6 +7,9 @@ class Component {
   late String descFr;
   late String descEn;
   late String descNL;
+  late String descMotFr;
+  late String descMotEn;
+  late String descMotNL;
   late String logo;
   late int date;
   late TypeComponent type;
@@ -21,6 +24,9 @@ class Component {
     descFr = map["DescFR"];
     descEn = map["DescEN"];
     descNL = map["DescNL"] ?? "";
+    descMotFr = map["DescMotFR"] ?? "";
+    descMotEn = map["DescMotEN"] ?? "";
+    descMotNL = map["DescMotNL"] ?? "";
     logo = map["logo"];
     date = map["Annee"];
     type = convertStringToTypeComponent(map["TYPE"]);

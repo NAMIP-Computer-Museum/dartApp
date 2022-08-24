@@ -49,7 +49,7 @@ class _HomeVideosState extends State<HomeVideos> {
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.red.shade700,
-              border: const Border.symmetric(horizontal: BorderSide(color: Colors.white, width: 2)),
+              border: const Border(bottom: BorderSide(color: Colors.white, width: 2)),
             ),
             child: Center(
               child: Padding(
