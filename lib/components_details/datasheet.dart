@@ -40,10 +40,11 @@ class _DatasheetState extends State<Datasheet> {
   List<TextSpan> descTab = List.empty(growable: true);
   Map<String, Object?> componentData = {};
   String urlVideo = '';
+  bool detailDataLoaded = false;
+  bool descDataLoaded = false;
 
   @override
   void initState() {
-    //getKeywords();
     setDesc();
     readData();
 
@@ -66,7 +67,7 @@ class _DatasheetState extends State<Datasheet> {
     final String response = await rootBundle.loadString(location);
     final List data = await json.decode(response);
     urlVideo = data.firstWhere((element) => element['id'] == widget.id, orElse: () => {'videoURL': ''})['videoURL'];
-    setState(() {});
+    setState(() {detailDataLoaded = true;});
   }
 
   // Future<void> getKeywords() async {
@@ -105,27 +106,8 @@ class _DatasheetState extends State<Datasheet> {
           )
         );
       }
-
-      // int id = -1;
-      // try {
-      //   id = int.parse(k);
-      // } catch (e) {
-      //   id = -1;
-      // }
-      // if (id != -1) {
-      //   DBHelper dbHelper = DBHelper();
-      //   Component? component = await dbHelper.getComponentByID(id);
-      //   descTab.add(clickableComponent(component!));
-      // } else {
-      //   descTab.add(
-      //     TextSpan(
-      //       text: k,
-      //       style: const TextStyle(color: Colors.white, fontSize: 20),
-      //     )
-      //   );
-      // }
     }
-    setState(() {});
+    setState(() {descDataLoaded = true;});
   }
 
   TextSpan clickableComponent(Component component) {
@@ -195,7 +177,7 @@ class _DatasheetState extends State<Datasheet> {
       appBar: Widgets.appBar(context),
       body: Builder(
         builder: (context) {
-          if (descTab.isNotEmpty && componentData.isNotEmpty) {
+          if (descDataLoaded && detailDataLoaded) {
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -212,6 +194,8 @@ class _DatasheetState extends State<Datasheet> {
                     componentData.isEmpty ? const SizedBox(height: 0, width: 0) : const Divider(color: Colors.white, thickness: 2),
                     Builder(
                       builder: (context) {
+                        print(descTab.length);
+                        print(descTab);
                         for (var element in descTab) {print(element);}
                         return RichText(
                           text: TextSpan(
