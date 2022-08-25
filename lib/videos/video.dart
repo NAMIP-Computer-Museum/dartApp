@@ -1,6 +1,7 @@
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nam_ip_museum/videos/overlay_video.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -32,11 +33,9 @@ class _VideoState extends State<Video> {
       DeviceOrientation.portraitDown,
     ]);
     _controller = VideoPlayerController.asset(widget.url)
-      ..initialize().then((_) {
-        setState(() {
-          _controller.play();
-        });
-      });
+      ..setLooping(true)
+      ..addListener(() {setState(() {});})
+      ..initialize().then((_) => _controller.play());
 
     _youtubeController = YoutubePlayerController(
       initialVideoId: 'ZObtWtld-g0',
@@ -91,21 +90,19 @@ class _VideoState extends State<Video> {
                     child: VideoPlayer(_controller),
                   ),
                   Positioned.fill(
-                    child: AdvancedOverlayWidget(
+                    child: OverlayVideo(
                       controller: _controller,
                       onClickedFullScreen: () {
-                        if (orientation == Orientation.portrait) {
+                        if (MediaQuery.of(context).orientation == Orientation.portrait) {
+                          SystemChrome.setPreferredOrientations([
+                            DeviceOrientation.landscapeRight,
+                            DeviceOrientation.landscapeLeft,
+                          ]);
+                        } else {
                           SystemChrome.setPreferredOrientations([
                             DeviceOrientation.portraitUp,
                             DeviceOrientation.portraitDown,
                           ]);
-                          SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
-                        } else {
-                          SystemChrome.setPreferredOrientations([
-                            DeviceOrientation.landscapeLeft,
-                            DeviceOrientation.landscapeRight,
-                          ]);
-                          SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
                         }
                       },
                     ),
