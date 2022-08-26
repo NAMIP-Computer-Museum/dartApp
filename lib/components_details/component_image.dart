@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nam_ip_museum/widgets.dart';
+import 'package:photo_view/photo_view.dart';
 
 class ComponentImage extends StatelessWidget {
   final String img;
@@ -13,7 +14,9 @@ class ComponentImage extends StatelessWidget {
       body: Container(
         color: Colors.black,
         child: Center(
-          child: Image.asset(img),
+          child: PhotoView(
+            imageProvider: AssetImage(img)
+          ),
         ),
       ),
     );

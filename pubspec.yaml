@@ -41,6 +41,7 @@ dependencies:
   http: ^0.13.5
   location: ^4.4.0
   shared_preferences: ^2.0.15
+  photo_view: ^0.14.0
 
 
   # The following adds the Cupertino Icons font to your application.
