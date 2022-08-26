@@ -116,15 +116,18 @@ class _QuizState extends State<Quiz> {
                     child: Text(quiz[avancement].question, textAlign: TextAlign.center ,style: const TextStyle(color: Colors.white, fontSize: 17)),
                   ),
                   const SizedBox(height: 20),
-                  Container(
-                    height: height * 0.15, // TODO voir comment gérer la taille de l'image
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(color: Colors.white, width: 2),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: width * 0.7, maxHeight: height * 0.25),
+                    child: Container(
+                      //height: height * 0.15, // TODO voir comment gérer la taille de l'image
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        border: Border.all(color: Colors.white, width: 2),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        child: Image.asset(quiz[avancement].img))
                     ),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      child: Image.asset(quiz[avancement].img))
                   ),
                   const SizedBox(height: 20),
                   Expanded(

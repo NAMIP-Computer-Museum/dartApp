@@ -124,7 +124,7 @@ class _TimelineState2 extends State<TimelineMicro> {
                     children: [
                       CircleAvatar(
                         backgroundImage: AssetImage(component.logo),
-                        backgroundColor: Colors.white,
+                        radius: 30,
                       ),
                       const SizedBox(width: 10),
                       Flexible(

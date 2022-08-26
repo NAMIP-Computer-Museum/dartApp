@@ -129,7 +129,7 @@ class _TimelineState2 extends State<TimelinePerma> {
                       children: [
                         CircleAvatar(
                           backgroundImage: AssetImage(component.logo),
-                          backgroundColor: Colors.white,
+                          radius: 30,
                         ),
                         const SizedBox(width: 10),
                         Flexible(
