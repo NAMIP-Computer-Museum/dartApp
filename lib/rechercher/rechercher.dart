@@ -60,6 +60,16 @@ class _RechercherState extends State<Rechercher> {
                   child: Autocomplete<Component>(
                     displayStringForOption: _displayStringForOption,
                     onSelected: _onSelected,
+                    fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted) => TextField(
+                      controller: textEditingController,
+                      focusNode: focusNode,
+                      decoration: InputDecoration(
+                        hintText: 'Rechercher',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
                     optionsBuilder: (TextEditingValue textEditingValue) {
                       if (textEditingValue.text == '') {
                         return const Iterable<Component>.empty();

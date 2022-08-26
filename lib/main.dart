@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:nam_ip_museum/home_pages/access_to_app.dart';
 import 'package:nam_ip_museum/translation_messages.dart';
 
 import 'home_pages/home_page.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: const HomePage(),
+      home: const AccessToApp(),
     );
   }
 }
