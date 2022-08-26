@@ -39,6 +39,9 @@ class _AccessToAppState extends State<AccessToApp> {
     prefs = await SharedPreferences.getInstance();
     isAuthorized = prefs.getBool('isAuthorized');
     isAuthorized ??= false;
+    String? lang = prefs.getString('lang');
+    lang ??= 'fr';
+    Get.updateLocale(Locale(lang, ''));
     setState(() {
       isLoading = true;
     });
@@ -126,7 +129,10 @@ class _AccessToAppState extends State<AccessToApp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: () => Get.updateLocale(const Locale('fr', '')),
+                    onTap: () {
+                      Get.updateLocale(const Locale('fr', ''));
+                      prefs.setString('lang', 'fr');
+                    },
                     child: Container(
                       width: 0.2 * width,
                       padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -140,7 +146,10 @@ class _AccessToAppState extends State<AccessToApp> {
                   ),
                   const SizedBox(width: 10),
                   GestureDetector(
-                    onTap: () => Get.updateLocale(const Locale('nl', '')),
+                    onTap: () {
+                      Get.updateLocale(const Locale('nl', ''));
+                      prefs.setString('lang', 'nl');
+                    },
                     child: Container(
                       width: 0.2 * width,
                       padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -154,7 +163,10 @@ class _AccessToAppState extends State<AccessToApp> {
                   ),
                   const SizedBox(width: 10),
                   GestureDetector(
-                    onTap: () => Get.updateLocale(const Locale('en', '')),
+                    onTap: () {
+                      Get.updateLocale(const Locale('en', ''));
+                      prefs.setString('lang', 'en');
+                    },
                     child: Container(
                       width: 0.2 * width,
                       padding: const EdgeInsets.symmetric(horizontal: 6),

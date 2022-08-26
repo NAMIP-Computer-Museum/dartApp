@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/informations/about_us.dart';
 import 'package:nam_ip_museum/quiz/quiz_difficulty.dart';
-import 'package:nam_ip_museum/rechercher/qr_code_test.dart';
-import 'package:nam_ip_museum/rechercher/test_http.dart';
 import 'package:nam_ip_museum/timeline/home_timeline.dart';
 import 'package:nam_ip_museum/videos/home_videos.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../informations/introduction.dart';
 import '../rechercher/rechercher.dart';
@@ -40,7 +39,11 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () => Get.updateLocale(const Locale('fr', '')),
+                      onTap: () async {
+                        Get.updateLocale(const Locale('fr', ''));
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.setString('lang', 'fr');
+                      },
                       child: Container(
                         width: 0.2 * width,
                         padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -54,7 +57,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(width: 10),
                     GestureDetector(
-                      onTap: () => Get.updateLocale(const Locale('nl', '')),
+                      onTap: () async {
+                        Get.updateLocale(const Locale('nl', ''));
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.setString('lang', 'nl');
+                      },
                       child: Container(
                         width: 0.2 * width,
                         padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -68,7 +75,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(width: 10),
                     GestureDetector(
-                      onTap: () => Get.updateLocale(const Locale('en', '')),
+                      onTap: () async {
+                        Get.updateLocale(const Locale('en', ''));
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.setString('lang', 'en');
+                      },
                       child: Container(
                         width: 0.2 * width,
                         padding: const EdgeInsets.symmetric(horizontal: 6),
