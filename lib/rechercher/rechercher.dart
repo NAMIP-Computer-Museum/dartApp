@@ -15,6 +15,7 @@ class Rechercher extends StatefulWidget {
 class _RechercherState extends State<Rechercher> {
 
   List<Component> dataComponents = [];
+  Component? _selectedComponent;
 
   @override
   void initState() {
@@ -34,8 +35,40 @@ class _RechercherState extends State<Rechercher> {
   static String _displayStringForOption(Component option) => option.name;
 
   void _onSelected(Component component) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-        Datasheet.fromComponent(component: component)));
+    setState(() {
+      _selectedComponent = component;
+    });
+  }
+
+  void _onChange(String? value) {
+    if (_selectedComponent?.name != value) {
+      _selectedComponent = null;
+    }
+  }
+
+  void _onSubmit(TextEditingController controller) {
+    if (_selectedComponent != null) {
+      Component component = _selectedComponent!;
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+          Datasheet.fromComponent(component: component)));
+    } else {
+      if (controller.text == '') {
+        return;
+      } else {
+        try {
+          _selectedComponent = dataComponents.firstWhere((Component option) {
+            return option.name.toLowerCase() == controller.text.toLowerCase();
+          });
+        } catch (e) {
+          _selectedComponent = null;
+        }
+        if (_selectedComponent != null) {
+          Component component = _selectedComponent!;
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+              Datasheet.fromComponent(component: component)));
+        }
+      }
+    }
   }
 
   @override
@@ -63,10 +96,29 @@ class _RechercherState extends State<Rechercher> {
                     fieldViewBuilder: (context, textEditingController, focusNode, onFieldSubmitted) => TextField(
                       controller: textEditingController,
                       focusNode: focusNode,
+                      onChanged: _onChange,
                       decoration: InputDecoration(
                         hintText: 'Rechercher',
-                        border: OutlineInputBorder(
+                        hintStyle: TextStyle(color: Colors.grey.withOpacity(0.7)),
+                        enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
+                          borderSide: const BorderSide(
+                            color: Colors.white,
+                            width: 2,
+                          )
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: const BorderSide(
+                            width: 2,
+                            color: Colors.white,
+                          ),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.search, color: Colors.white,),
+                          onPressed: () {
+                            _onSubmit(textEditingController);
+                          },
                         ),
                       ),
                     ),

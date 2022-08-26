@@ -94,10 +94,7 @@ class _DatasheetState extends State<Datasheet> {
         int id = int.parse(k);
         DBHelper dbHelper = DBHelper();
         Component? component = await dbHelper.getComponentByID(id);
-        //print(component);
-        //print(descTab.last);
         descTab.add(clickableComponent(component!));
-        //print(descTab.last);
       } catch (e) {
         descTab.add(
           TextSpan(
@@ -192,17 +189,10 @@ class _DatasheetState extends State<Datasheet> {
                     const Divider(color: Colors.white, thickness: 2),
                     DatasheetLegend(type: widget.type, data: componentData),
                     componentData.isEmpty ? const SizedBox(height: 0, width: 0) : const Divider(color: Colors.white, thickness: 2),
-                    Builder(
-                      builder: (context) {
-                        print(descTab.length);
-                        print(descTab);
-                        for (var element in descTab) {print(element);}
-                        return RichText(
-                          text: TextSpan(
-                            children: descTab,
-                          ),
-                        );
-                      }
+                    RichText(
+                      text: TextSpan(
+                        children: descTab,
+                      ),
                     ),
                     const SizedBox(height: 20),
                     urlVideo.isNotEmpty ? GestureDetector(
