@@ -11,7 +11,6 @@ class AboutUs extends StatelessWidget {
     return Scaffold(
       appBar: Widgets.appBar(context),
       body: Container(
-        height: double.infinity, //TODO vérifier qu'il n'y pas d'overflow
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/binaryBackground.png'),
@@ -25,7 +24,10 @@ class AboutUs extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Text('titreApropos'.tr, style: const TextStyle(fontSize: 30, color: Colors.yellow, fontWeight: FontWeight.bold)),
               ),
-              Image.asset('assets/NAMIP.jpg'),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.4,
+                child: Image.asset('assets/logoNAMIP.png')
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text('descriptionApropos'.tr, style: const TextStyle(fontSize: 20, color: Colors.white), textAlign: TextAlign.center),

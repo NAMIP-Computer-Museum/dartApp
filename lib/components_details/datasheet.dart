@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/db_helper.dart';
+import 'package:nam_ip_museum/functions.dart';
 import 'package:nam_ip_museum/models/component.dart';
 import 'package:nam_ip_museum/models/type_component.dart';
 import 'package:nam_ip_museum/components_details/component_image.dart';
 import 'package:nam_ip_museum/components_details/legendeDatasheet.dart';
 import 'package:nam_ip_museum/videos/video.dart';
 import 'package:nam_ip_museum/widgets.dart';
-
-import '../home_pages/home_page.dart';
 
 class Datasheet extends StatefulWidget {
   late final String img;
@@ -25,7 +24,7 @@ class Datasheet extends StatefulWidget {
   Datasheet.fromComponent({Key? key, required Component component}) : super(key: key) {
     img = component.logo;
     title = component.name;
-    description = component.descMotFr; // TODO language
+    description = Functions.getStringLang(fr: component.descMotFr, en: component.descMotEn, nl: component.descMotNL);
     id = component.id;
     type = component.type;
     annee = component.date;
@@ -70,26 +69,9 @@ class _DatasheetState extends State<Datasheet> {
     setState(() {detailDataLoaded = true;});
   }
 
-  // Future<void> getKeywords() async {
-  //   DBHelper dbHelper = DBHelper();
-  //   List<Map<String, Object?>>? keywords = await dbHelper.getKeywords(widget.id);
-  //   String descCopy = widget.description;
-  //   for (Map<String, Object?> keyword in keywords!) {
-  //     String k = keyword['MotCle'].toString();
-  //     while (descCopy.contains(k)) {
-  //       descTab.add(descCopy.substring(0, descCopy.indexOf(k)));
-  //       descCopy = descCopy.substring(descCopy.indexOf(k) + k.length);
-  //       descTab.add(k);
-  //     }
-  //     descTab.add(descCopy);
-  //   }
-  // }
-
   Future<void> setDesc() async {
     List<String> descCopy = widget.description.split('|');
-    //print(descCopy);
     for (String k in descCopy) {
-      //print(k);
       try {
         int id = int.parse(k);
         DBHelper dbHelper = DBHelper();

@@ -35,9 +35,7 @@ class _RechercherState extends State<Rechercher> {
   static String _displayStringForOption(Component option) => option.name;
 
   void _onSelected(Component component) {
-    setState(() {
-      _selectedComponent = component;
-    });
+    _selectedComponent = component;
   }
 
   void _onChange(String? value) {
