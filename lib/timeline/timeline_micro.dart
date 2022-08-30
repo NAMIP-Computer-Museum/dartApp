@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/db_helper.dart';
+import 'package:nam_ip_museum/timeline/proportional_timeline.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../models/component.dart';
@@ -331,23 +332,14 @@ class _TimelineState2 extends State<TimelineMicro> {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Column(
-                      children: componentsSelected.map((e) {
-                        String desc;
-                        switch (Get.locale?.languageCode) {
-                          case 'fr':
-                            desc = e.descFr;
-                            break;
-                          case 'nl':
-                            desc = e.descNL;
-                            break;
-                          default:
-                            desc = e.descEn;
-                            break;
-                        }
-                        return timelineTile(e, componentsSelected.indexOf(e) == 0, componentsSelected.indexOf(e) == componentsSelected.length - 1);
-                      }).toList(),
-                    ),
+                    child: componentsSelected.isNotEmpty
+                        ? ProportionalTimeline(isChecked: isChecked, componentsSelected: componentsSelected)
+                        : const CircularProgressIndicator(),
+                    // Column(
+                    //   children: componentsSelected.map((e) {
+                    //     return timelineTile(e, componentsSelected.indexOf(e) == 0, componentsSelected.indexOf(e) == componentsSelected.length - 1);
+                    //   }).toList(),
+                    // ),
                   ),
                 ),
               ),
