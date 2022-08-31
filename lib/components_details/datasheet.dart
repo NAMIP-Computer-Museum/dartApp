@@ -102,7 +102,7 @@ class _DatasheetState extends State<Datasheet> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(component.descFr),
+                child: Text(Functions.getStringLang(fr: component.descFr, en: component.descEn, nl: component.descNL)),
               ),
               GestureDetector(
                 onTap: () {

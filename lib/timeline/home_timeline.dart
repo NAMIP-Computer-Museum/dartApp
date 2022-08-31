@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/quiz/quiz.dart';
+import 'package:nam_ip_museum/timeline/proportional_timeline.dart';
 import 'package:nam_ip_museum/timeline/timeline_micro.dart';
 import 'package:nam_ip_museum/timeline/timeline_perma.dart';
 
@@ -60,7 +61,7 @@ class HomeTimeline extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: GestureDetector(
-                          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TimelineMicro())),
+                          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProportionalTimeline())),
                           child: Container(
                             width: width,
                             decoration: BoxDecoration(

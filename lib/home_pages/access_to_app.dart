@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
+import 'package:nam_ip_museum/navigation_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_page.dart';
@@ -13,7 +16,7 @@ class AccessToApp extends StatefulWidget {
   State<AccessToApp> createState() => _AccessToAppState();
 }
 
-class _AccessToAppState extends State<AccessToApp> {
+class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
 
   Location location = Location();
 
@@ -29,6 +32,8 @@ class _AccessToAppState extends State<AccessToApp> {
 
   final TextEditingController _controller = TextEditingController();
 
+  late Duration duration;
+  
   @override
   void initState() {
     getLocation();
@@ -39,6 +44,12 @@ class _AccessToAppState extends State<AccessToApp> {
     prefs = await SharedPreferences.getInstance();
     isAuthorized = prefs.getBool('isAuthorized');
     isAuthorized ??= false;
+    duration = const Duration(milliseconds: 20 * 1000);
+    if (prefs.getInt("duration") == null) {
+      await prefs.setInt("duration", duration.inMilliseconds);
+    } else {
+      duration = Duration(milliseconds: prefs.getInt("duration")!);
+    }
     String? lang = prefs.getString('lang');
     lang ??= 'fr';
     Get.updateLocale(Locale(lang, ''));
@@ -102,118 +113,136 @@ class _AccessToAppState extends State<AccessToApp> {
         return _mdpWidget();
       }
     } else {
-      return Scaffold(
-        body: Center(
-          child: _mdpWidget(),
-        ),
-      );
+      return _mdpWidget();
     }
   }
 
   Widget _mdpWidget() {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/binaryBackground.png'),
-            fit: BoxFit.cover,
+      body: Center(
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/binaryBackground.png'),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.updateLocale(const Locale('fr', ''));
-                      prefs.setString('lang', 'fr');
-                    },
-                    child: Container(
-                      width: 0.2 * width,
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white, width: 2),
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.red.shade900,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.updateLocale(const Locale('fr', ''));
+                        prefs.setString('lang', 'fr');
+                      },
+                      child: Container(
+                        width: 0.2 * width,
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white, width: 2),
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.red.shade900,
+                        ),
+                        child: Image.asset('assets/france.png'),
                       ),
-                      child: Image.asset('assets/france.png'),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  GestureDetector(
-                    onTap: () {
-                      Get.updateLocale(const Locale('nl', ''));
-                      prefs.setString('lang', 'nl');
-                    },
-                    child: Container(
-                      width: 0.2 * width,
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white, width: 2),
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.red.shade900,
+                    const SizedBox(width: 10),
+                    GestureDetector(
+                      onTap: () {
+                        Get.updateLocale(const Locale('nl', ''));
+                        prefs.setString('lang', 'nl');
+                      },
+                      child: Container(
+                        width: 0.2 * width,
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white, width: 2),
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.red.shade900,
+                        ),
+                        child: Image.asset('assets/netherlands.png'),
                       ),
-                      child: Image.asset('assets/netherlands.png'),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  GestureDetector(
-                    onTap: () {
-                      Get.updateLocale(const Locale('en', ''));
-                      prefs.setString('lang', 'en');
-                    },
-                    child: Container(
-                      width: 0.2 * width,
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white, width: 2),
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.red.shade900,
+                    const SizedBox(width: 10),
+                    GestureDetector(
+                      onTap: () {
+                        Get.updateLocale(const Locale('en', ''));
+                        prefs.setString('lang', 'en');
+                      },
+                      child: Container(
+                        width: 0.2 * width,
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white, width: 2),
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.red.shade900,
+                        ),
+                        child: Image.asset('assets/united-kingdom.png'),
                       ),
-                      child: Image.asset('assets/united-kingdom.png'),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Text(errorMsg, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.white), textAlign: TextAlign.center),
-              const SizedBox(height: 20),
-              TextField(
-                controller: _controller,
-                decoration: InputDecoration(
-                  labelText: 'Enter MDP',
-                  border: const OutlineInputBorder(),
-                  fillColor: Colors.white,
-                  filled: true,
-                  errorText: mdpError,
-                  errorStyle: mdpError == "" ? const TextStyle(fontSize: 0, color: Colors.red) : const TextStyle(),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  if (_controller.text == "") {
-                    setState(() {
-                      mdpError = "Merci de rentrer le mot de passe disponible au musée";
-                    });
-                  } else if (_controller.text == "a") {
-                    setState(() {
-                      mdpError = "";
-                    });
-                  } else {
-                    setState(() {
-                      mdpError = "Le mot de passe est incorrect";
-                    });
-                  }
-                },
-                child: const Text('Valider'),
-              ),
-            ],
+                const SizedBox(height: 20),
+                Text(errorMsg, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.white), textAlign: TextAlign.center),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    labelText: 'Enter MDP',
+                    border: const OutlineInputBorder(),
+                    fillColor: Colors.white,
+                    filled: true,
+                    errorText: mdpError,
+                    errorStyle: mdpError == "" ? const TextStyle(fontSize: 0, color: Colors.red) : const TextStyle(),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_controller.text == "") {
+                      setState(() {
+                        mdpError = "Merci de rentrer le mot de passe disponible au musée";
+                      });
+                    } else if (_controller.text == "a") {
+                      setState(() {
+                        isAuthorized = true;
+                        prefs.setBool('isAuthorized', true);
+                      });
+                      Navigator.of(context).pop();
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomePage()));
+                    } else {
+                      setState(() {
+                        mdpError = "Le mot de passe est incorrect";
+                      });
+                    }
+                  },
+                  child: const Text('Valider'),
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {
+                    WidgetsBinding.instance.addObserver(this);
+                    startTimer();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.orangeAccent,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(12.0),
+                      child: Text('Accès Limité', style: TextStyle(color: Colors.white)),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -222,5 +251,68 @@ class _AccessToAppState extends State<AccessToApp> {
 
   bool goodLocation() {
     return (_locationData.latitude! >= 50.461745 || _locationData.latitude! <= 50.464197) && (_locationData.longitude! >=  4.833089 || _locationData.longitude! <= 4.839180);
+  }
+
+  late Stopwatch watch;
+  late Timer timer;
+
+  void startTimer() {
+    if (duration.inMilliseconds > 0) {
+      watch = Stopwatch();
+      watch.start();
+      timer = updateDuration();
+      Navigator.of(context).pop();
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomePage()));
+    } else {
+      setState(() {
+        errorMsg = "Vous n'avez plus de demo gratuite, merci de vous rendre au musée pour accéder à l'application ou de rentrer le mot de passe";
+      });
+    }
+  }
+
+  Timer updateDuration() =>
+      Timer.periodic(const Duration(milliseconds: 100), (Timer timer) {
+        if(watch.elapsedMilliseconds >= duration.inMilliseconds) {
+          handleTimeout();
+          timer.cancel();
+        }
+      });
+
+  void handleTimeout() {
+    print("timeout");
+    setDuration();
+    Navigator.of(NavigationService.getContext()).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+    const AccessToApp()), (Route<dynamic> route) => false);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (isAuthorized!) {
+      WidgetsBinding.instance.removeObserver(this);
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.detached) return;
+
+    final isBackground = state == AppLifecycleState.paused;
+
+    if (isBackground) {
+      watch.stop();
+      setDuration();
+    } else {
+      watch.start();
+    }
+  }
+
+  Future<void> setDuration() async {
+    print("setDuration");
+    print(duration.inMilliseconds - watch.elapsedMilliseconds);
+    await prefs.setInt("duration", duration.inMilliseconds - watch.elapsedMilliseconds);
   }
 }

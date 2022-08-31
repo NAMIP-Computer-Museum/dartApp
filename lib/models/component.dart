@@ -1,6 +1,8 @@
 import 'package:nam_ip_museum/models/perma_period.dart';
 import 'package:nam_ip_museum/models/type_component.dart';
 
+import '../functions.dart';
+
 class Component {
   late int id;
   late String name;
@@ -35,7 +37,7 @@ class Component {
 
   @override
   String toString() {
-    return '$name, $descFr';
+    return '$name, ${Functions.getStringLang(fr: descFr, en: descEn, nl: descNL)}'; // TODO à voir
   }
 
   static TypeComponent convertStringToTypeComponent(String type) {

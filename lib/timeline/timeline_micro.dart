@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/db_helper.dart';
+import 'package:nam_ip_museum/functions.dart';
 import 'package:nam_ip_museum/timeline/proportional_timeline.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
@@ -129,7 +130,7 @@ class _TimelineState2 extends State<TimelineMicro> {
                       ),
                       const SizedBox(width: 10),
                       Flexible(
-                        child: Text(component.descFr, style: const TextStyle(fontSize: 14, color: Colors.white), maxLines: 4, overflow: TextOverflow.ellipsis)
+                        child: Text(Functions.getStringLang(fr: component.descFr, en: component.descEn, nl: component.descNL), style: const TextStyle(fontSize: 14, color: Colors.white), maxLines: 4, overflow: TextOverflow.ellipsis)
                       ),
                     ],
                   ) : Container(),
@@ -332,14 +333,12 @@ class _TimelineState2 extends State<TimelineMicro> {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: componentsSelected.isNotEmpty
-                        ? ProportionalTimeline(isChecked: isChecked, componentsSelected: componentsSelected)
-                        : const CircularProgressIndicator(),
-                    // Column(
-                    //   children: componentsSelected.map((e) {
-                    //     return timelineTile(e, componentsSelected.indexOf(e) == 0, componentsSelected.indexOf(e) == componentsSelected.length - 1);
-                    //   }).toList(),
-                    // ),
+                    child:
+                    Column(
+                      children: componentsSelected.map((e) {
+                        return timelineTile(e, componentsSelected.indexOf(e) == 0, componentsSelected.indexOf(e) == componentsSelected.length - 1);
+                      }).toList(),
+                    ),
                   ),
                 ),
               ),
