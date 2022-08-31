@@ -1,12 +1,9 @@
-import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nam_ip_museum/videos/overlay_video.dart';
 import 'package:video_player/video_player.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../widgets.dart';
-import 'advanced_overlay_widget.dart';
 
 class Video extends StatefulWidget {
 
@@ -20,8 +17,6 @@ class Video extends StatefulWidget {
 
 class _VideoState extends State<Video> {
   late VideoPlayerController _controller;
-  late YoutubePlayerController _youtubeController;
-  late FlickManager _flickManager;
 
   @override
   void initState() {
@@ -36,29 +31,15 @@ class _VideoState extends State<Video> {
       ..setLooping(true)
       ..addListener(() {setState(() {});})
       ..initialize().then((_) => _controller.play());
-
-    _youtubeController = YoutubePlayerController(
-      initialVideoId: 'ZObtWtld-g0',
-    );
-
-    _flickManager = FlickManager(
-     videoPlayerController: _controller,
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return OrientationBuilder(
       builder: (context, orientation) {
-        FlickVideoPlayer videoPlayer = FlickVideoPlayer(
-          flickManager: _flickManager,
-        );
         PreferredSizeWidget appBar = const PreferredSize(preferredSize: Size.fromHeight(0), child: SizedBox(height: 0,));
         if (orientation == Orientation.portrait) {
           appBar = Widgets.appBar(context);
-          //SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
-        } else {
-          //SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
         }
         return Scaffold(
           backgroundColor: Colors.black,
@@ -73,16 +54,7 @@ class _VideoState extends State<Video> {
                       : _controller.play();
                 });
               },
-              child:
-              // AspectRatio(
-              //   aspectRatio: _controller.value.aspectRatio,
-              //   child: videoPlayer
-              // ),
-              // YoutubePlayer(
-              //   controller: _youtubeController,
-              //   showVideoProgressIndicator: false,
-              // )
-              Stack(
+              child: Stack(
                 fit: orientation == Orientation.portrait ? StackFit.loose : StackFit.expand,
                 children: [
                   AspectRatio(
@@ -121,8 +93,6 @@ class _VideoState extends State<Video> {
   void dispose() {
     super.dispose();
     _controller.dispose();
-    _youtubeController.dispose();
-    _flickManager.dispose();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

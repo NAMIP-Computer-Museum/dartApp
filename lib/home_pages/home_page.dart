@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/informations/about_us.dart';
 import 'package:nam_ip_museum/quiz/quiz_difficulty.dart';
-import 'package:nam_ip_museum/timeline/home_timeline.dart';
+import 'package:nam_ip_museum/timeline/timeline_micro.dart';
 import 'package:nam_ip_museum/videos/home_videos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                   width: 0.5 * width,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeTimeline()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const TimelineMicro()));
                     },
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nam_ip_museum/home_pages/home_page.dart';
 import 'package:nam_ip_museum/widgets.dart';
 
 class Manual extends StatelessWidget {

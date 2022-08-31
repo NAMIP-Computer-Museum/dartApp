@@ -9,7 +9,7 @@ import 'package:nam_ip_museum/functions.dart';
 import 'package:nam_ip_museum/models/component.dart';
 import 'package:nam_ip_museum/models/type_component.dart';
 import 'package:nam_ip_museum/components_details/component_image.dart';
-import 'package:nam_ip_museum/components_details/legendeDatasheet.dart';
+import 'package:nam_ip_museum/components_details/legende_datasheet.dart';
 import 'package:nam_ip_museum/videos/video.dart';
 import 'package:nam_ip_museum/widgets.dart';
 
@@ -102,7 +102,7 @@ class _DatasheetState extends State<Datasheet> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(component.descFr),
+                child: Text(Functions.getStringLang(fr: component.descFr, en: component.descEn, nl: component.descNL)),
               ),
               GestureDetector(
                 onTap: () {

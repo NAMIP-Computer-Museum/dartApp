@@ -4,8 +4,5 @@ enum TypeComponent {
   cpu,
   ihm,
   app,
-  machine,
-  org,
-  event,
   error
 }

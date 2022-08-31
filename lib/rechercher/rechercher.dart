@@ -26,9 +26,8 @@ class _RechercherState extends State<Rechercher> {
   Future<void> readData() async {
     DBHelper dbHelper = DBHelper();
     List<Component> dataComponents1 = await dbHelper.getComponentsMicro();
-    List<Component> dataComponents2 = await dbHelper.getComponentsPerma();
     setState(() {
-      dataComponents = dataComponents1 + dataComponents2;
+      dataComponents = dataComponents1;
     });
   }
 

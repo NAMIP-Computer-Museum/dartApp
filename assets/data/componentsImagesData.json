@@ -70,21 +70,5 @@
   "400": "assets/componentsImages/app/visicalc.jpg",
   "405": "assets/componentsImages/app/word.jpg",
   "406": "assets/componentsImages/app/Wordperfect.jpg",
-  "404": "assets/componentsImages/app/wordstar.jpg",
-  "01": "assets/componentsImages/meca/TabulatriceHollerith.jpg",
-  "02": "assets/componentsImages/meca/TabulatingMachineCompany.jpg",
-  "03": "assets/componentsImages/meca/ComputingTabulatingRecordingCorporation.png",
-  "04": "assets/componentsImages/meca/TabulatriceBS120.jpg",
-  "05": "assets/componentsImages/meca/PelerodSerie150.jpg",
-  "06": "assets/componentsImages/mainframe/IBM370.jpg",
-  "07": "assets/componentsImages/mini/PDP8.png",
-  "08": "assets/componentsImages/micro/DAI.jpg",
-  "09": "assets/componentsImages/micro/Osborne1.jpg",
-  "010": "assets/componentsImages/micro/LISA.jpg",
-  "011": "assets/componentsImages/micro/Microsoft.jpg",
-  "012": "assets/componentsImages/micro/AppleComputer.jpg",
-  "013": "assets/componentsImages/micro/XeroxPaloAltoResearchCenter.jpg",
-  "014": "assets/componentsImages/moderne/PremiereGuerreMondiale.jpg",
-  "015": "assets/componentsImages/moderne/DeuxiemeGuerreMondiale.jpg",
-  "016": "assets/componentsImages/moderne/ExpositionUniverselleBruxelles.jpg"
+  "404": "assets/componentsImages/app/wordstar.jpg"
 }

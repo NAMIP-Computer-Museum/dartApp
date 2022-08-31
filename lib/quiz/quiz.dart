@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/quiz/final_screen_quiz.dart';
 
-import '../home_pages/home_page.dart';
 import '../models/quiz_infos.dart';
 import '../widgets.dart';
 
