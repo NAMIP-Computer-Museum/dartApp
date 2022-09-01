@@ -152,7 +152,7 @@ class _DatasheetState extends State<Datasheet> {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.red.shade600,
+      backgroundColor: Colors.red.shade800,
       appBar: Widgets.appBar(context),
       body: Builder(
         builder: (context) {

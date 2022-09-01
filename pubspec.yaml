@@ -63,7 +63,7 @@ flutter_icons:
   ios: true
   image_path: "assets/NAMIP.jpg"
   adaptive_icon_background: "assets/background_logo.png"
-  adaptive_icon_foreground: "assets/foreground_logo.png"
+  adaptive_icon_foreground: "assets/play_store_512.png"
 
 # The following section is specific to Flutter packages.
 flutter:
@@ -79,11 +79,7 @@ flutter:
     - assets/componentsImages/app/
     - assets/componentsImages/cpu/
     - assets/componentsImages/ihm/
-    - assets/componentsImages/mainframe/
-    - assets/componentsImages/meca/
     - assets/componentsImages/micro/
-    - assets/componentsImages/mini/
-    - assets/componentsImages/moderne/
     - assets/componentsImages/os/
     - assets/data/
     - assets/db/
