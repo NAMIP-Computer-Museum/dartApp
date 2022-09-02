@@ -15,7 +15,9 @@ class ComponentImage extends StatelessWidget {
         color: Colors.black,
         child: Center(
           child: PhotoView(
-            imageProvider: AssetImage(img)
+            imageProvider: AssetImage(img),
+            minScale: PhotoViewComputedScale.contained * 0.8,
+            maxScale: PhotoViewComputedScale.covered * 3.0,
           ),
         ),
       ),

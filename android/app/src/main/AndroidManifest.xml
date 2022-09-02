@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nam_ip_museum">
    <application
-        android:label="NAM-IP Museum"
+        android:label="NAM-IP Micro"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

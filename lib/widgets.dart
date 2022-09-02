@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nam_ip_museum/functions.dart';
 
 import 'home_pages/home_page.dart';
 
 class Widgets {
 
   static AppBar appBar(BuildContext context) {
-    return AppBar( // TODO voir appbar
-      title: const Text('NAM-IP Museum'),
+    return AppBar(
+      title: Text("NAM-IP Micro${Functions.getStringLang(fr: "-ordinateur", en: "computer", nl: "computer")}"),
       backgroundColor: Colors.red.shade900,
       shape: const Border(
         bottom: BorderSide(

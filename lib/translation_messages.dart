@@ -13,13 +13,7 @@ class TranslationMessages extends Translations{
       'quiz': 'Quiz',
       'a_propos': 'A propos',
       'titreIntroduction' : "Introduction",
-      'descriptionIntroduction' : "Cette application a été conçue pour vous guider dans l'exposition temporaire 'micro-ordinateur, még@ révolution'. Elle s'inscrit dans le cycle 'De l’informatique antique à l’informatique quantique'.\n\n"+
-          "L'exposition retrace l’histoire, depuis les années 1970 jusqu'au milieu des années 1990, "+
-          "de l’émergence d’une informatique interactive, personnelle, conviviale et centrée sur l’utilisateur final. "+
-          "Tout citoyen peut pour la première acquérir son ordinateur individuel, par contraste avec l'exposition précédente "+
-          "consacrée aux ordinateurs des années 1960 très onéreux et réservés aux organisations qui en avaient les moyens.\n\n"+
-          "L'exposition ne se concentre pas uniquement sur l'évolution technique des micro-ordinateurs mais illustre aussi "+
-          "en parallèle, l'émergence des interfaces graphiques utilisateurs et leur intégration dans ces machines grand public.",
+      'descriptionIntroduction' : "Cette application présente l'évolution des micro-ordinateurs entre les  années 1970 et 1990. Cette période se caractérise par l'émergence d’une informatique interactive, personnelle, conviviale et centrée sur l’utilisateur final. L'application permet une navigation au moyen d'une ligne de temps configurable par période et thèmes tels que machines, processeurs, interfaces graphiques, systèmes d'exploitation et applications. Un quiz permet aussi de tester ses connaissances.\n\nL'application multilingue était initialement le guide de l'exposition temporaire 'micro-ordinateur, még@ révolution' conçue par le musée de l'informatique NAM-IP de Namur (Belgique) entre juin 2021 et juin 2022. Sans être exhaustive, elle se veut représentative de cette thématique et sera progressivement enrichie lors de mises-à-jour. Cette application embarque tous le contenu y compris des vidéos et est donc assez conséquente en taille.",
       'modeEmploi' : "Mode d'emploi",
       'titreModeEmploi' : "Mode Emploi",
       'descriptionModeEmploi' : "L'application est structurée selon une ligne du temps qui suit le cheminement de l'exposition.\n\n"+
@@ -63,14 +57,7 @@ class TranslationMessages extends Translations{
       'quiz': 'Quiz',
       'a_propos': 'Meer uitleg',
       'titreIntroduction' : "Inleiding",
-      'descriptionIntroduction' : "Deze applicatie is ontworpen om u door de tijdelijke tentoonstelling 'microcomputer, meg@revolutie' te leiden."+
-          "Ze maakt deel uit van de cyclus 'Van oude computers naar kwantumcomputers'.\n\n"+
-          "De tentoonstelling schetst de geschiedenis van de opkomst van interactief persoonlijk, gebruiksvriendelijk en op de eindgebruiker gericht computergebruik, "+
-          "vanaf de jaren '70 tot het midden van de jaren '90."+
-          "Idereen kan voor het eerst zijn PC aanschaffen, in tegenstelling tot de vorige tentoonstelling"+
-          "toegewijd aan zeer dure computers uit de jaren zestig en voorbehouden aan organisaties die die kunnen betalen.\n\n"+
-          "De tentoonstelling richt zich niet alleen op de technische ontwikkeling van microcomputers, maar illustreert "+
-          "tegelijkertijd de opkomst van grafische gebruikersinterfaces en hun integratie in deze algemene openbare machines.",
+      'descriptionIntroduction' : "Deze toepassing toont de evolutie van microcomputers tussen de jaren 1970 en 1990. Deze periode wordt gekenmerkt door de opkomst van interactieve, persoonlijke, gebruikersvriendelijke en op de eindgebruiker gerichte informatica. De toepassing maakt navigatie mogelijk door een configureerbare tijdlijn per periode en thema's zoals machines, processoren, grafische interfaces, besturingssystemen en toepassingen. Een quiz is ook beschikbaar om zijn kennis te testen.\n\nDeze meertalige applicatie was aanvankelijk de gids bij de tijdelijke tentoonstelling 'microcomputer, meg@revolutie' van het NAM-IP computermuseum in Namen (België) tussen juni 2021 en juni 2022. Hoewel niet uitputtend, is het wel representatief voor dit thema. Het zal geleidelijk worden verrijkt met updates. Deze applicatie bevat alle inhoud, inclusief video's, en is daarom vrij groot.",
       'modeEmploi' : "Gebruiksaanwijzing",
       'titreModeEmploi' : "Gebruiksaanwijzing",
       'descriptionModeEmploi' : "De applicatie is gestructureerd volgens een tijdlijn die het parcours van de tentoonstelling volgt.\n"+
@@ -117,13 +104,7 @@ class TranslationMessages extends Translations{
       'quiz': 'Quiz',
       'a_propos': 'About us',
       'titreIntroduction' : "Introduction",
-      'descriptionIntroduction' : "This application has been designed to guide you through the temporary exhibition 'microcomputer, meg @ revolution'. It is part of the cycle 'From ancient computing to quantum computing'.\n\n"+
-          "The exhibition traces history, from the 1970s to the mid-1990s, " +
-          "the emergence of interactive, personal, user-friendly and end-user-centric computing. " +
-          "He can for the first time acquire his personal computer, in contrast to the previous exhibition " +
-          "dedicated to very expensive computers from the 1960s and reserved for organizations that can afford them.\n\n" +
-          "The exhibition does not only focus on the technical development of microcomputers but also illustrates " +
-          "at the same time, the emergence of graphical user interfaces and their integration into these general public machines.",
+      'descriptionIntroduction' : "This application presents the evolution of microcomputers between the 1970s and 1990s. This period is characterised by the emergence of interactive, personal, user-friendly and user-centred computing. The application navigation relies on a timeline which can be configured by period and themes such as machines, processors, graphical interfaces, operating systems and applications. A quiz is also available.\n\nThis multilingual application served initially as guide for the temporary exhibition 'microcomputer, meg@revolution' designed by the NAM-IP computer museum in Namur (Belgium) between June 2021 and June 2022. Without being exhaustive, it is intended to be representative of this theme and will be enriched through updates. It embeds all the content including videos and is therefore quite large in size.",
       'modeEmploi' : "Manual",
       'titreModeEmploi' : "Manual",
       'descriptionModeEmploi' : "The application is structured according to a timeline that follows the course of the exhibition.\n"+

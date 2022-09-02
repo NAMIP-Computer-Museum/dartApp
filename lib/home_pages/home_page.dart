@@ -196,7 +196,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Image.asset('assets/logoNAMIP.png', width: 0.4 * width, fit: BoxFit.fitWidth),
+                Image.asset('assets/app-nam-ip-icon.png', width: 0.4 * width, fit: BoxFit.fitWidth),
               ],
             ),
           ),
