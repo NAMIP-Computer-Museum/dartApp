@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/logoNAMIP.png', width: 0.7 * width, fit: BoxFit.fitWidth),
+                Image.asset('assets/micro-mega-${Get.locale?.languageCode}.png', width: 0.9 * width, fit: BoxFit.fitWidth),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -194,7 +194,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Text('a_propos'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   ),
-                )
+                ),
+                const SizedBox(height: 20),
+                Image.asset('assets/logoNAMIP.png', width: 0.4 * width, fit: BoxFit.fitWidth),
               ],
             ),
           ),
