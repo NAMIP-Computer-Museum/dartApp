@@ -4,8 +4,8 @@ import 'package:nam_ip_museum/quiz/quiz.dart';
 
 import '../widgets.dart';
 
-class QuizzDificulty extends StatelessWidget {
-  const QuizzDificulty({Key? key}) : super(key: key);
+class QuizDifficulty extends StatelessWidget {
+  const QuizDifficulty({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

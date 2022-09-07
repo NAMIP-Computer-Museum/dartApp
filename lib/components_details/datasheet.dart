@@ -1,5 +1,8 @@
+import 'dart:async';
+import 'dart:ui' as ui;
 import 'dart:convert';
 
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +13,7 @@ import 'package:nam_ip_museum/models/component.dart';
 import 'package:nam_ip_museum/models/type_component.dart';
 import 'package:nam_ip_museum/components_details/component_image.dart';
 import 'package:nam_ip_museum/components_details/legendeDatasheet.dart';
+import 'package:nam_ip_museum/navigation_service.dart';
 import 'package:nam_ip_museum/videos/video.dart';
 import 'package:nam_ip_museum/widgets.dart';
 
@@ -66,8 +70,11 @@ class _DatasheetState extends State<Datasheet> {
     final String response = await rootBundle.loadString(location);
     final List data = await json.decode(response);
     urlVideo = data.firstWhere((element) => element['id'] == widget.id, orElse: () => {'videoURL': ''})['videoURL'];
+    swiper = await getSwiper();
     setState(() {detailDataLoaded = true;});
   }
+
+  late Widget swiper;
 
   Future<void> setDesc() async {
     List<String> descCopy = widget.description.split('|');
@@ -152,20 +159,22 @@ class _DatasheetState extends State<Datasheet> {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.red.shade600,
+      backgroundColor: Colors.red.shade800,
       appBar: Widgets.appBar(context),
       body: Builder(
         builder: (context) {
           if (descDataLoaded && detailDataLoaded) {
             return SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ComponentImage(img: widget.img,))),
-                      child: Image.asset(widget.img)
-                    ),
+                    swiper,
+                    // GestureDetector(
+                    //   onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ComponentImage(img: widget.img,))),
+                    //   child: Image.asset(widget.img)
+                    // ),
                     const SizedBox(height: 20),
                     Text(widget.title, style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
                     const Divider(color: Colors.white, thickness: 2),
@@ -202,5 +211,42 @@ class _DatasheetState extends State<Datasheet> {
         }
       ),
     );
+  }
+
+  Future<Widget> getSwiper() async { //TODO verifier avec des images de tailles différentes
+    final List<String> imgList = [widget.img, widget.img, widget.img];
+    List<Size> sizes = [];
+    for (String img in imgList) {
+      sizes.add(await _calculateImageDimension(img));
+    }
+    double maxRatio = sizes.map((e) => e.width / e.height).toList().reduce((value, element) => value > element? value: element);
+    return SizedBox(
+      height: (NavigationService.getContext().size?.width)! / maxRatio,
+      child: Swiper(
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ComponentImage(img: imgList[index],))),
+            child: Center(child: Image.asset(imgList[index])),
+          );
+        },
+        itemCount: 3,
+        pagination: const SwiperPagination(),
+      ),
+    );
+  }
+
+  Future<Size> _calculateImageDimension(String img) {
+    Completer<Size> completer = Completer();
+    Image image = Image.asset(img);
+    image.image.resolve(const ImageConfiguration()).addListener(
+      ImageStreamListener(
+            (ImageInfo image, bool synchronousCall) {
+          var myImage = image.image;
+          Size size = Size(myImage.width.toDouble(), myImage.height.toDouble());
+          completer.complete(size);
+        },
+      ),
+    );
+    return completer.future;
   }
 }

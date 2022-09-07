@@ -14,10 +14,10 @@ class TimelineMicro extends StatefulWidget {
   const TimelineMicro({Key? key}) : super(key: key);
 
   @override
-  State<TimelineMicro> createState() => _TimelineState2();
+  State<TimelineMicro> createState() => _TimelineState();
 }
 
-class _TimelineState2 extends State<TimelineMicro> {
+class _TimelineState extends State<TimelineMicro> {
 
   String _dropdownValue = 'Frise Entière';
   bool isChecked = false;

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
 import 'package:nam_ip_museum/navigation_service.dart';
+import 'package:ntp/ntp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_page.dart';
@@ -36,20 +37,22 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
   
   @override
   void initState() {
-    getLocation();
+    initMyState();
     super.initState();
   }
 
-  Future<void> getAuthorized() async {
+  Future<void> initMyState() async {
     prefs = await SharedPreferences.getInstance();
+    await initLimitedAccess();
+    await getAuthorized();
+    await getLocation();
+  }
+
+  Future<void> getAuthorized() async {
+
     isAuthorized = prefs.getBool('isAuthorized');
     isAuthorized ??= false;
-    duration = const Duration(milliseconds: 20 * 1000);
-    if (prefs.getInt("duration") == null) {
-      await prefs.setInt("duration", duration.inMilliseconds);
-    } else {
-      duration = Duration(milliseconds: prefs.getInt("duration")!);
-    }
+
     String? lang = prefs.getString('lang');
     lang ??= 'fr';
     Get.updateLocale(Locale(lang, ''));
@@ -58,8 +61,31 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
     });
   }
 
+  Future<void> initLimitedAccess() async {
+    duration = const Duration(milliseconds: 20 * 1000);
+    DateTime now = DateTime.now();
+    /*try {
+      now = await NTP.now();
+    } catch (e) {
+      now = DateTime.now();
+    }*/
+    int? year = prefs.getInt("year");
+    year ??= now.year;
+    int? month = prefs.getInt("month");
+    month ??= now.month;
+    int? day = prefs.getInt("day");
+    day ??= now.day;
+    if (prefs.getInt("duration") == null || year != now.year || month != now.month || day != now.day) {
+      await prefs.setInt("duration", duration.inMilliseconds);
+      await prefs.setInt("year", now.year);
+      await prefs.setInt("month", now.month);
+      await prefs.setInt("day", now.day);
+    } else {
+      duration = Duration(milliseconds: prefs.getInt("duration")!);
+    }
+  }
+
   Future<void> getLocation() async {
-    await getAuthorized();
     if (isAuthorized!) {
       return;
     }
@@ -279,7 +305,6 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
       });
 
   void handleTimeout() {
-    print("timeout");
     setDuration();
     Navigator.of(NavigationService.getContext()).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
     const AccessToApp()), (Route<dynamic> route) => false);
@@ -303,16 +328,14 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
     final isBackground = state == AppLifecycleState.paused;
 
     if (isBackground) {
-      watch.stop();
       setDuration();
+      watch.stop();
     } else {
       watch.start();
     }
   }
 
   Future<void> setDuration() async {
-    print("setDuration");
-    print(duration.inMilliseconds - watch.elapsedMilliseconds);
     await prefs.setInt("duration", duration.inMilliseconds - watch.elapsedMilliseconds);
   }
 }

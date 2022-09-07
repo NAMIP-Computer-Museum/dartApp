@@ -166,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                   width: 0.5 * width,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const QuizzDificulty()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const QuizDifficulty()));
                     },
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
