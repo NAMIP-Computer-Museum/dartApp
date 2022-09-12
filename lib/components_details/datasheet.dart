@@ -16,6 +16,7 @@ import 'package:nam_ip_museum/components_details/legendeDatasheet.dart';
 import 'package:nam_ip_museum/navigation_service.dart';
 import 'package:nam_ip_museum/videos/video.dart';
 import 'package:nam_ip_museum/widgets.dart';
+import 'package:video_player/video_player.dart';
 
 class Datasheet extends StatefulWidget {
   late final String img;
@@ -46,12 +47,22 @@ class _DatasheetState extends State<Datasheet> {
   bool detailDataLoaded = false;
   bool descDataLoaded = false;
 
+  late VideoPlayerController _controller;
+
   @override
   void initState() {
     setDesc();
     readData();
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (urlVideo != '') {
+      _controller.dispose();
+    }
+    super.dispose();
   }
 
   Future<void> readData() async {
@@ -70,6 +81,12 @@ class _DatasheetState extends State<Datasheet> {
     final String response = await rootBundle.loadString(location);
     final List data = await json.decode(response);
     urlVideo = data.firstWhere((element) => element['id'] == widget.id, orElse: () => {'videoURL': ''})['videoURL'];
+    if (urlVideo != '') {
+      _controller = VideoPlayerController.asset(urlVideo)
+        ..setLooping(true)
+        ..addListener(() {setState(() {});});
+      await _controller.initialize();
+    }
     swiper = await getSwiper();
     setState(() {detailDataLoaded = true;});
   }
@@ -165,7 +182,6 @@ class _DatasheetState extends State<Datasheet> {
         builder: (context) {
           if (descDataLoaded && detailDataLoaded) {
             return SingleChildScrollView(
-              physics: const ClampingScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
@@ -213,21 +229,46 @@ class _DatasheetState extends State<Datasheet> {
     );
   }
 
-  Future<Widget> getSwiper() async { //TODO verifier avec des images de tailles différentes
-    final List<String> imgList = [widget.img, widget.img, widget.img];
+  Future<Widget> getSwiper() async {
+    final List<String> imgList = [widget.img, widget.img, urlVideo];
+    final List<String> typeList = ['img', 'img', 'video'];
     List<Size> sizes = [];
-    for (String img in imgList) {
-      sizes.add(await _calculateImageDimension(img));
+    for (int i = 0; i < imgList.length; i++) {
+      if (typeList[i] == 'img') {
+        sizes.add(await _calculateImageDimension(imgList[i]));
+      } else {
+        if (_controller.value.size != Size.zero) {
+          sizes.add(_controller.value.size);
+        }
+      }
     }
     double maxRatio = sizes.map((e) => e.width / e.height).toList().reduce((value, element) => value > element? value: element);
     return SizedBox(
       height: (NavigationService.getContext().size?.width)! / maxRatio,
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ComponentImage(img: imgList[index],))),
-            child: Center(child: Image.asset(imgList[index])),
-          );
+          if (typeList[index] == 'img') {
+            return GestureDetector(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ComponentImage(img: imgList[index],))),
+              child: Center(child: Image.asset(imgList[index])),
+            );
+          } else {
+            return _controller.value.isInitialized
+              ? GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _controller.value.isPlaying
+                        ? _controller.pause()
+                        : _controller.play();
+                  });
+                },
+                child: AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                ),
+              )
+              : const CircularProgressIndicator();
+          }
         },
         itemCount: 3,
         pagination: const SwiperPagination(),
