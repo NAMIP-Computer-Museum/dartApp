@@ -111,7 +111,7 @@ class _ProportionalTimelineState extends State<ProportionalTimeline> {
               Container(
                 decoration: const BoxDecoration(
                   border: Border.symmetric(
-                      vertical: BorderSide(color: Colors.white, width: 2)),
+                    vertical: BorderSide(color: Colors.white, width: 2)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -126,7 +126,6 @@ class _ProportionalTimelineState extends State<ProportionalTimeline> {
                         });
                       },
                       items: [
-                        // TODO couleur à changer surement
                         DropdownMenuItem(
                           value: 'Frise Entière',
                           child: Text('friseEntiere'.tr,
@@ -327,17 +326,18 @@ class _ProportionalTimelineState extends State<ProportionalTimeline> {
                   ),
                   child: SingleChildScrollView(
                     child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Builder(builder: (context) {
-                          timelineTiles = [];
-                          mapComponents.forEach((key, value) {
-                            timelineTiles.add(timelineTile(
-                                value, key == beginYear, key == endYear, key));
-                          });
-                          return Column(
-                            children: timelineTiles,
-                          );
-                        })),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Builder(builder: (context) {
+                        timelineTiles = [];
+                        mapComponents.forEach((key, value) {
+                          timelineTiles.add(timelineTile(
+                              value, key == beginYear, key == endYear, key));
+                        });
+                        return Column(
+                          children: timelineTiles,
+                        );
+                      })
+                    ),
                   ),
                 ),
               ),

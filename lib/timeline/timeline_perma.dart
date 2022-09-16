@@ -173,7 +173,7 @@ class _TimelineState2 extends State<TimelinePerma> {
                           setComponentsSelected();
                         });
                       },
-                      items: [ // TODO couleur à changer surement
+                      items: [
                         DropdownMenuItem(
                           value: 'Frise Entière',
                           child: Text('friseEntiere'.tr, style: const TextStyle(color: Colors.black)),

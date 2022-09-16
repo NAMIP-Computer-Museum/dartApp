@@ -4,36 +4,33 @@ import 'package:nam_ip_museum/models/type_component.dart';
 import '../functions.dart';
 
 class Component {
-  late int id;
-  late String name;
-  late String descFr;
-  late String descEn;
-  late String descNL;
-  late String descMotFr;
-  late String descMotEn;
-  late String descMotNL;
-  late String logo;
-  late int date;
-  late TypeComponent type;
-  late PermaPeriod? period;
+  int id;
+  String name;
+  String descFr;
+  String descEn;
+  String descNL;
+  String descMotFr;
+  String descMotEn;
+  String descMotNL;
+  String logo;
+  int date;
+  TypeComponent type;
+  PermaPeriod? period;
 
-  Component({required this.id, required this.name, required this.descFr, required this.descEn, required this.descNL,
-    required this.logo, required this.date, required this.type});
-
-  Component.fromMap(Map map) {
-    id = map["ID"];
-    name = map["Nom"];
-    descFr = map["DescFR"];
-    descEn = map["DescEN"];
-    descNL = map["DescNL"] ?? "";
-    descMotFr = map["DescMotFR"] ?? "";
-    descMotEn = map["DescMotEN"] ?? "";
-    descMotNL = map["DescMotNL"] ?? "";
-    logo = map["logo"];
-    date = map["Annee"];
-    type = convertStringToTypeComponent(map["TYPE"]);
+  Component.fromMap(Map map) :
+    id = map["ID"],
+    name = map["Nom"],
+    descFr = map["DescFR"],
+    descEn = map["DescEN"],
+    descNL = map["DescNL"] ?? "",
+    descMotFr = map["DescMotFR"] ?? "",
+    descMotEn = map["DescMotEN"] ?? "",
+    descMotNL = map["DescMotNL"] ?? "",
+    logo = map["logo"],
+    date = map["Annee"],
+    type = convertStringToTypeComponent(map["TYPE"]),
     period = convertStringToPermaPeriod(map["PERIODE"]);
-  }
+
 
   @override
   String toString() {

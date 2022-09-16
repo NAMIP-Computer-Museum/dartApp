@@ -23,4 +23,16 @@ class Widgets {
       ],
     );
   }
+
+  static Container containerWithBinaryBackground({required child}) {
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/binaryBackground.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: child,
+    );
+  }
 }

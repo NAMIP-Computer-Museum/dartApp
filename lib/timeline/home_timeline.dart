@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/quiz/quiz.dart';
+import 'package:nam_ip_museum/timeline/all_timeline_perma.dart';
 import 'package:nam_ip_museum/timeline/proportional_timeline.dart';
 import 'package:nam_ip_museum/timeline/timeline_micro.dart';
 import 'package:nam_ip_museum/timeline/timeline_perma.dart';
@@ -74,7 +75,31 @@ class HomeTimeline extends StatelessWidget {
                             ),
                           ),
                         ),
+                      ),
+
+
+                      //TODO à enlever
+                      const SizedBox(height: 15),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: GestureDetector(
+                          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AllTimelinePerma())),
+                          child: Container(
+                            width: width,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Center(child: Text("Test", style: TextStyle(fontSize: 20, color: Colors.white))),
+                            ),
+                          ),
+                        ),
                       )
+                      //TODO à enlever
+
+
                     ],
                   ),
                 ),
