@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
+
+import 'package:enough_convert/enough_convert.dart';
 
 import 'models/person.dart';
 
@@ -11,7 +14,7 @@ class ApiData {
   static Future<void> loadAllPersons() async {
     Uri url = Uri.https('sig.cetic.be', '/trajectware-0.6/v0/person/find', {"name": "all"});
     http.Response response = await http.get(url);
-    List data = jsonDecode(response.body);
+    List data = jsonDecode(utf8.decode(response.bodyBytes));
     List<Person> persons = [];
     for (final person in data) {
       persons.add(Person.fromMap(person));
