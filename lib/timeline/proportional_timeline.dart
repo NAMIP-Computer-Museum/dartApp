@@ -74,6 +74,9 @@ class _ProportionalTimelineState extends State<ProportionalTimeline> {
     }
 
     mapComponents = {};
+    if (componentsSelected.isEmpty) {
+      return;
+    }
     beginYear = componentsSelected.first.date;
     endYear = componentsSelected.last.date;
     for (int i = beginYear; i <= endYear; i++) {

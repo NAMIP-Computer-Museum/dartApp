@@ -77,6 +77,8 @@ class _AllTimelinePermaState extends State<AllTimelinePerma> {
   }
 
   Widget timelineTile(List<Event> components, bool isFirst, bool isLast, String date) {
+    int? previousDate = this.previousDate;
+    this.previousDate = int.parse(date);
     return SizedBox(
       height: components.isEmpty ? 50 : 140,
       child: TimelineTile(
