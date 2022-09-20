@@ -6,7 +6,7 @@ import '../home_pages/home_page.dart';
 
 class FinalScreenQuiz extends StatelessWidget {
   final int score;
-  final String? difficulty;
+  final String difficulty;
 
   const FinalScreenQuiz({Key? key, required this.score, required this.difficulty}) : super(key: key);
 

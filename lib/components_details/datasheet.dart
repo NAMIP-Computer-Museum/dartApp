@@ -230,8 +230,8 @@ class _DatasheetState extends State<Datasheet> {
   }
 
   Future<Widget> getSwiper() async {
-    final List<String> imgList = [widget.img, widget.img, urlVideo];
-    final List<String> typeList = ['img', 'img', 'video'];
+    final List<String> imgList = [widget.img, widget.img, urlVideo != '' ? urlVideo : widget.img];
+    final List<String> typeList = ['img', 'img', urlVideo != '' ? 'video' : 'img'];
     List<Size> sizes = [];
     for (int i = 0; i < imgList.length; i++) {
       if (typeList[i] == 'img') {

@@ -9,9 +9,9 @@ class CompareTimeline extends StatelessWidget {
 
   final List<Component> firstComponents;
   final List<Component> secondComponents;
-  Map<int, List<Component>> data1 = {};
-  Map<int, List<Component>> data2 = {};
-  List<int> dates = [];
+  final Map<int, List<Component>> data1 = {};
+  final Map<int, List<Component>> data2 = {};
+  final List<int> dates = [];
 
   CompareTimeline({Key? key, required this.firstComponents, required this.secondComponents}) : super(key: key);
 
@@ -57,6 +57,7 @@ class CompareTimeline extends StatelessWidget {
         }
       }
     }
+    dates.sort();
   }
 
   Widget timelineTile(List<Component> components1, List<Component> components2, bool isFirst, bool isLast, int date) {
@@ -80,6 +81,7 @@ class CompareTimeline extends StatelessWidget {
           color: getIndicatorColor(),
         ),
         indicatorStyle: IndicatorStyle(
+          //indicatorXY: 0,
           width: 40,
           height: 20,
           indicator: Container(
@@ -99,15 +101,15 @@ class CompareTimeline extends StatelessWidget {
           ),
         ),
         startChild: Column(
-          children: components1.map((e) => componentTile(e)).toList(),
+          children: components1.map((e) => componentTile(e, components1.indexOf(e) == components1.length - 1, components1.indexOf(e) == 0)).toList(),
         ),
         endChild: Column(
-          children: components2.map((e) => componentTile(e)).toList()
+          children: components2.map((e) => componentTile(e, components2.indexOf(e) == components2.length - 1, components2.indexOf(e) == 0)).toList()
         ),
     );
   }
 
-  Widget componentTile(Component component) {
+  Widget componentTile(Component component, bool isLast, bool isFirst) {
     return GestureDetector(
       onTap: () {
         Navigator.of(NavigationService.getContext()).push(MaterialPageRoute(builder: (context) => Datasheet.fromComponent(component: component)));
@@ -116,6 +118,12 @@ class CompareTimeline extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
+            if (isFirst /*&& component.date != dates[0]*/) Column(
+              children: [
+                Divider(thickness: 3, color: Colors.grey.shade700),
+                const SizedBox(height: 10),
+              ],
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -124,7 +132,7 @@ class CompareTimeline extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
-            const Divider(thickness: 2, color: Colors.grey),
+            if (!isLast) const Divider(thickness: 2, color: Colors.grey, height: 12, indent: 25, endIndent: 25,),
           ],
         ),
       )

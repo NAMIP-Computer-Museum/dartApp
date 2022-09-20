@@ -10,7 +10,7 @@ import '../models/quiz_infos.dart';
 import '../widgets.dart';
 
 class Quiz extends StatefulWidget {
-  final String? difficulty;
+  final String difficulty;
 
   const Quiz({Key? key, required this.difficulty}) : super(key: key);
 

@@ -184,36 +184,36 @@ class _CompareTimelinePageState extends State<CompareTimelinePage> {
   void setComponentsSelected(int nb) {
     if (nb == 1) {
       componentsSelected1 = List<Component>.from(components);
-      if (isCheckedMicro1) {
+      if (!isCheckedMicro1) {
         componentsSelected1 = componentsSelected1.where((element) => element.type != TypeComponent.micro).toList();
       }
-      if (isCheckedOS1) {
+      if (!isCheckedOS1) {
         componentsSelected1 = componentsSelected1.where((element) => element.type != TypeComponent.os).toList();
       }
-      if (isCheckedCPU1) {
+      if (!isCheckedCPU1) {
         componentsSelected1 = componentsSelected1.where((element) => element.type != TypeComponent.cpu).toList();
       }
-      if (isCheckedIHM1) {
+      if (!isCheckedIHM1) {
         componentsSelected1 = componentsSelected1.where((element) => element.type != TypeComponent.ihm).toList();
       }
-      if (isCheckedApp1) {
+      if (!isCheckedApp1) {
         componentsSelected1 = componentsSelected1.where((element) => element.type != TypeComponent.app).toList();
       }
     } else {
       componentsSelected2 = List<Component>.from(components);
-      if (isCheckedMicro2) {
+      if (!isCheckedMicro2) {
         componentsSelected2 = componentsSelected2.where((element) => element.type != TypeComponent.micro).toList();
       }
-      if (isCheckedOS2) {
+      if (!isCheckedOS2) {
         componentsSelected2 = componentsSelected2.where((element) => element.type != TypeComponent.os).toList();
       }
-      if (isCheckedCPU2) {
+      if (!isCheckedCPU2) {
         componentsSelected2 = componentsSelected2.where((element) => element.type != TypeComponent.cpu).toList();
       }
-      if (isCheckedIHM2) {
+      if (!isCheckedIHM2) {
         componentsSelected2 = componentsSelected2.where((element) => element.type != TypeComponent.ihm).toList();
       }
-      if (isCheckedApp2) {
+      if (!isCheckedApp2) {
         componentsSelected2 = componentsSelected2.where((element) => element.type != TypeComponent.app).toList();
       }
     }
