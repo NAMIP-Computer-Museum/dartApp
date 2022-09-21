@@ -97,6 +97,28 @@ class HomeTimeline extends StatelessWidget {
                             ),
                           ),
                         ),
+                      ),
+                      //TODO à enlever
+
+
+                      //TODO à enlever
+                      const SizedBox(height: 15),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: GestureDetector(
+                          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProportionalTimeline())),
+                          child: Container(
+                            width: width,
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Center(child: Text("Test2", style: TextStyle(fontSize: 20, color: Colors.white))),
+                            ),
+                          ),
+                        ),
                       )
                       //TODO à enlever
 

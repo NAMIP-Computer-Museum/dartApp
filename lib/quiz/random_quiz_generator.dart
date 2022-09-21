@@ -13,26 +13,12 @@ class RandomQuizGenerator {
   final int numberOfAnswers;
 
   bool _isLoaded = false;
-  final List<String> questionsTypesFR = [
-    "Quand est né {person}",
-    "Quand est décédé {person}",
-    "Quelle est le prénom de {lastname}",
-    "D'où vient {person}"
+  final List<String> questionsTypes = [
+    "question1".tr,
+    "question2".tr,
+    "question3".tr,
+    "question4".tr,
   ];
-  final List<String> questionsTypesEN = [
-    "Quand est né {person}",
-    "Quand est décédé {person}",
-    "Quelle est le prénom de {lastname}",
-    "D'où vient {person}"
-  ];
-  final List<String> questionsTypesNL = [
-    "Quand est né {person}",
-    "Quand est décédé {person}",
-    "Quelle est le prénom de {lastname}",
-    "D'où vient {person}"
-  ];
-  
-  late final List<String> questionsTypes = Get.locale?.languageCode == 'fr' ? questionsTypesFR : Get.locale?.languageCode == 'nl' ? questionsTypesNL : questionsTypesEN;
 
   RandomQuizGenerator({required this.numberOfQuestions, required this.difficulty, this.numberOfAnswers = 4});
 
@@ -47,7 +33,11 @@ class RandomQuizGenerator {
       final int randomPerson = Random().nextInt(data.length);
       final int randomQuestion = Random().nextInt(questionsTypes.length);
       final Person person = data[randomPerson];
-      quiz.add(generateQuestion(person, randomQuestion));
+      if (randomQuestion == 1 && person.deathdate == "") {
+        i--;
+      } else {
+        quiz.add(generateQuestion(person, randomQuestion));
+      }
     }
     return quiz;
   }
@@ -61,7 +51,7 @@ class RandomQuizGenerator {
         answers = generateAnswersDate(int.parse(answer), difficulty);
         break;
       case 1:
-        answer = person.birthdate.substring(person.birthdate.length - 4);
+        answer = person.deathdate.substring(person.deathdate.length - 4);
         answers = generateAnswersDate(int.parse(answer), difficulty);
         break;
       case 2:

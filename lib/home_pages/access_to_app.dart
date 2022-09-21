@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:location/location.dart';
+import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
 import 'package:nam_ip_museum/utils/navigation_service.dart';
-import 'package:ntp/ntp.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_page.dart';
 
@@ -27,66 +25,16 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
   String errorMsg = "";
   String mdpError = "";
 
-  late bool? isAuthorized;
-  late final SharedPreferences prefs;
-  bool isLoading = false;
-
   final TextEditingController _controller = TextEditingController();
 
-  late Duration duration;
-  
   @override
   void initState() {
-    initMyState();
+    getLocation();
     super.initState();
   }
 
-  Future<void> initMyState() async {
-    prefs = await SharedPreferences.getInstance();
-    await initLimitedAccess();
-    await getAuthorized();
-    await getLocation();
-  }
-
-  Future<void> getAuthorized() async {
-
-    isAuthorized = prefs.getBool('isAuthorized');
-    isAuthorized ??= false;
-
-    String? lang = prefs.getString('lang');
-    lang ??= 'fr';
-    Get.updateLocale(Locale(lang, ''));
-    setState(() {
-      isLoading = true;
-    });
-  }
-
-  Future<void> initLimitedAccess() async {
-    duration = const Duration(milliseconds: 20 * 1000);
-    DateTime now = DateTime.now();
-    /*try {
-      now = await NTP.now();
-    } catch (e) {
-      now = DateTime.now();
-    }*/
-    int? year = prefs.getInt("year");
-    year ??= now.year;
-    int? month = prefs.getInt("month");
-    month ??= now.month;
-    int? day = prefs.getInt("day");
-    day ??= now.day;
-    if (prefs.getInt("duration") == null || year != now.year || month != now.month || day != now.day) {
-      await prefs.setInt("duration", duration.inMilliseconds);
-      await prefs.setInt("year", now.year);
-      await prefs.setInt("month", now.month);
-      await prefs.setInt("day", now.day);
-    } else {
-      duration = Duration(milliseconds: prefs.getInt("duration")!);
-    }
-  }
-
   Future<void> getLocation() async {
-    if (isAuthorized!) {
+    if (MySharedPreferences.isAuthorized) {
       return;
     }
     _serviceEnabled = await location.serviceEnabled();
@@ -118,10 +66,10 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading && isAuthorized!) {
+    if (MySharedPreferences.isAuthorized) {
       return const HomePage();
     }
-    if (errorMsg == "" || !isLoading) {
+    if (errorMsg == "") {
       return const Scaffold(
         body: Center(
           child: CircularProgressIndicator(),
@@ -129,11 +77,20 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
       );
     } else if (errorMsg == "not error") {
       if (goodLocation()) {
-        setState(() {
-          isAuthorized = true;
-          prefs.setBool('isAuthorized', true);
-        });
-        return const HomePage();
+        return FutureBuilder(
+          future: MySharedPreferences.authorized(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return const HomePage();
+            } else {
+              return const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+          },
+        );
       } else {
         errorMsg = "Vous n'êtes pas localisé au musée de NAM-IP, merci de vous y rendre pour accéder à l'application ou de rentrer le mot de passe disponible au musée si cela provient d'une erreur";
         return _mdpWidget();
@@ -163,9 +120,8 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        Get.updateLocale(const Locale('fr', ''));
-                        prefs.setString('lang', 'fr');
+                      onTap: () async {
+                        await MySharedPreferences.updateLang('fr');
                       },
                       child: Container(
                         width: 0.2 * width,
@@ -180,9 +136,8 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
                     ),
                     const SizedBox(width: 10),
                     GestureDetector(
-                      onTap: () {
-                        Get.updateLocale(const Locale('nl', ''));
-                        prefs.setString('lang', 'nl');
+                      onTap: () async {
+                        await MySharedPreferences.updateLang('nl');
                       },
                       child: Container(
                         width: 0.2 * width,
@@ -197,9 +152,8 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
                     ),
                     const SizedBox(width: 10),
                     GestureDetector(
-                      onTap: () {
-                        Get.updateLocale(const Locale('en', ''));
-                        prefs.setString('lang', 'en');
+                      onTap: () async {
+                        await MySharedPreferences.updateLang('en');
                       },
                       child: Container(
                         width: 0.2 * width,
@@ -230,18 +184,15 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_controller.text == "") {
                       setState(() {
                         mdpError = "Merci de rentrer le mot de passe disponible au musée";
                       });
                     } else if (_controller.text == "a") {
-                      setState(() {
-                        isAuthorized = true;
-                        prefs.setBool('isAuthorized', true);
-                      });
-                      Navigator.of(context).pop();
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomePage()));
+                      await MySharedPreferences.authorized();
+                      setState(() {});
+                      Navigator.of(NavigationService.getContext()).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
                     } else {
                       setState(() {
                         mdpError = "Le mot de passe est incorrect";
@@ -283,7 +234,7 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
   late Timer timer;
 
   void startTimer() {
-    if (duration.inMilliseconds > 0) {
+    if (MySharedPreferences.premiumDuration.inMilliseconds > 0) {
       watch = Stopwatch();
       watch.start();
       timer = updateDuration();
@@ -297,15 +248,15 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
   }
 
   Timer updateDuration() =>
-      Timer.periodic(const Duration(milliseconds: 100), (Timer timer) {
-        if(watch.elapsedMilliseconds >= duration.inMilliseconds) {
-          handleTimeout();
+      Timer.periodic(const Duration(milliseconds: 100), (Timer timer) async {
+        if(watch.elapsedMilliseconds >= MySharedPreferences.premiumDuration.inMilliseconds) {
+          await handleTimeout();
           timer.cancel();
         }
       });
 
-  void handleTimeout() {
-    setDuration();
+  Future<void> handleTimeout() async {
+    await MySharedPreferences.setDuration(MySharedPreferences.premiumDuration.inMilliseconds - watch.elapsedMilliseconds);
     Navigator.of(NavigationService.getContext()).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
     const AccessToApp()), (Route<dynamic> route) => false);
   }
@@ -313,13 +264,13 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
   @override
   void dispose() {
     super.dispose();
-    if (isAuthorized!) {
+    if (MySharedPreferences.isAuthorized) {
       WidgetsBinding.instance.removeObserver(this);
     }
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
     super.didChangeAppLifecycleState(state);
 
     if (state == AppLifecycleState.inactive ||
@@ -328,14 +279,10 @@ class _AccessToAppState extends State<AccessToApp> with WidgetsBindingObserver{
     final isBackground = state == AppLifecycleState.paused;
 
     if (isBackground) {
-      setDuration();
+      await MySharedPreferences.setDuration(MySharedPreferences.premiumDuration.inMilliseconds - watch.elapsedMilliseconds);
       watch.stop();
     } else {
       watch.start();
     }
-  }
-
-  Future<void> setDuration() async {
-    await prefs.setInt("duration", duration.inMilliseconds - watch.elapsedMilliseconds);
   }
 }
