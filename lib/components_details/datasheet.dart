@@ -7,15 +7,15 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:nam_ip_museum/db_helper.dart';
-import 'package:nam_ip_museum/functions.dart';
+import 'package:nam_ip_museum/data/db_helper.dart';
+import 'package:nam_ip_museum/utils/functions.dart';
 import 'package:nam_ip_museum/models/component.dart';
 import 'package:nam_ip_museum/models/type_component.dart';
 import 'package:nam_ip_museum/components_details/component_image.dart';
 import 'package:nam_ip_museum/components_details/legendeDatasheet.dart';
-import 'package:nam_ip_museum/navigation_service.dart';
+import 'package:nam_ip_museum/utils/navigation_service.dart';
 import 'package:nam_ip_museum/videos/video.dart';
-import 'package:nam_ip_museum/widgets.dart';
+import 'package:nam_ip_museum/utils/widgets.dart';
 import 'package:video_player/video_player.dart';
 
 class Datasheet extends StatefulWidget {

@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../components_details/datasheet.dart';
-import '../db_helper.dart';
+import '../data/db_helper.dart';
 import '../models/component.dart';
 import '../models/type_component.dart';
-import '../widgets.dart';
+import '../utils/widgets.dart';
 
 class ProportionalTimeline extends StatefulWidget {
   const ProportionalTimeline(

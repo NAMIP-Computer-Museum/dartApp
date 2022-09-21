@@ -4,7 +4,7 @@ import 'package:enough_convert/enough_convert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nam_ip_museum/models/event.dart';
-import 'package:nam_ip_museum/widgets.dart';
+import 'package:nam_ip_museum/utils/widgets.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class AllTimelinePerma extends StatefulWidget {

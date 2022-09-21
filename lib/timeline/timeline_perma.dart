@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nam_ip_museum/db_helper.dart';
+import 'package:nam_ip_museum/data/db_helper.dart';
 import 'package:nam_ip_museum/models/perma_period.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../models/component.dart';
 import '../models/type_component.dart';
 import '../components_details/datasheet.dart';
-import '../widgets.dart';
+import '../utils/widgets.dart';
 
 class TimelinePerma extends StatefulWidget {
   const TimelinePerma({Key? key}) : super(key: key);

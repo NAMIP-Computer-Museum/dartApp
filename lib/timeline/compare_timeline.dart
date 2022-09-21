@@ -3,7 +3,7 @@ import 'package:timeline_tile/timeline_tile.dart';
 
 import '../components_details/datasheet.dart';
 import '../models/component.dart';
-import '../navigation_service.dart';
+import '../utils/navigation_service.dart';
 
 class CompareTimeline extends StatelessWidget {
 

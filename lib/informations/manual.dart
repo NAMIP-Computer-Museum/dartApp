@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/home_pages/home_page.dart';
-import 'package:nam_ip_museum/widgets.dart';
+import 'package:nam_ip_museum/utils/widgets.dart';
 
 class Manual extends StatelessWidget {
   const Manual({Key? key}) : super(key: key);

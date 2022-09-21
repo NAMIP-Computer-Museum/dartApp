@@ -7,7 +7,7 @@ import 'package:nam_ip_museum/timeline/proportional_timeline.dart';
 import 'package:nam_ip_museum/timeline/timeline_micro.dart';
 import 'package:nam_ip_museum/timeline/timeline_perma.dart';
 
-import '../widgets.dart';
+import '../utils/widgets.dart';
 
 class HomeTimeline extends StatelessWidget {
   const HomeTimeline({Key? key}) : super(key: key);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nam_ip_museum/timeline/compare_timeline.dart';
-import 'package:nam_ip_museum/widgets.dart';
+import 'package:nam_ip_museum/utils/widgets.dart';
 
-import '../db_helper.dart';
+import '../data/db_helper.dart';
 import '../models/component.dart';
 import '../models/type_component.dart';
 

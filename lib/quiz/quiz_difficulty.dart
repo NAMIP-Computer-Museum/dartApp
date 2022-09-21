@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:nam_ip_museum/quiz/quiz.dart';
 import 'package:nam_ip_museum/quiz/quiz_with_generator_questions.dart';
 
-import '../widgets.dart';
+import '../utils/widgets.dart';
 
 class QuizDifficulty extends StatelessWidget {
   const QuizDifficulty({Key? key}) : super(key: key);

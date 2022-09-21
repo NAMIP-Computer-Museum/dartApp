@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nam_ip_museum/components_details/datasheet.dart';
 
-import '../db_helper.dart';
+import '../data/db_helper.dart';
 import '../models/component.dart';
-import '../widgets.dart';
+import '../utils/widgets.dart';
 
 class Rechercher extends StatefulWidget {
   const Rechercher({Key? key}) : super(key: key);

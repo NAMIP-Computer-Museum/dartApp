@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'home_pages/home_page.dart';
+import '../home_pages/home_page.dart';
 
 class Widgets {
 

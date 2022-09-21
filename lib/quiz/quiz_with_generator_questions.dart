@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:nam_ip_museum/quiz/random_quiz_generator.dart';
 
 import '../models/quiz_infos.dart';
-import '../widgets.dart';
+import '../utils/widgets.dart';
 import 'final_screen_quiz.dart';
 
 class QuizWithGeneratorQuestions extends StatefulWidget {

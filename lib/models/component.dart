@@ -1,7 +1,7 @@
 import 'package:nam_ip_museum/models/perma_period.dart';
 import 'package:nam_ip_museum/models/type_component.dart';
 
-import '../functions.dart';
+import '../utils/functions.dart';
 
 class Component {
   int id;

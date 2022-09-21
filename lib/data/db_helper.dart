@@ -6,7 +6,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:io' as io;
 
-import 'models/component.dart';
+import '../models/component.dart';
 
 class DBHelper {
 

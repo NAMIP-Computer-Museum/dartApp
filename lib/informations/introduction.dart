@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nam_ip_museum/widgets.dart';
+import 'package:nam_ip_museum/utils/widgets.dart';
 import '../informations/manual.dart';
 
 class Introduction extends StatelessWidget {

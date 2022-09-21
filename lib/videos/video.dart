@@ -5,7 +5,7 @@ import 'package:nam_ip_museum/videos/overlay_video.dart';
 import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../widgets.dart';
+import '../utils/widgets.dart';
 import 'advanced_overlay_widget.dart';
 
 class Video extends StatefulWidget {

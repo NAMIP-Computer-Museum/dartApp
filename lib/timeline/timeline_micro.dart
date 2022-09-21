@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nam_ip_museum/db_helper.dart';
-import 'package:nam_ip_museum/functions.dart';
-import 'package:nam_ip_museum/navigation_service.dart';
+import 'package:nam_ip_museum/data/db_helper.dart';
+import 'package:nam_ip_museum/utils/functions.dart';
+import 'package:nam_ip_museum/utils/navigation_service.dart';
 import 'package:nam_ip_museum/timeline/proportional_timeline.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../models/component.dart';
 import '../models/type_component.dart';
 import '../components_details/datasheet.dart';
-import '../widgets.dart';
+import '../utils/widgets.dart';
 
 class TimelineMicro extends StatefulWidget {
   const TimelineMicro({Key? key}) : super(key: key);

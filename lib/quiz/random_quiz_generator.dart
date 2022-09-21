@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
-import 'package:nam_ip_museum/api_data.dart';
+import 'package:nam_ip_museum/data/api_data.dart';
 import 'package:nam_ip_museum/models/person.dart';
 
-import '../codes.dart';
+import '../data/codes.dart';
 import '../models/quiz_infos.dart';
 
 class RandomQuizGenerator {
