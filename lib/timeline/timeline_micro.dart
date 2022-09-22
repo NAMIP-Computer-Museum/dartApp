@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:nam_ip_museum/data/db_helper.dart';
 import 'package:nam_ip_museum/utils/functions.dart';
 import 'package:nam_ip_museum/utils/navigation_service.dart';
-import 'package:nam_ip_museum/timeline/proportional_timeline.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../models/component.dart';

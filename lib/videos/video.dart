@@ -6,7 +6,6 @@ import 'package:video_player/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../utils/widgets.dart';
-import 'advanced_overlay_widget.dart';
 
 class Video extends StatefulWidget {
 
@@ -50,9 +49,6 @@ class _VideoState extends State<Video> {
   Widget build(BuildContext context) {
     return OrientationBuilder(
       builder: (context, orientation) {
-        FlickVideoPlayer videoPlayer = FlickVideoPlayer(
-          flickManager: _flickManager,
-        );
         PreferredSizeWidget appBar = const PreferredSize(preferredSize: Size.fromHeight(0), child: SizedBox(height: 0,));
         if (orientation == Orientation.portrait) {
           appBar = Widgets.appBar(context);

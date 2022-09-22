@@ -82,9 +82,9 @@ class _ProportionalTimelineState extends State<ProportionalTimeline> {
     for (int i = beginYear; i <= endYear; i++) {
       mapComponents[i] = [];
     }
-    componentsSelected.forEach((component) {
+    for (Component component in componentsSelected) {
       mapComponents[component.date]?.add(component);
-    });
+    }
   }
 
   Future<void> readData() async {
@@ -96,9 +96,9 @@ class _ProportionalTimelineState extends State<ProportionalTimeline> {
       for (int i = beginYear; i <= endYear; i++) {
         mapComponents[i] = [];
       }
-      componentsSelected.forEach((component) {
+      for (Component component in componentsSelected) {
         mapComponents[component.date]?.add(component);
-      });
+      }
     });
   }
 

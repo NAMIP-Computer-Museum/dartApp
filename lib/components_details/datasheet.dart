@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui' as ui;
 import 'dart:convert';
 
 import 'package:card_swiper/card_swiper.dart';
@@ -12,7 +11,7 @@ import 'package:nam_ip_museum/utils/functions.dart';
 import 'package:nam_ip_museum/models/component.dart';
 import 'package:nam_ip_museum/models/type_component.dart';
 import 'package:nam_ip_museum/components_details/component_image.dart';
-import 'package:nam_ip_museum/components_details/legendeDatasheet.dart';
+import 'package:nam_ip_museum/components_details/legende_datasheet.dart';
 import 'package:nam_ip_museum/utils/navigation_service.dart';
 import 'package:nam_ip_museum/videos/video.dart';
 import 'package:nam_ip_museum/utils/widgets.dart';

@@ -306,18 +306,6 @@ class _TimelineState2 extends State<TimelinePerma> {
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Column(
                         children: componentsSelected.map((e) {
-                          String desc;
-                          switch (Get.locale?.languageCode) {
-                            case 'fr':
-                              desc = e.descFr;
-                              break;
-                            case 'nl':
-                              desc = e.descNL;
-                              break;
-                            default:
-                              desc = e.descEn;
-                              break;
-                          }
                           return timelineTile(e, componentsSelected.indexOf(e) == 0, componentsSelected.indexOf(e) == componentsSelected.length - 1);
                         }).toList(),
                       ),

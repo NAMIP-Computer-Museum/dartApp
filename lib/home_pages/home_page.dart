@@ -5,7 +5,6 @@ import 'package:nam_ip_museum/quiz/quiz_difficulty.dart';
 import 'package:nam_ip_museum/timeline/home_timeline.dart';
 import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
 import 'package:nam_ip_museum/videos/home_videos.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../informations/introduction.dart';
 import '../rechercher/rechercher.dart';

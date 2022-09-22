@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nam_ip_museum/quiz/quiz.dart';
-import 'package:nam_ip_museum/timeline/all_timeline_perma.dart';
 import 'package:nam_ip_museum/timeline/compare_timeline_page.dart';
 import 'package:nam_ip_museum/timeline/proportional_timeline.dart';
 import 'package:nam_ip_museum/timeline/timeline_micro.dart';
