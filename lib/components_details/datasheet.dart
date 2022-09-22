@@ -12,27 +12,29 @@ import 'package:nam_ip_museum/models/component.dart';
 import 'package:nam_ip_museum/models/type_component.dart';
 import 'package:nam_ip_museum/components_details/component_image.dart';
 import 'package:nam_ip_museum/components_details/legende_datasheet.dart';
+import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
 import 'package:nam_ip_museum/utils/navigation_service.dart';
 import 'package:nam_ip_museum/videos/video.dart';
 import 'package:nam_ip_museum/utils/widgets.dart';
 import 'package:video_player/video_player.dart';
 
 class Datasheet extends StatefulWidget {
-  late final String img;
-  late final String title;
-  late final String description;
-  late final int id;
-  late final TypeComponent type;
-  late final int annee;
+  final String img;
+  final String title;
+  final String description;
+  final int id;
+  final TypeComponent type;
+  final int date;
 
-  Datasheet.fromComponent({Key? key, required Component component}) : super(key: key) {
-    img = component.logo;
-    title = component.name;
-    description = Functions.getStringLang(fr: component.descMotFr, en: component.descMotEn, nl: component.descMotNL);
-    id = component.id;
-    type = component.type;
-    annee = component.date;
-  }
+  Datasheet.fromComponent({Key? key, required Component component}) :
+    img = component.logo,
+    title = component.name,
+    description = Functions.getStringLang(fr: component.descMotFr, en: component.descMotEn, nl: component.descMotNL),
+    id = component.id,
+    type = component.type,
+    date = component.date,
+    super(key: key);
+
 
   @override
   State<Datasheet> createState() => _DatasheetState();
@@ -43,15 +45,14 @@ class _DatasheetState extends State<Datasheet> {
   List<TextSpan> descTab = List.empty(growable: true);
   Map<String, Object?> componentData = {};
   String urlVideo = '';
-  bool detailDataLoaded = false;
-  bool descDataLoaded = false;
+  bool isLoaded = false;
+  late bool isFavorite = MySharedPreferences.favorites.contains(widget.id);
 
   late VideoPlayerController _controller;
 
   @override
   void initState() {
-    setDesc();
-    readData();
+    init();
 
     super.initState();
   }
@@ -64,10 +65,18 @@ class _DatasheetState extends State<Datasheet> {
     super.dispose();
   }
 
+  Future<void> init() async {
+    await setDesc();
+    await readData();
+    setState(() {
+      isLoaded = true;
+    });
+  }
+
   Future<void> readData() async {
     if (['micro', 'os', 'cpu', 'ihm', 'app'].contains(widget.type.toString().substring(14))) {
       DBHelper dbHelper = DBHelper();
-      componentData = (await dbHelper.getComponentData(widget.id, typeComponentToString(widget.type), widget.annee))!;
+      componentData = (await dbHelper.getComponentData(widget.id, typeComponentToString(widget.type), widget.date))!;
     } else {
       componentData = {};
     }
@@ -87,7 +96,6 @@ class _DatasheetState extends State<Datasheet> {
       await _controller.initialize();
     }
     swiper = await getSwiper();
-    setState(() {detailDataLoaded = true;});
   }
 
   late Widget swiper;
@@ -109,7 +117,6 @@ class _DatasheetState extends State<Datasheet> {
         );
       }
     }
-    setState(() {descDataLoaded = true;});
   }
 
   TextSpan clickableComponent(Component component) {
@@ -179,7 +186,7 @@ class _DatasheetState extends State<Datasheet> {
       appBar: Widgets.appBar(context),
       body: Builder(
         builder: (context) {
-          if (descDataLoaded && detailDataLoaded) {
+          if (isLoaded) {
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -191,7 +198,26 @@ class _DatasheetState extends State<Datasheet> {
                     //   child: Image.asset(widget.img)
                     // ),
                     const SizedBox(height: 20),
-                    Text(widget.title, style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(widget.title, style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
+                        const SizedBox(width: 20),
+                        GestureDetector(
+                          onTap: () async {
+                            setState(() {
+                              isFavorite = !isFavorite;
+                            });
+                            if (isFavorite) {
+                              await MySharedPreferences.addFavorite(widget.id);
+                            } else {
+                              await MySharedPreferences.removeFavorite(widget.id);
+                            }
+                          },
+                          child: Icon(isFavorite ? Icons.favorite : Icons.favorite_border, color: Colors.pinkAccent, size: 30),
+                        ),
+                      ],
+                    ),
                     const Divider(color: Colors.white, thickness: 2),
                     DatasheetLegend(type: widget.type, data: componentData),
                     componentData.isEmpty ? const SizedBox(height: 0, width: 0) : const Divider(color: Colors.white, thickness: 2),

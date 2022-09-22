@@ -12,6 +12,7 @@ class MySharedPreferences {
   static late int _month;
   static late int _day;
   static late Duration _premiumDuration;
+  static late List<int> _favorites;
 
   static init() async {
     prefs = await SharedPreferences.getInstance();
@@ -19,6 +20,12 @@ class MySharedPreferences {
     _lang = prefs.getString('lang') ?? 'fr';
     Get.updateLocale(Locale(_lang, ''));
     _initLimitedAccess();
+    if (prefs.getStringList("favorites") == null) {
+      await prefs.setStringList("favorites", []);
+      _favorites = [];
+    } else {
+      _favorites = prefs.getStringList("favorites")!.map((e) => int.parse(e)).toList();
+    }
   }
 
   static _initLimitedAccess() async {
@@ -51,6 +58,7 @@ class MySharedPreferences {
   static int get month => _month;
   static int get day => _day;
   static Duration get premiumDuration => _premiumDuration;
+  static List<int> get favorites => _favorites;
 
   static updateLang(String value) async {
     _lang = value;
@@ -79,5 +87,17 @@ class MySharedPreferences {
 
   static setDuration(int value) async {
     await prefs.setInt("duration", value);
+  }
+
+  static addFavorite(int id) async {
+    _favorites.add(id);
+    await prefs.setStringList("favorites", _favorites.map((e) => e.toString()).toList());
+  }
+
+  static removeFavorite(int id) async {
+    bool canRemove = _favorites.remove(id);
+    if (canRemove) {
+      await prefs.setStringList("favorites", _favorites.map((e) => e.toString()).toList());
+    }
   }
 }

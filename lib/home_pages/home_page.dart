@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nam_ip_museum/favorites/favorites_page.dart';
 import 'package:nam_ip_museum/informations/about_us.dart';
 import 'package:nam_ip_museum/quiz/quiz_difficulty.dart';
 import 'package:nam_ip_museum/timeline/home_timeline.dart';
@@ -187,6 +188,23 @@ class _HomePageState extends State<HomePage> {
                       backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                     ),
                     child: Text('a_propos'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: 0.5 * width,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FavoritePage()));
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    ),
+                    child: Text('favoris'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   ),
                 )
               ],

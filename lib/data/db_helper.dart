@@ -69,6 +69,14 @@ class DBHelper {
     return components.first;
   }
 
+  Future<List<Component>> getComponentByIDList(List<int> ids) async {
+    List<Component> microComponents = await getComponentsMicro();
+    List<Component> permaComponents = await getComponentsPerma();
+    List<Component> allComponents = microComponents + permaComponents;
+
+    return allComponents.where((element) => ids.contains(element.id)).toList();
+  }
+
   Future<List<Component>> getCopyListWithLogo(List<Map<String, Object?>> maps, bool isPerma) async {
     final String s = isPerma ? '0' : '';
     List<Component> components = List.empty(growable: true);
