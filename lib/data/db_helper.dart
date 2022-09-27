@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:enough_convert/enough_convert.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -129,5 +131,44 @@ class DBHelper {
     }
     _db2 = await openDatabase(dbPathEnglish);
     return _db2;
+  }
+
+  static Future<void> transformJsonInDbFile() async {
+    Database db = await openDatabase('assets/perma_data.db');
+    print("db opened");
+    await db.execute("DROP TABLE IF EXISTS GENERAL");
+    print("table dropped");
+    await db.execute("CREATE TABLE GENERAL ("
+      "ID INTEGER,"
+      "Date TEXT,"
+      "Société TEXT,"
+      "Titre TEXT,"
+      "Localisation TEXT,"
+      "Description TEXT,"
+      "Type TEXT,"
+      "Full_Date TEXT,"
+      "PRIMARY KEY (ID))"
+    );
+
+    print("table created");
+
+    const codec = Windows1252Codec();
+    final ByteData byteData = await rootBundle.load("assets/data/all_data.json");
+    final String response = codec.decode(byteData.buffer.asUint8List());
+    final List<dynamic> data = await json.decode(response);
+    print("data loaded");
+
+    String s = "";
+    for (int i = 0; i < data.length; i++) {
+      Map<String, Object?> map = data[i];
+      await db.insert("GENERAL", map);
+      String desc = map["description"] as String;
+      desc = desc.replaceAll("\"", "\\\"");
+      s +='INSERT INTO GENERAL (Annee, Société, Titre, Localisation, Description, Type, Full_Date) VALUES ("${map["date"]}", "${map["société"]}", "${map["titre"]}", "${map["localisation"]}", "$desc}", "${map["type"]}", "${map["full_date"]}");\n';
+    }
+    print("data inserted");
+    final List<Map<String, Object?>> maps = await db.query('GENERAL');
+    print(maps);
+    log(s);
   }
 }

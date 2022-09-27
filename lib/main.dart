@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:nam_ip_museum/data/db_helper.dart';
 import 'package:nam_ip_museum/home_pages/access_to_app.dart';
 import 'package:nam_ip_museum/translation_messages.dart';
 import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
@@ -9,6 +10,7 @@ import 'utils/navigation_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //await DBHelper.transformJsonInDbFile();
   await MySharedPreferences.init();
   runApp(const MyApp());
 }

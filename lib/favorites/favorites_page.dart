@@ -96,16 +96,16 @@ class _FavoritePageState extends State<FavoritePage> {
   }
 
   Widget _build1() {
-    return ListView.builder(
+    return favorites.isNotEmpty ? ListView.builder(
       itemCount: favorites.length,
       itemBuilder: (context, index) {
         return _buildCard(favorites[index]);
       },
-    );
+    ) : const Center(child: Text('Aucun favoris', style: TextStyle(fontSize: 20, color: Colors.white),));
   }
 
   Widget _build2() {
-    return GridView.builder(
+    return favorites.isNotEmpty ? GridView.builder(
       itemCount: favorites.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -114,16 +114,25 @@ class _FavoritePageState extends State<FavoritePage> {
       itemBuilder: (context, index) {
         return _buildCard2(favorites[index]);
       },
-    );
+    ) : const Center(child: Text('Aucun favoris', style: TextStyle(fontSize: 20, color: Colors.white),));;
   }
 
+  int buildItem = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.red.shade700,
       appBar: Widgets.appBar(context),
-      body: isLoaded ? _build2() : const Center(child: CircularProgressIndicator()),
+      body: isLoaded ? (buildItem == 1 ? _build1() : _build2()) : const Center(child: CircularProgressIndicator()),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            buildItem = buildItem == 1 ? 2 : 1;
+          });
+        },
+        child: const Icon(Icons.repeat),
+      ),
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:nam_ip_museum/timeline/home_timeline.dart';
 import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
 import 'package:nam_ip_museum/videos/home_videos.dart';
 
+import '../games/snake/snake.dart';
 import '../informations/introduction.dart';
 import '../rechercher/rechercher.dart';
 
@@ -205,6 +206,24 @@ class _HomePageState extends State<HomePage> {
                       backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                     ),
                     child: Text('favoris'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
+                  ),
+                ),
+
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: 0.5 * width,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Snake()));
+                    },
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    ),
+                    child: Text('jeux'.tr, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
                   ),
                 )
               ],
