@@ -32,6 +32,12 @@ class GameBackground extends Component with HasGameRef<SnakeGame> {
         paint = paint == lightGreenPaint ? darkGreenPaint : lightGreenPaint;
       }
     }
+
+    final paint2 = Paint()
+      ..color = BasicPalette.white.color
+      ..strokeWidth = 3
+      ..style = PaintingStyle.stroke;
+    canvas.drawPoints(PointMode.lines, [Offset(0, x), Offset(x, x)], paint2);
     super.render(canvas);
   }
 }

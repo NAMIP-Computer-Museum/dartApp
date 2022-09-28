@@ -2,7 +2,9 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/palette.dart';
+import 'package:nam_ip_museum/games/snake/direction.dart';
 import 'package:nam_ip_museum/games/snake/joystick/arrows/right_arrow.dart';
 import 'package:nam_ip_museum/games/snake/joystick/arrows/up_arrow.dart';
 import 'package:nam_ip_museum/games/snake/snake_game.dart';
@@ -10,10 +12,13 @@ import 'package:nam_ip_museum/games/snake/snake_game.dart';
 import 'arrows/down_arrow.dart';
 import 'arrows/left_arrow.dart';
 
-class Joystick extends PositionComponent with HasGameRef<SnakeGame> {
+class Joystick extends PositionComponent with HasGameRef<SnakeGame>, Tappable {
 
   @override
   Future<void>? onLoad() async {
+    size = Vector2.all(gameRef.size.x / 2);
+    position = Vector2(gameRef.size.x / 2, (gameRef.size.y + gameRef.size.x) / 2);
+    anchor = Anchor.center;
     //https://www.flaticon.com/search?type=icon&word=arrow+down&license=&color=&shape=&current_section=&author_id=&pack_id=&family_id=&style_id=&choice=&type=
     await add(RightArrow());
     await add(LeftArrow());
@@ -24,11 +29,8 @@ class Joystick extends PositionComponent with HasGameRef<SnakeGame> {
 
   @override
   void render(Canvas canvas) {
-    final size = gameRef.size;
-    final x = size.x;
-    final y = size.y;
-    final Offset center = Offset(x/2, (y+x)/2);
-    final double rayon = x/4;
+    final Offset center = Offset(size.x/2, size.y/2);
+    final double rayon = gameRef.size.x/4;
     final paint = Paint()
       ..shader = Gradient.radial(center, rayon, [const Color(0xfff12711), const Color(0xfff5af19)]); //https://uigradients.com/#Flare
 
@@ -49,7 +51,41 @@ class Joystick extends PositionComponent with HasGameRef<SnakeGame> {
       ..style = PaintingStyle.stroke;
     canvas.drawPoints(PointMode.lines, points, paint2);
 
-    canvas.drawPoints(PointMode.lines, [Offset(0, x), Offset(x, x)], paint2);
     super.render(canvas);
+  }
+
+
+  @override
+  bool onTapDown(TapDownInfo info) {
+    List<Offset> points = [Offset(0, -size.y/2), Offset(0, size.y/2), Offset(-size.x/2, 0), Offset(size.x/2, 0)].map((e) => e += position.toOffset()).toList();
+    List<double> distances = points.map((e) => _distance(e, info.raw.localPosition)).toList();
+    int index = distances.indexOf(distances.reduce(min));
+    switch (index) {
+      case 0:
+        if (gameRef.snakeDirection != Direction.down) {
+          gameRef.snakeDirection = Direction.up;
+        }
+        break;
+      case 1:
+        if (gameRef.snakeDirection != Direction.up) {
+          gameRef.snakeDirection = Direction.down;
+        }
+        break;
+      case 2:
+        if (gameRef.snakeDirection != Direction.right && gameRef.snakeDirection != Direction.idle) {
+          gameRef.snakeDirection = Direction.left;
+        }
+        break;
+      case 3:
+        if (gameRef.snakeDirection != Direction.left) {
+          gameRef.snakeDirection = Direction.right;
+        }
+        break;
+    }
+    return super.onTapDown(info);
+  }
+
+  double _distance(Offset a, Offset b) {
+    return sqrt(pow(a.dx - b.dx, 2) + pow(a.dy - b.dy, 2));
   }
 }

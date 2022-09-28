@@ -13,6 +13,7 @@ class MySharedPreferences {
   static late int _day;
   static late Duration _premiumDuration;
   static late List<int> _favorites;
+  static late int _snakeHighScore;
 
   static init() async {
     prefs = await SharedPreferences.getInstance();
@@ -26,6 +27,7 @@ class MySharedPreferences {
     } else {
       _favorites = prefs.getStringList("favorites")!.map((e) => int.parse(e)).toList();
     }
+    _snakeHighScore = prefs.getInt('snakeHighScore') ?? 0;
   }
 
   static _initLimitedAccess() async {
@@ -59,6 +61,7 @@ class MySharedPreferences {
   static int get day => _day;
   static Duration get premiumDuration => _premiumDuration;
   static List<int> get favorites => _favorites;
+  static int get snakeHighScore => _snakeHighScore;
 
   static updateLang(String value) async {
     _lang = value;
@@ -99,5 +102,10 @@ class MySharedPreferences {
     if (canRemove) {
       await prefs.setStringList("favorites", _favorites.map((e) => e.toString()).toList());
     }
+  }
+
+  static updateSnakeHighScore(int value) async {
+    _snakeHighScore = value;
+    await prefs.setInt('snakeHighScore', value);
   }
 }
