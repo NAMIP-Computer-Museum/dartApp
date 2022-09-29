@@ -17,7 +17,7 @@ class Apple extends SpriteComponent with HasGameRef<SnakeGame> {
     width = (gameRef.size.x - GameBackground.padding) / GameBackground.nbCase;
     height = width;
 
-    const int nbCase = GameBackground.nbCase;
+    final int nbCase = GameBackground.nbCase;
     const int padding = GameBackground.padding;
     final caseSize = (gameRef.size.x - padding) / nbCase;
     int x = appleCase % nbCase;

@@ -6,7 +6,6 @@ import 'package:nam_ip_museum/games/snake/game/apple.dart';
 import 'package:nam_ip_museum/games/snake/game/game_background.dart';
 import 'package:nam_ip_museum/games/snake/background.dart';
 import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'game/snake.dart';
 import 'joystick/joystick.dart';
@@ -15,7 +14,7 @@ class SnakeGame extends FlameGame with HasTappables {
 
   Direction snakeDirection = Direction.idle;
   int score = 0;
-  late Apple apple = getRandomApple();
+  late List<Apple> apples = List.generate(MySharedPreferences.appleCount, (index) => getRandomApple());
   List<int> casesWithNotSnakePart = List.generate(GameBackground.nbCase * GameBackground.nbCase - 3, (index) {
     if (index < 106) {
       return index;
@@ -24,12 +23,15 @@ class SnakeGame extends FlameGame with HasTappables {
     }
   });
   Snake snake = Snake();
+  GameBackground gameBackground = GameBackground();
 
   @override
   Future<void>? onLoad() async {
     await add(Background());
-    await add(GameBackground());
-    await add(apple);
+    await add(gameBackground);
+    for (Apple apple in apples) {
+      await add(apple);
+    }
     await add(snake);
     await add(Joystick());
     overlays.add('Score');
@@ -41,10 +43,11 @@ class SnakeGame extends FlameGame with HasTappables {
     return Apple(appleCase: casesWithNotSnakePart[random]);
   }
 
-  void changeApple() {
-    remove(apple);
-    apple = getRandomApple();
-    add(apple);
+  void changeApple(int appleCase) {
+    int index = apples.indexWhere((element) => element.appleCase == appleCase);
+    remove(apples[index]);
+    apples[index] = getRandomApple();
+    add(apples[index]);
   }
 
   void gameOver() async {
@@ -59,6 +62,9 @@ class SnakeGame extends FlameGame with HasTappables {
     overlays.remove('GameOver');
     score = 0;
     snakeDirection = Direction.idle;
+    remove(gameBackground);
+    gameBackground = GameBackground();
+    add(gameBackground);
     casesWithNotSnakePart = List.generate(GameBackground.nbCase * GameBackground.nbCase - 3, (index) {
       if (index < 106) {
         return index;
@@ -66,9 +72,13 @@ class SnakeGame extends FlameGame with HasTappables {
         return index + 3;
       }
     });
-    remove(apple);
-    apple = getRandomApple();
-    add(apple);
+    for (Apple apple in apples) {
+      remove(apple);
+    }
+    apples = List.generate(MySharedPreferences.appleCount, (index) => getRandomApple());
+    for (Apple apple in apples) {
+      add(apple);
+    }
     remove(snake);
     snake = Snake();
     add(snake);

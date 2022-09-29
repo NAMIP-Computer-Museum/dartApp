@@ -3,11 +3,16 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flame/palette.dart';
 import 'package:nam_ip_museum/games/snake/snake_game.dart';
+import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
 
 class GameBackground extends Component with HasGameRef<SnakeGame> {
 
-  static const nbCase = 15;
+  static int nbCase = MySharedPreferences.snakeGridSize;
   static const padding = 100;
+
+  GameBackground() {
+    nbCase = MySharedPreferences.snakeGridSize;
+  }
 
   @override
   void render(Canvas canvas) {
@@ -29,6 +34,9 @@ class GameBackground extends Component with HasGameRef<SnakeGame> {
     for (int i = 0 ; i < nbCase ; i++) {
       for (int j = 0 ; j < nbCase ; j++) {
         canvas.drawRect(Rect.fromLTWH(padding/2 + i * caseSize, padding/2 + j * caseSize, caseSize, caseSize), paint);
+        paint = paint == lightGreenPaint ? darkGreenPaint : lightGreenPaint;
+      }
+      if (nbCase % 2 == 0) {
         paint = paint == lightGreenPaint ? darkGreenPaint : lightGreenPaint;
       }
     }

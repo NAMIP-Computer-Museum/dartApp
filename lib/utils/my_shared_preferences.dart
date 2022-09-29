@@ -13,7 +13,12 @@ class MySharedPreferences {
   static late int _day;
   static late Duration _premiumDuration;
   static late List<int> _favorites;
+
+  ///Snake
   static late int _snakeHighScore;
+  static late double _snakeSpeed;
+  static late int _snakeGridSize;
+  static late int _appleCount;
 
   static init() async {
     prefs = await SharedPreferences.getInstance();
@@ -28,6 +33,9 @@ class MySharedPreferences {
       _favorites = prefs.getStringList("favorites")!.map((e) => int.parse(e)).toList();
     }
     _snakeHighScore = prefs.getInt('snakeHighScore') ?? 0;
+    _snakeSpeed = prefs.getDouble('snakeSpeed') ?? 0.5;
+    _snakeGridSize = prefs.getInt('snakeGridSize') ?? 15;
+    _appleCount = prefs.getInt('appleCount') ?? 1;
   }
 
   static _initLimitedAccess() async {
@@ -62,6 +70,9 @@ class MySharedPreferences {
   static Duration get premiumDuration => _premiumDuration;
   static List<int> get favorites => _favorites;
   static int get snakeHighScore => _snakeHighScore;
+  static double get snakeSpeed => _snakeSpeed;
+  static int get snakeGridSize => _snakeGridSize;
+  static int get appleCount => _appleCount;
 
   static updateLang(String value) async {
     _lang = value;
@@ -104,8 +115,24 @@ class MySharedPreferences {
     }
   }
 
+  ///Snake
   static updateSnakeHighScore(int value) async {
     _snakeHighScore = value;
     await prefs.setInt('snakeHighScore', value);
+  }
+
+  static updateSnakeSpeed(double value) async {
+    _snakeSpeed = value;
+    await prefs.setDouble('snakeSpeed', value);
+  }
+
+  static updateSnakeGridSize(int value) async {
+    _snakeGridSize = value;
+    await prefs.setInt('snakeGridSize', value);
+  }
+
+  static updateAppleCount(int value) async {
+    _appleCount = value;
+    await prefs.setInt('appleCount', value);
   }
 }

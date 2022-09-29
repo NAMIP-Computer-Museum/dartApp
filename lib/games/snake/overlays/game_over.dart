@@ -19,10 +19,9 @@ class GameOver extends StatelessWidget {
         padding: EdgeInsets.all((GameBackground.padding / 2).toDouble()),
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: game.size.x - GameBackground.padding,
               width: game.size.x - GameBackground.padding,
-              //color: Colors.green.withOpacity(0.5),
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
