@@ -5,14 +5,14 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/palette.dart';
 import 'package:nam_ip_museum/games/direction.dart';
-import 'package:nam_ip_museum/games/snake/joystick/arrows/right_arrow.dart';
-import 'package:nam_ip_museum/games/snake/joystick/arrows/up_arrow.dart';
-import 'package:nam_ip_museum/games/snake/snake_game.dart';
+import 'package:nam_ip_museum/games/tron/tron_game.dart';
 
 import 'arrows/down_arrow.dart';
 import 'arrows/left_arrow.dart';
+import 'arrows/right_arrow.dart';
+import 'arrows/up_arrow.dart';
 
-class Joystick extends PositionComponent with HasGameRef<SnakeGame>, Tappable {
+class Joystick extends PositionComponent with HasGameRef<TronGame>, Tappable {
 
   @override
   Future<void>? onLoad() async {
@@ -32,7 +32,7 @@ class Joystick extends PositionComponent with HasGameRef<SnakeGame>, Tappable {
     final Offset center = Offset(size.x/2, size.y/2);
     final double rayon = gameRef.size.x/4;
     final paint = Paint()
-      ..shader = Gradient.radial(center, rayon, [const Color(0xfff12711), const Color(0xfff5af19)]); //https://uigradients.com/#Flare
+      ..shader = Gradient.radial(center, rayon, [const Color(0xFF6FC3DF), const Color(0xFF0C141F),]);
 
     canvas.drawCircle(center, rayon, paint);
     List<Offset> points = [];
@@ -60,29 +60,33 @@ class Joystick extends PositionComponent with HasGameRef<SnakeGame>, Tappable {
     List<Offset> points = [Offset(0, -size.y/2), Offset(0, size.y/2), Offset(-size.x/2, 0), Offset(size.x/2, 0)].map((e) => e += position.toOffset()).toList();
     List<double> distances = points.map((e) => _distance(e, info.raw.localPosition)).toList();
     int index = distances.indexOf(distances.reduce(min));
-    if (index != 2 && gameRef.snakeDirection == Direction.idle) {
-      gameRef.overlays.remove('SettingsButton');
-      gameRef.overlays.add('PlayPauseButton');
-    }
+    // if (index != 2 && gameRef.motorbikeDirection == Direction.idle) {
+    //   gameRef.overlays.remove('SettingsButton');
+    //   gameRef.overlays.add('PlayPauseButton');
+    // }
     switch (index) {
       case 0:
-        if (gameRef.snake.lastDirection != Direction.down) {
-          gameRef.snakeDirection = Direction.up;
+        if (gameRef.lastDirection != Direction.down) {
+          gameRef.motorbikeDirection = Direction.up;
+          gameRef.lastDirection = Direction.up;
         }
         break;
       case 1:
-        if (gameRef.snake.lastDirection != Direction.up) {
-          gameRef.snakeDirection = Direction.down;
+        if (gameRef.lastDirection != Direction.up) {
+          gameRef.motorbikeDirection = Direction.down;
+          gameRef.lastDirection = Direction.down;
         }
         break;
       case 2:
-        if (gameRef.snake.lastDirection != Direction.right && gameRef.snake.lastDirection != Direction.idle) {
-          gameRef.snakeDirection = Direction.left;
+        if (gameRef.lastDirection != Direction.right && gameRef.lastDirection != Direction.idle) {
+          gameRef.motorbikeDirection = Direction.left;
+          gameRef.lastDirection = Direction.left;
         }
         break;
       case 3:
-        if (gameRef.snake.lastDirection != Direction.left) {
-          gameRef.snakeDirection = Direction.right;
+        if (gameRef.lastDirection != Direction.left) {
+          gameRef.motorbikeDirection = Direction.right;
+          gameRef.lastDirection = Direction.right;
         }
         break;
     }

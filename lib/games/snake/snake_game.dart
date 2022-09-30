@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flame/game.dart';
-import 'package:nam_ip_museum/games/snake/direction.dart';
+import 'package:nam_ip_museum/games/direction.dart';
 import 'package:nam_ip_museum/games/snake/game/apple.dart';
 import 'package:nam_ip_museum/games/snake/game/game_background.dart';
 import 'package:nam_ip_museum/games/snake/background.dart';

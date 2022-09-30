@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flame/palette.dart';
-import 'package:nam_ip_museum/games/snake/direction.dart';
+import 'package:nam_ip_museum/games/direction.dart';
 import 'package:nam_ip_museum/games/snake/game/game_background.dart';
 import 'package:nam_ip_museum/games/snake/snake_game.dart';
 

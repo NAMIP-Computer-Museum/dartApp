@@ -1,21 +1,20 @@
 import 'dart:ui';
 
 import 'package:flame/components.dart';
+import 'package:nam_ip_museum/games/tron/tron_game.dart';
 
-import '../../snake_game.dart';
-
-class UpArrow extends SpriteComponent with HasGameRef<SnakeGame> {
+class LeftArrow extends SpriteComponent with HasGameRef<TronGame> {
 
   @override
   Future<void>? onLoad() async {
-    sprite = await Sprite.load('snake/up-arrow.png');
+    sprite = await Sprite.load('tron/left.png');
 
     final double rayon = gameRef.size.x/4;
     final Offset center = Offset(rayon, rayon);
 
     width = rayon / 1.5;
     height = width;
-    position = Vector2(center.dx, center.dy - rayon/1.5);
+    position = Vector2(center.dx - rayon/1.5, center.dy);
     anchor = Anchor.center;
 
     return super.onLoad();

@@ -7,7 +7,7 @@ class DownArrow extends SpriteComponent with HasGameRef<SnakeGame> {
 
   @override
   Future<void>? onLoad() async {
-    sprite = await Sprite.load('down-arrow.png');
+    sprite = await Sprite.load('snake/down-arrow.png');
 
     final double rayon = gameRef.size.x/4;
     final Offset center = Offset(rayon, rayon);

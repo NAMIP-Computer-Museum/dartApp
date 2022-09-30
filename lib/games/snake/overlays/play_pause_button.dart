@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../direction.dart';
+import '../../direction.dart';
 import '../game/game_background.dart';
 import '../snake_game.dart';
 

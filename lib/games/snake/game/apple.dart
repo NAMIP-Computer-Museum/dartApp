@@ -13,7 +13,7 @@ class Apple extends SpriteComponent with HasGameRef<SnakeGame> {
 
   @override
   Future<void>? onLoad() async {
-    sprite = await Sprite.load("apple.png");
+    sprite = await Sprite.load("snake/apple.png");
     width = (gameRef.size.x - GameBackground.padding) / GameBackground.nbCase;
     height = width;
 

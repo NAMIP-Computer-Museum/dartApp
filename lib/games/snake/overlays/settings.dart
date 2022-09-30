@@ -58,9 +58,9 @@ class _SettingsState extends State<Settings> {
                       Expanded(
                         child: Slider(
                           value: _snakeSpeed,
-                          min: 0.1,
-                          max: 1,
-                          divisions: 9,
+                          min: 0.4,
+                          max: 0.9,
+                          divisions: 20,
                           onChanged: (double value) {
                             setState(() {
                               _snakeSpeed = value;
@@ -105,13 +105,13 @@ class _SettingsState extends State<Settings> {
                           horizontal: true,
                           onValueChanged: (i) => _appleCount = i + 1,
                           children: [
-                            Image.asset("assets/images/apple.png", height: 15, width: 15,),
+                            Image.asset("assets/images/snake/apple.png", height: 15, width: 15,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset("assets/images/apple.png", height: 15, width: 15,),
+                                Image.asset("assets/images/snake/apple.png", height: 15, width: 15,),
                                 const SizedBox(width: 3),
-                                Image.asset("assets/images/apple.png", height: 15, width: 15,),
+                                Image.asset("assets/images/snake/apple.png", height: 15, width: 15,),
                               ],
                             ),
                             Column(
@@ -119,13 +119,13 @@ class _SettingsState extends State<Settings> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image.asset("assets/images/apple.png", height: 15, width: 15,),
+                                    Image.asset("assets/images/snake/apple.png", height: 15, width: 15,),
                                     const SizedBox(width: 3),
-                                    Image.asset("assets/images/apple.png", height: 15, width: 15,),
+                                    Image.asset("assets/images/snake/apple.png", height: 15, width: 15,),
                                   ],
                                 ),
                                 const SizedBox(height: 3),
-                                Image.asset("assets/images/apple.png", height: 15, width: 15,),
+                                Image.asset("assets/images/snake/apple.png", height: 15, width: 15,),
                               ],
                             ),
                             Column(
@@ -133,18 +133,18 @@ class _SettingsState extends State<Settings> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image.asset("assets/images/apple.png", height: 15, width: 15,),
+                                    Image.asset("assets/images/snake/apple.png", height: 15, width: 15,),
                                     const SizedBox(width: 3),
-                                    Image.asset("assets/images/apple.png", height: 15, width: 15,),
+                                    Image.asset("assets/images/snake/apple.png", height: 15, width: 15,),
                                   ],
                                 ),
                                 const SizedBox(height: 3),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Image.asset("assets/images/apple.png", height: 15, width: 15,),
+                                    Image.asset("assets/images/snake/apple.png", height: 15, width: 15,),
                                     const SizedBox(width: 3),
-                                    Image.asset("assets/images/apple.png", height: 15, width: 15,),
+                                    Image.asset("assets/images/snake/apple.png", height: 15, width: 15,),
                                   ],
                                 ),
                               ],
@@ -199,7 +199,13 @@ class _SettingsState extends State<Settings> {
                   Row(
                     children: [
                       const Text("Color:", style: TextStyle(fontSize: 17, color: Colors.white)),
-                      const SizedBox(width: 20),
+                      const SizedBox(width: 10),
+                      Container(
+                        width: 20,
+                        height: 20,
+                        color: _snakeColor,
+                      ),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -324,7 +330,7 @@ class _SettingsState extends State<Settings> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            _snakeSpeed = 0.5;
+                            _snakeSpeed = 0.7;
                             _gridSize = 15;
                             _appleCount = 1;
                             _isClassicSnake = false;

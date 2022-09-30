@@ -8,7 +8,7 @@ class LeftArrow extends SpriteComponent with HasGameRef<SnakeGame> {
 
   @override
   Future<void>? onLoad() async {
-    sprite = await Sprite.load('left-arrow.png');
+    sprite = await Sprite.load('snake/left-arrow.png');
 
     final double rayon = gameRef.size.x/4;
     final Offset center = Offset(rayon, rayon);

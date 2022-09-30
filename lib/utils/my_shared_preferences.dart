@@ -36,7 +36,7 @@ class MySharedPreferences {
       _favorites = prefs.getStringList("favorites")!.map((e) => int.parse(e)).toList();
     }
     _snakeHighScore = prefs.getInt('snakeHighScore') ?? 0;
-    _snakeSpeed = prefs.getDouble('snakeSpeed') ?? 0.5;
+    _snakeSpeed = prefs.getDouble('snakeSpeed') ?? 0.7;
     _snakeGridSize = prefs.getInt('snakeGridSize') ?? 15;
     _appleCount = prefs.getInt('appleCount') ?? 1;
     _isClassicSnake = prefs.getBool('isClassicSnake') ?? false;
