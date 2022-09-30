@@ -14,7 +14,7 @@ class Snake extends PositionComponent with HasGameRef<SnakeGame> {
   int snakeSize = 3;
   List<int> cases = [GameBackground.nbCase * (GameBackground.nbCase~/2) + 1, GameBackground.nbCase * (GameBackground.nbCase~/2) + 2, GameBackground.nbCase * (GameBackground.nbCase~/2) + 3];
   double snakeSpeed = 1 - MySharedPreferences.snakeSpeed;
-  final bool isFirstRender = false;
+  final bool isFirstRender = MySharedPreferences.isClassicSnake;
   Direction lastDirection = Direction.right; // only use for canvas in render method
 
   @override

@@ -21,8 +21,10 @@ class _SettingsState extends State<Settings> {
   double _snakeSpeed = MySharedPreferences.snakeSpeed;
   int _gridSize = MySharedPreferences.snakeGridSize;
   int _appleCount = MySharedPreferences.appleCount;
+  bool _isClassicSnake = MySharedPreferences.isClassicSnake;
   final FixedExtentScrollController _gridSizeController = FixedExtentScrollController(initialItem: MySharedPreferences.snakeGridSize - 8);
   final FixedExtentScrollController _appleCountController = FixedExtentScrollController(initialItem: MySharedPreferences.appleCount - 1);
+  final FixedExtentScrollController _isClassicSnakeController = FixedExtentScrollController(initialItem: (MySharedPreferences.isClassicSnake) ? 0 : 1);
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class _SettingsState extends State<Settings> {
       child: Padding(
         padding: const EdgeInsets.all(GameBackground.padding / 2),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               padding: const EdgeInsets.all(20),
@@ -41,9 +44,8 @@ class _SettingsState extends State<Settings> {
                   image: AssetImage('assets/binaryBackground.png'),
                   fit: BoxFit.cover,
                 ),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
-              height: widget.game.size.x - GameBackground.padding,
-              width: widget.game.size.x - GameBackground.padding,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -149,6 +151,47 @@ class _SettingsState extends State<Settings> {
                       )
                     ],
                   ),
+                  const Divider(color: Colors.white, thickness: 1, height: 30,),
+                  Row(
+                    children: [
+                      const Text("Design:", style: TextStyle(fontSize: 17, color: Colors.white)),
+                      const SizedBox(width: 20),
+                      SizedBox(
+                        height: 40,
+                        width: 150, // TODO: Make this responsive
+                        child: WheelChooser.custom(
+                          startPosition: null,
+                          controller: _isClassicSnakeController,
+                          horizontal: true,
+                          onValueChanged: (i) => _isClassicSnake = (i == 0),
+                          children: [
+                            Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                color: Colors.white,
+                                width: 30,
+                                height: 30,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Container(
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 30,
+                              height: 30,
+                              decoration: const BoxDecoration(
+                                color: Colors.blue,
+                                shape: BoxShape.circle,
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                   const SizedBox(height: 20),
                   Row(
                     children: [
@@ -158,6 +201,7 @@ class _SettingsState extends State<Settings> {
                             await MySharedPreferences.updateSnakeSpeed(_snakeSpeed);
                             await MySharedPreferences.updateSnakeGridSize(_gridSize);
                             await MySharedPreferences.updateAppleCount(_appleCount);
+                            await MySharedPreferences.updateIsClassicSnake(_isClassicSnake);
                             widget.game.overlays.remove("Settings");
                             widget.game.reset();
                           },
@@ -186,8 +230,10 @@ class _SettingsState extends State<Settings> {
                             _snakeSpeed = 0.5;
                             _gridSize = 15;
                             _appleCount = 1;
+                            _isClassicSnake = false;
                             _gridSizeController.animateToItem(7, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
                             _appleCountController.animateToItem(0, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                            _isClassicSnakeController.animateToItem(1, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
                           });
                         },
                         child: Container(

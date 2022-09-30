@@ -19,6 +19,7 @@ class MySharedPreferences {
   static late double _snakeSpeed;
   static late int _snakeGridSize;
   static late int _appleCount;
+  static late bool _isClassicSnake;
 
   static init() async {
     prefs = await SharedPreferences.getInstance();
@@ -36,6 +37,7 @@ class MySharedPreferences {
     _snakeSpeed = prefs.getDouble('snakeSpeed') ?? 0.5;
     _snakeGridSize = prefs.getInt('snakeGridSize') ?? 15;
     _appleCount = prefs.getInt('appleCount') ?? 1;
+    _isClassicSnake = prefs.getBool('isClassicSnake') ?? false;
   }
 
   static _initLimitedAccess() async {
@@ -73,6 +75,7 @@ class MySharedPreferences {
   static double get snakeSpeed => _snakeSpeed;
   static int get snakeGridSize => _snakeGridSize;
   static int get appleCount => _appleCount;
+  static bool get isClassicSnake => _isClassicSnake;
 
   static updateLang(String value) async {
     _lang = value;
@@ -134,5 +137,10 @@ class MySharedPreferences {
   static updateAppleCount(int value) async {
     _appleCount = value;
     await prefs.setInt('appleCount', value);
+  }
+
+  static updateIsClassicSnake(bool value) async {
+    _isClassicSnake = value;
+    await prefs.setBool('isClassicSnake', value);
   }
 }
