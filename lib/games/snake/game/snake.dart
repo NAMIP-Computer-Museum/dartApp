@@ -23,8 +23,9 @@ class Snake extends PositionComponent with HasGameRef<SnakeGame> {
     final nbCase = GameBackground.nbCase;
     final caseSize = (gameRef.size.x - GameBackground.padding) / nbCase;
 
+    final Paint paint = Paint()..color = MySharedPreferences.snakeColor;
+
     if (isFirstRender) { //first render
-      final Paint paint = BasicPalette.blue.paint();
       for (int i in cases) {
         int x = i % nbCase;
         int y = i ~/ nbCase;
@@ -33,7 +34,6 @@ class Snake extends PositionComponent with HasGameRef<SnakeGame> {
         canvas.drawRect(rect, BasicPalette.white.paint()..style = PaintingStyle.stroke..strokeWidth = 2);
       }
     } else { //second render
-      final Paint paint = BasicPalette.blue.paint();
       // Paint paint = Paint();
       // const int firstColorGradient = 0xff4286f4;
       // const int lastColorGradient = 0xff373B44;

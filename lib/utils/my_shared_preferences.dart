@@ -20,6 +20,7 @@ class MySharedPreferences {
   static late int _snakeGridSize;
   static late int _appleCount;
   static late bool _isClassicSnake;
+  static late Color _snakeColor;
 
   static init() async {
     prefs = await SharedPreferences.getInstance();
@@ -38,6 +39,7 @@ class MySharedPreferences {
     _snakeGridSize = prefs.getInt('snakeGridSize') ?? 15;
     _appleCount = prefs.getInt('appleCount') ?? 1;
     _isClassicSnake = prefs.getBool('isClassicSnake') ?? false;
+    _snakeColor = Color(prefs.getInt('snakeColor') ?? Colors.blue.value);
   }
 
   static _initLimitedAccess() async {
@@ -76,6 +78,7 @@ class MySharedPreferences {
   static int get snakeGridSize => _snakeGridSize;
   static int get appleCount => _appleCount;
   static bool get isClassicSnake => _isClassicSnake;
+  static Color get snakeColor => _snakeColor;
 
   static updateLang(String value) async {
     _lang = value;
@@ -142,5 +145,10 @@ class MySharedPreferences {
   static updateIsClassicSnake(bool value) async {
     _isClassicSnake = value;
     await prefs.setBool('isClassicSnake', value);
+  }
+
+  static updateSnakeColor(Color value) async {
+    _snakeColor = value;
+    await prefs.setInt('snakeColor', value.value);
   }
 }

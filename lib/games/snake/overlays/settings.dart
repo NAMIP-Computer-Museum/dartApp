@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:nam_ip_museum/games/snake/snake_game.dart';
 import 'package:wheel_chooser/wheel_chooser.dart';
 
@@ -22,6 +23,7 @@ class _SettingsState extends State<Settings> {
   int _gridSize = MySharedPreferences.snakeGridSize;
   int _appleCount = MySharedPreferences.appleCount;
   bool _isClassicSnake = MySharedPreferences.isClassicSnake;
+  Color _snakeColor = MySharedPreferences.snakeColor;
   final FixedExtentScrollController _gridSizeController = FixedExtentScrollController(initialItem: MySharedPreferences.snakeGridSize - 8);
   final FixedExtentScrollController _appleCountController = FixedExtentScrollController(initialItem: MySharedPreferences.appleCount - 1);
   final FixedExtentScrollController _isClassicSnakeController = FixedExtentScrollController(initialItem: (MySharedPreferences.isClassicSnake) ? 0 : 1);
@@ -192,6 +194,99 @@ class _SettingsState extends State<Settings> {
                       )
                     ],
                   ),
+                  const Divider(color: Colors.white, thickness: 1, height: 30,),
+                  Row(
+                    children: [
+                      const Text("Color:", style: TextStyle(fontSize: 17, color: Colors.white)),
+                      const SizedBox(width: 20),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      content: SingleChildScrollView(
+                                        child: BlockPicker(
+                                          pickerColor: _snakeColor,
+                                          onColorChanged: (color) {
+                                            setState(() {
+                                              _snakeColor = color;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        ElevatedButton(
+                                          child: const Text('DONE'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop(); //dismiss the color picker
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.red.shade700,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(6.0),
+                                  child: Text("Classique", style: TextStyle(color: Colors.white, fontSize: 15)),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      content: SingleChildScrollView(
+                                        child: ColorPicker(
+                                          pickerColor: _snakeColor,
+                                          onColorChanged: (color) {
+                                            setState(() {
+                                              _snakeColor = color;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        ElevatedButton(
+                                          child: const Text('DONE'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop(); //dismiss the color picker
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.red.shade700,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(6.0),
+                                  child: Text("Custom", style: TextStyle(color: Colors.white, fontSize: 15)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                   const SizedBox(height: 20),
                   Row(
                     children: [
@@ -202,6 +297,7 @@ class _SettingsState extends State<Settings> {
                             await MySharedPreferences.updateSnakeGridSize(_gridSize);
                             await MySharedPreferences.updateAppleCount(_appleCount);
                             await MySharedPreferences.updateIsClassicSnake(_isClassicSnake);
+                            await MySharedPreferences.updateSnakeColor(_snakeColor);
                             widget.game.overlays.remove("Settings");
                             widget.game.reset();
                           },
@@ -231,6 +327,7 @@ class _SettingsState extends State<Settings> {
                             _gridSize = 15;
                             _appleCount = 1;
                             _isClassicSnake = false;
+                            _snakeColor = Colors.blue;
                             _gridSizeController.animateToItem(7, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
                             _appleCountController.animateToItem(0, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
                             _isClassicSnakeController.animateToItem(1, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
