@@ -62,22 +62,22 @@ class Joystick extends PositionComponent with HasGameRef<SnakeGame>, Tappable {
     int index = distances.indexOf(distances.reduce(min));
     switch (index) {
       case 0:
-        if (gameRef.snakeDirection != Direction.down) {
+        if (gameRef.snake.lastDirection != Direction.down) {
           gameRef.snakeDirection = Direction.up;
         }
         break;
       case 1:
-        if (gameRef.snakeDirection != Direction.up) {
+        if (gameRef.snake.lastDirection != Direction.up) {
           gameRef.snakeDirection = Direction.down;
         }
         break;
       case 2:
-        if (gameRef.snakeDirection != Direction.right && gameRef.snakeDirection != Direction.idle) {
+        if (gameRef.snake.lastDirection != Direction.right && gameRef.snake.lastDirection != Direction.idle) {
           gameRef.snakeDirection = Direction.left;
         }
         break;
       case 3:
-        if (gameRef.snakeDirection != Direction.left) {
+        if (gameRef.snake.lastDirection != Direction.left) {
           gameRef.snakeDirection = Direction.right;
         }
         break;
