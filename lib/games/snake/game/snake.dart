@@ -163,7 +163,7 @@ class Snake extends PositionComponent with HasGameRef<SnakeGame> {
         }
         break;
       case Direction.up:
-        if (lastCase ~/ 15 == 0) {
+        if (lastCase ~/ GameBackground.nbCase == 0) {
           gameRef.gameOver();
         } else {
           updateCases(lastCase - GameBackground.nbCase);

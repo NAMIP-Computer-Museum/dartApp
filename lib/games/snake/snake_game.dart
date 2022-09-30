@@ -35,6 +35,7 @@ class SnakeGame extends FlameGame with HasTappables {
     await add(snake);
     await add(Joystick());
     overlays.add('Score');
+    overlays.add('SettingsButton');
     return super.onLoad();
   }
 
@@ -52,6 +53,8 @@ class SnakeGame extends FlameGame with HasTappables {
 
   void gameOver() async {
     snakeDirection = Direction.idle;
+    overlays.remove('PlayPauseButton');
+    overlays.add('SettingsButton');
     overlays.add('GameOver');
     if (score > MySharedPreferences.snakeHighScore) {
       await MySharedPreferences.updateSnakeHighScore(score);

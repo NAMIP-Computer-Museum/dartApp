@@ -1,3 +1,4 @@
+import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:nam_ip_museum/games/snake/snake_game.dart';
@@ -327,7 +328,7 @@ class _SettingsState extends State<Settings> {
                             _gridSize = 15;
                             _appleCount = 1;
                             _isClassicSnake = false;
-                            _snakeColor = Colors.blue;
+                            _snakeColor = BasicPalette.blue.color;
                             _gridSizeController.animateToItem(7, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
                             _appleCountController.animateToItem(0, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
                             _isClassicSnakeController.animateToItem(1, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);

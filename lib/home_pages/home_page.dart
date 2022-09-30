@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/favorites/favorites_page.dart';
+import 'package:nam_ip_museum/games/games.dart';
 import 'package:nam_ip_museum/informations/about_us.dart';
 import 'package:nam_ip_museum/quiz/quiz_difficulty.dart';
 import 'package:nam_ip_museum/timeline/home_timeline.dart';
 import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
 import 'package:nam_ip_museum/videos/home_videos.dart';
 
-import '../games/snake/snake.dart';
 import '../informations/introduction.dart';
 import '../rechercher/rechercher.dart';
 
@@ -214,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                   width: 0.5 * width,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Snake()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Games()));
                     },
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),

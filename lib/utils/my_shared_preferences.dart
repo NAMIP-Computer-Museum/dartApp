@@ -1,3 +1,4 @@
+import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,7 +40,7 @@ class MySharedPreferences {
     _snakeGridSize = prefs.getInt('snakeGridSize') ?? 15;
     _appleCount = prefs.getInt('appleCount') ?? 1;
     _isClassicSnake = prefs.getBool('isClassicSnake') ?? false;
-    _snakeColor = Color(prefs.getInt('snakeColor') ?? Colors.blue.value);
+    _snakeColor = Color(prefs.getInt('snakeColor') ?? BasicPalette.blue.color.value);
   }
 
   static _initLimitedAccess() async {

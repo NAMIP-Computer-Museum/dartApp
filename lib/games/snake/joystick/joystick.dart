@@ -60,6 +60,10 @@ class Joystick extends PositionComponent with HasGameRef<SnakeGame>, Tappable {
     List<Offset> points = [Offset(0, -size.y/2), Offset(0, size.y/2), Offset(-size.x/2, 0), Offset(size.x/2, 0)].map((e) => e += position.toOffset()).toList();
     List<double> distances = points.map((e) => _distance(e, info.raw.localPosition)).toList();
     int index = distances.indexOf(distances.reduce(min));
+    if (index != 2 && gameRef.snakeDirection == Direction.idle) {
+      gameRef.overlays.remove('SettingsButton');
+      gameRef.overlays.add('PlayPauseButton');
+    }
     switch (index) {
       case 0:
         if (gameRef.snake.lastDirection != Direction.down) {
