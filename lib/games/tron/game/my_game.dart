@@ -8,23 +8,23 @@ import 'package:nam_ip_museum/games/tron/game/wall.dart';
 import 'package:nam_ip_museum/games/tron/tron_game.dart';
 import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
 
-class GameBackground extends PositionComponent with HasGameRef<TronGame> {
+class MyGame extends PositionComponent with HasGameRef<TronGame> {
 
-  static int nbCase = 15;
+  static int nbCase = 30; //TODO MySharedPreferences
+  static late double offset;
   static const padding = 50.0;
 
   // https://color.adobe.com/fr/TRON-color-theme-6970180/
-  MotorBike motorbike = MotorBike(const Color(0xFFFFE64D));
+  late MotorBike motorbike;
 
   @override
   Future<void>? onLoad() {
+    offset = (gameRef.size.x - 2 * padding) / nbCase;
+    motorbike = MotorBike(const Color(0xFFFFE64D));
     position = Vector2(padding, padding);
     size = Vector2(gameRef.size.x - 2 * padding, gameRef.size.x - 2 * padding);
-    RectangleHitbox hitbox = RectangleHitbox(size: size);
-    hitbox.debugMode = true;
-    add(hitbox);
-    add(motorbike);
     add(Wall(motorbike));
+    add(motorbike);
     return super.onLoad();
   }
 
