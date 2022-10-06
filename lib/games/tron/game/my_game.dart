@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/palette.dart';
+import 'package:nam_ip_museum/games/tron/game/ia_motorbike.dart';
 import 'package:nam_ip_museum/games/tron/game/motorbike.dart';
 import 'package:nam_ip_museum/games/tron/game/wall.dart';
 import 'package:nam_ip_museum/games/tron/tron_game.dart';
@@ -16,15 +17,19 @@ class MyGame extends PositionComponent with HasGameRef<TronGame> {
 
   // https://color.adobe.com/fr/TRON-color-theme-6970180/
   late MotorBike motorbike;
+  late IaMotorbike iaMotorbike;
 
   @override
   Future<void>? onLoad() {
     offset = (gameRef.size.x - 2 * padding) / nbCase;
     motorbike = MotorBike(const Color(0xFFFFE64D));
+    iaMotorbike = IaMotorbike(const Color(0xFF6FC3DF));
     position = Vector2(padding, padding);
     size = Vector2(gameRef.size.x - 2 * padding, gameRef.size.x - 2 * padding);
     add(Wall(motorbike));
     add(motorbike);
+    add(Wall(iaMotorbike));
+    add(iaMotorbike);
     return super.onLoad();
   }
 

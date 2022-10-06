@@ -24,7 +24,6 @@ class Wall extends Component with HasGameRef<TronGame>, CollisionCallbacks {
         canvas.drawArc(Rect.fromCircle(center: motorbike.points[i], radius: 2.5), startAngle, pi/2, true, paint);
       }
     }
-
     super.render(canvas);
   }
 
