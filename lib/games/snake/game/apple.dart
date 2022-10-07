@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:nam_ip_museum/games/snake/game/game_background.dart';

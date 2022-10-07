@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:collection/collection.dart';
 
@@ -62,11 +63,12 @@ class MotorBike extends SpriteComponent with HasGameRef<TronGame> {
       default:
         break;
     }
-    List<int> _case = getCase();
-    if (cases.isEmpty || !(const ListEquality().equals(cases.last, _case))) {
-      if (outOfBounds(_case[0]) || outOfBounds(_case[1]) || gameRef.isOccupied[_case[0]][_case[1]]) {
+    List<int> actualCase = getCase();
+    if (cases.isEmpty || !(const ListEquality().equals(cases.last, actualCase))) {
+      if (outOfBounds(actualCase[0]) || outOfBounds(actualCase[1]) || gameRef.isOccupied[actualCase[0]][actualCase[1]]) {
         if (this is IaMotorbike) {
-          gameRef.removeIaMotorbike();
+          gameRef.removeIaMotorbike(this as IaMotorbike);
+          gameRef.win(); //TODO: change this
         } else {
           gameRef.gameOver();
         }
@@ -74,8 +76,12 @@ class MotorBike extends SpriteComponent with HasGameRef<TronGame> {
         points = [];
         cases = [];
       } else {
-        cases.add(_case);
-        gameRef.isOccupied[_case[0]][_case[1]] = true;
+        cases.add(actualCase);
+        gameRef.isOccupied[actualCase[0]][actualCase[1]] = true;
+        if (this is IaMotorbike) {
+          IaMotorbike ia = this as IaMotorbike;
+          ia.updateDirection();
+        }
       }
     }
     super.update(dt);

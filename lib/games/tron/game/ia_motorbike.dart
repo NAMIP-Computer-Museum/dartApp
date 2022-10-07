@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:collection/collection.dart';
 import 'package:flame/components.dart';
 import 'package:nam_ip_museum/games/tron/game/motorbike.dart';
 
@@ -10,8 +11,6 @@ import 'my_game.dart';
 class IaMotorbike extends MotorBike {
 
   String difficulty = "easy";
-
-  double clock = 0;
 
   IaMotorbike(Color color) : super(color) {
     lastDirection = Direction.left;
@@ -31,9 +30,11 @@ class IaMotorbike extends MotorBike {
   void updateDirection() {
     switch (difficulty) {
       case "easy":
-        Direction d = getEasyDirection();
-        direction = d;
-        lastDirection = d;
+        Direction? d = getEasyDirection();
+        if (d != null) {
+          direction = d;
+          lastDirection = d;
+        }
         break;
       default:
         break;
@@ -45,57 +46,33 @@ class IaMotorbike extends MotorBike {
     if (gameRef.myGame.motorbike.direction == Direction.idle) {
       direction = Direction.idle;
     } else {
-      clock += dt;
-      if (clock > 0.1) {
-        //print("clock${Random().nextInt(100)}");
-        updateDirection();
-        clock = 0;
-      }
+      if (direction == Direction.idle) updateDirection();
     }
 
     super.update(dt);
   }
 
-  Direction getEasyDirection() {
+  Direction? getEasyDirection() {
     List<Direction> directions = [];
     if (!outOfBounds(getCase()[0] - 1) && !gameRef.isOccupied[getCase()[0] - 1][getCase()[1]]) {
       directions.add(Direction.up);
-      if (direction == Direction.up) {
-        directions.add(Direction.up);
-        directions.add(Direction.up);
-        directions.add(Direction.up);
-        directions.add(Direction.up);
-      }
     }
     if (!outOfBounds(getCase()[0] + 1) && !gameRef.isOccupied[getCase()[0] + 1][getCase()[1]]) {
       directions.add(Direction.down);
-      if (direction == Direction.down) {
-        directions.add(Direction.down);
-        directions.add(Direction.down);
-        directions.add(Direction.down);
-        directions.add(Direction.down);
-      }
     }
     if (!outOfBounds(getCase()[1] - 1) && !gameRef.isOccupied[getCase()[0]][getCase()[1] - 1]) {
       directions.add(Direction.left);
-      if (direction == Direction.left) {
-        directions.add(Direction.left);
-        directions.add(Direction.left);
-        directions.add(Direction.left);
-        directions.add(Direction.left);
-      }
     }
     if (!outOfBounds(getCase()[1] + 1) && !gameRef.isOccupied[getCase()[0]][getCase()[1] + 1]) {
       directions.add(Direction.right);
-      if (direction == Direction.right) {
-        directions.add(Direction.right);
-        directions.add(Direction.right);
-        directions.add(Direction.right);
-        directions.add(Direction.right);
-      }
     }
     if (directions.isEmpty) {
-      return Direction.idle;
+      return null;
+    }
+    if (directions.contains(direction)) {
+      for (int i = 0 ; i < 3 ; i++) {
+        directions.add(direction);
+      }
     }
     return directions[Random().nextInt(directions.length)];
   }

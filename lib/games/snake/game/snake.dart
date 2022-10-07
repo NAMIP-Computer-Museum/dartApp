@@ -5,7 +5,6 @@ import 'package:flame/components.dart';
 import 'package:flame/palette.dart';
 import 'package:nam_ip_museum/games/direction.dart';
 import 'package:nam_ip_museum/games/snake/game/game_background.dart';
-import 'package:nam_ip_museum/games/snake/game/snake_lang.dart';
 import 'package:nam_ip_museum/games/snake/snake_game.dart';
 import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
 
@@ -53,7 +52,6 @@ class Snake extends PositionComponent with HasGameRef<SnakeGame> {
           final double r = caseSize/5.5;
           final Paint whitePaint = BasicPalette.white.paint();
           final Paint blackPaint = BasicPalette.black.paint();
-          final Paint redPaint = BasicPalette.red.paint();
           switch (lastDirection) {
             case Direction.right:
               canvas.drawRRect(RRect.fromRectAndCorners(rect, topRight: const Radius.circular(8.0), bottomRight: const Radius.circular(8.0)), paint);

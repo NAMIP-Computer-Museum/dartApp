@@ -114,7 +114,7 @@ class _FavoritePageState extends State<FavoritePage> {
       itemBuilder: (context, index) {
         return _buildCard2(favorites[index]);
       },
-    ) : const Center(child: Text('Aucun favoris', style: TextStyle(fontSize: 20, color: Colors.white),));;
+    ) : const Center(child: Text('Aucun favoris', style: TextStyle(fontSize: 20, color: Colors.white),));
   }
 
   int buildItem = 1;

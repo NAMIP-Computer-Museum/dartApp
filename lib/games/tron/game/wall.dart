@@ -58,7 +58,6 @@ class Wall extends Component with HasGameRef<TronGame>, CollisionCallbacks {
         return pi / 2;
       }
     } else {
-      print("ERROR");
       return 0;
     }
   }

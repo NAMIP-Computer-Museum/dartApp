@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flame/components.dart';
@@ -29,7 +28,6 @@ class SnakeLang extends PositionComponent with HasGameRef<SnakeGame> {
     final double caseSize = (gameRef.size.x - GameBackground.padding) / GameBackground.nbCase;
     int x = headPosition % GameBackground.nbCase;
     int y = headPosition ~/ GameBackground.nbCase;
-    print(headPosition);
     position = Vector2(
       GameBackground.padding/2 + x * caseSize,
       GameBackground.padding/2 + y * caseSize,

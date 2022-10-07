@@ -17,7 +17,6 @@ class GameBackground extends Component with HasGameRef<SnakeGame> {
   @override
   void render(Canvas canvas) {
     final x = gameRef.size.x;
-    final y = gameRef.size.y;
     final gameSize = x - padding;
 
     //wall
