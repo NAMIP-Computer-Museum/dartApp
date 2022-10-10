@@ -7,18 +7,20 @@ class HorizontalPicker extends StatefulWidget {
   final List<dynamic>? data;
   final double height;
   final FixedExtentScrollController controller;
-  final Function(double)? onChanged;
+  final Function(int)? onChanged;
   final Color? activeItemTextColor;
   final Color? passiveItemsTextColor;
+  final double? itemExtent; //width of each item
 
   const HorizontalPicker({super.key,
     this.items,
     this.data,
     required this.height,
+    this.itemExtent,
     this.onChanged,
     required this.controller,
-    this.activeItemTextColor = Colors.white,
-    this.passiveItemsTextColor = Colors.white,
+    this.activeItemTextColor,
+    this.passiveItemsTextColor,
   }) : assert (items != null || data != null);
 
   @override
@@ -37,16 +39,16 @@ class _HorizontalPickerState extends State<HorizontalPicker> {
         quarterTurns: 3,
         child: ListWheelScrollView(
             controller: widget.controller,
-            itemExtent: 60,
+            itemExtent: widget.itemExtent ?? 60,
             onSelectedItemChanged: (item) {
-              // widget.onChanged(valueMap[item]["value"]);
+              if (widget.onChanged != null) widget.onChanged!(item);
               setState(() {});
             },
             children: widget.items == null ? (widget.data)!.map((e) {
               try {
-                return getWidget(e, isSelected: (widget.data)!.indexOf(e) == widget.controller.selectedItem);
+                return getWidget(e.toString(), isSelected: (widget.data)!.indexOf(e) == widget.controller.selectedItem);
               } catch (error) {
-                return getWidget(e, isSelected: (widget.data)!.indexOf(e) == widget.controller.initialItem);
+                return getWidget(e.toString(), isSelected: (widget.data)!.indexOf(e) == widget.controller.initialItem);
               }
             }).toList()
           : widget.items!.map((e) => RotatedBox(
@@ -59,13 +61,18 @@ class _HorizontalPickerState extends State<HorizontalPicker> {
   }
 
   Widget getWidget(String text, {bool isSelected = false}) {
-    return FittedBox(
-      child: RotatedBox(
-        quarterTurns: 1,
-        child: Text(
-          text,
-          style: TextStyle(
-            color: isSelected ? (widget.activeItemTextColor ?? Colors.black) : (widget.passiveItemsTextColor ?? Colors.white),
+    return GestureDetector(
+      onTap: () {
+        print("tapped");
+      },
+      child: FittedBox(
+        child: RotatedBox(
+          quarterTurns: 1,
+          child: Text(
+            text,
+            style: TextStyle(
+              color: isSelected ? (widget.activeItemTextColor ?? Colors.white) : (widget.passiveItemsTextColor ?? Colors.white.withOpacity(0.7)),
+            ),
           ),
         ),
       ),

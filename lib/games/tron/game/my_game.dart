@@ -6,16 +6,21 @@ import 'package:nam_ip_museum/games/tron/game/ia_motorbike.dart';
 import 'package:nam_ip_museum/games/tron/game/motorbike.dart';
 import 'package:nam_ip_museum/games/tron/game/wall.dart';
 import 'package:nam_ip_museum/games/tron/tron_game.dart';
+import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
 
 class MyGame extends PositionComponent with HasGameRef<TronGame> {
 
-  static int nbCase = 30; //TODO MySharedPreferences
+  static int nbCase = MySharedPreferences.tronGridSize;
   static late double offset;
   static const padding = 50.0;
 
   // https://color.adobe.com/fr/TRON-color-theme-6970180/
   late MotorBike motorbike;
   List<IaMotorbike> iaMotorbikes = [];
+
+  MyGame() {
+    nbCase = MySharedPreferences.tronGridSize;
+  }
 
   @override
   Future<void>? onLoad() async {
@@ -26,7 +31,7 @@ class MyGame extends PositionComponent with HasGameRef<TronGame> {
     add(Wall(motorbike));
     add(motorbike);
     IaMotorbike.nextPosition = IaMotorbike.firstPosition.clone();
-    for (int i = 0 ; i < 3 ; i++) {
+    for (int i = 0 ; i < MySharedPreferences.tronPlayerCount ; i++) {
       IaMotorbike iaMotorbike = IaMotorbike(const Color(0xFF6FC3DF));
       iaMotorbikes.add(iaMotorbike);
       await add(Wall(iaMotorbike));

@@ -3,12 +3,13 @@ import 'package:nam_ip_museum/games/tron/background.dart';
 import 'package:nam_ip_museum/games/tron/game/ia_motorbike.dart';
 import 'package:nam_ip_museum/games/tron/game/my_game.dart';
 import 'package:nam_ip_museum/games/tron/joystick/joystick.dart';
+import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
 
 import '../direction.dart';
 
 class TronGame extends FlameGame with HasTappables {
 
-  List<List<bool>> isOccupied = List.generate(30, (index) => List.generate(30, (index) => false)); //TODO MySharedPreferences
+  List<List<bool>> isOccupied = List.generate(MySharedPreferences.tronGridSize, (index) => List.generate(MySharedPreferences.tronGridSize, (index) => false));
   MyGame myGame = MyGame();
 
   @override
@@ -34,7 +35,7 @@ class TronGame extends FlameGame with HasTappables {
   }
 
   void reset() {
-    isOccupied = List.generate(30, (index) => List.generate(30, (index) => false)); //TODO MySharedPreferences
+    isOccupied = List.generate(MySharedPreferences.tronGridSize, (index) => List.generate(MySharedPreferences.tronGridSize, (index) => false));
     remove(myGame);
     myGame = MyGame();
     add(myGame);

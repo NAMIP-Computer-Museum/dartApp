@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nam_ip_museum/games/tron/game/my_game.dart';
 import 'package:nam_ip_museum/games/tron/tron_game.dart';
 
+import '../../../utils/my_shared_preferences.dart';
 import 'horizontal_picker.dart';
 
 class Settings extends StatefulWidget {
@@ -15,6 +16,17 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+
+  final List<String> difficulties = ['Easy', 'Medium', 'Hard'];
+  final List<int> gridSizes = [10, 15, 20, 25, 30];
+
+  int _tronSpeed = MySharedPreferences.tronSpeed;
+  int _gridSize = MySharedPreferences.tronGridSize;
+  int _playerCount = MySharedPreferences.tronPlayerCount;
+  String _difficulty = MySharedPreferences.tronDifficulty;
+  late final FixedExtentScrollController _gridSizeController = FixedExtentScrollController(initialItem: gridSizes.indexOf(MySharedPreferences.tronGridSize));
+  final FixedExtentScrollController _playerCountController = FixedExtentScrollController(initialItem: MySharedPreferences.tronPlayerCount - 1);
+  late final FixedExtentScrollController _difficultyController = FixedExtentScrollController(initialItem: difficulties.indexOf(MySharedPreferences.tronDifficulty));
 
   @override
   Widget build(BuildContext context) {
@@ -41,19 +53,128 @@ class _SettingsState extends State<Settings> {
                 children: [
                   Row(
                     children: [
+                      const Text("Speed:", style: TextStyle(fontSize: 17, color: Colors.white)),
+                      Expanded(
+                        child: Slider(
+                          value: _tronSpeed.toDouble(),
+                          min: 30,
+                          max: 70,
+                          divisions: 40,
+                          onChanged: (double value) {
+                            setState(() {
+                              _tronSpeed = value.toInt();
+                            });
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  const Divider(color: Colors.white, thickness: 1, height: 30,),
+                  Row(
+                    children: [
                       const Text("IA :", style: TextStyle(color: Colors.white, fontSize: 17)),
                       Expanded(
                         child: HorizontalPicker(
-                          data: const ["Facile", "Moyen", "Difficile"],
-                          controller: FixedExtentScrollController(initialItem: 0),
-                          height: 60,
-                          activeItemTextColor: Colors.white,
-                          passiveItemsTextColor: Colors.amber,
-                          onChanged: (value) {},
+                          data: difficulties,
+                          controller: _difficultyController,
+                          height: 40,
+                          itemExtent: 80,
+                          onChanged: (index) {
+                            _difficulty = difficulties[index];
+                          },
                         ),
                       ),
                     ],
-                  )
+                  ),
+                  const Divider(color: Colors.white, thickness: 1, height: 30,),
+                  Row(
+                    children: [
+                      const Text("Grid Size :", style: TextStyle(color: Colors.white, fontSize: 17)),
+                      Expanded(
+                        child: HorizontalPicker(
+                          data: gridSizes,
+                          controller: _gridSizeController,
+                          height: 40,
+                          onChanged: (index) {
+                            _gridSize = gridSizes[index];
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Divider(color: Colors.white, thickness: 1, height: 30,),
+                  Row(
+                    children: [
+                      const Text("Players :", style: TextStyle(color: Colors.white, fontSize: 17)),
+                      Expanded(
+                        child: HorizontalPicker(
+                          data: const [1, 2, 3],
+                          controller: _playerCountController,
+                          height: 40,
+                          onChanged: (index) {
+                            _playerCount = index + 1;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () async {
+                            await MySharedPreferences.updateTronSpeed(_tronSpeed);
+                            await MySharedPreferences.updateTronGridSize(_gridSize);
+                            await MySharedPreferences.updateTronPlayerCount(_playerCount);
+                            await MySharedPreferences.updateTronDifficulty(_difficulty);
+                            widget.game.overlays.remove("Settings");
+                            widget.game.reset();
+                          },
+                          child: Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Colors.red.shade700,
+                              border: Border.all(color: Colors.white),
+                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Icon(Icons.play_circle, color: Colors.white),
+                                SizedBox(width: 5),
+                                Text("Jouer", style: TextStyle(fontSize: 17, color: Colors.white)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _tronSpeed = 40;
+                            _gridSize = 20;
+                            _playerCount = 1;
+                            _difficulty = 'Medium';
+                            _difficultyController.animateToItem(1, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                            _gridSizeController.animateToItem(2, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                            _playerCountController.animateToItem(0, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                          });
+                        },
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.red.shade700,
+                            border: Border.all(color: Colors.white),
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: const Icon(Icons.refresh, color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

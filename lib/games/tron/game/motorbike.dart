@@ -4,13 +4,14 @@ import 'package:collection/collection.dart';
 import 'package:flame/components.dart';
 import 'package:nam_ip_museum/games/tron/game/ia_motorbike.dart';
 import 'package:nam_ip_museum/games/tron/game/my_game.dart';
+import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
 
 import '../../direction.dart';
 import '../tron_game.dart';
 
 class MotorBike extends SpriteComponent with HasGameRef<TronGame> {
 
-  final int speed = 50;
+  final int speed = MySharedPreferences.tronSpeed;
   final Color color;
   List<Offset> points = [];
   List<List<int>> cases = [];
@@ -91,7 +92,7 @@ class MotorBike extends SpriteComponent with HasGameRef<TronGame> {
   }
 
   bool outOfBounds(int c) {
-    return c < 0 || c >= 30; //TODO MySharedPreferences
+    return c < 0 || c >= MySharedPreferences.tronGridSize;
   }
 
   // @override

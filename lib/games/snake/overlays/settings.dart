@@ -80,21 +80,10 @@ class _SettingsState extends State<Settings> {
                         child: HorizontalPicker(
                           controller: _gridSizeController,
                           height: 40,
+                          itemExtent: 40,
+                          onChanged: (i) => _gridSize = i + 8,
                           data: const ["8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
-                          activeItemTextColor: Colors.white,
-                          passiveItemsTextColor: Colors.white.withOpacity(0.7),
                         )
-
-                        // WheelChooser.integer(
-                        //   controller: _gridSizeController,
-                        //   horizontal: true,
-                        //   onValueChanged: (i) => _gridSize = i,
-                        //   maxValue: 20,
-                        //   minValue: 8,
-                        //   step: 1,
-                        //   unSelectTextStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
-                        //   selectTextStyle: const TextStyle(color: Colors.white),
-                        // ),
                       )
                     ],
                   ),
@@ -107,7 +96,7 @@ class _SettingsState extends State<Settings> {
                         child: HorizontalPicker(
                           controller: _appleCountController,
                           height: 40,
-                          //onChanged: (i) => _appleCount = i + 1,
+                          onChanged: (i) => _appleCount = i + 1,
                           items: [
                             Image.asset("assets/images/snake/apple.png", height: 15, width: 15,),
                             Row(
@@ -167,7 +156,7 @@ class _SettingsState extends State<Settings> {
                         child: HorizontalPicker(
                           controller: _isClassicSnakeController,
                           height: 40,
-                          //onValueChanged: (i) => _isClassicSnake = (i == 0),
+                          onChanged: (i) => _isClassicSnake = (i == 0),
                           items: [
                             Align(
                               alignment: Alignment.center,

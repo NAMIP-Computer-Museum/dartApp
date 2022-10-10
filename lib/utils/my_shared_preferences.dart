@@ -23,6 +23,12 @@ class MySharedPreferences {
   static late bool _isClassicSnake;
   static late Color _snakeColor;
 
+  ///Tron
+  static late String _tronDifficulty;
+  static late int _tronGridSize;
+  static late int _tronSpeed;
+  static late int _tronPlayerCount;
+
   static init() async {
     prefs = await SharedPreferences.getInstance();
     _isAuthorized = prefs.getBool('isAuthorized') ?? false;
@@ -41,6 +47,11 @@ class MySharedPreferences {
     _appleCount = prefs.getInt('appleCount') ?? 1;
     _isClassicSnake = prefs.getBool('isClassicSnake') ?? false;
     _snakeColor = Color(prefs.getInt('snakeColor') ?? BasicPalette.blue.color.value);
+
+    _tronDifficulty = prefs.getString('tronDifficulty') ?? 'Medium';
+    _tronGridSize = prefs.getInt('tronGridSize') ?? 20;
+    _tronSpeed = prefs.getInt('tronSpeed') ?? 40;
+    _tronPlayerCount = prefs.getInt('tronPlayerCount') ?? 1;
   }
 
   static _initLimitedAccess() async {
@@ -80,6 +91,10 @@ class MySharedPreferences {
   static int get appleCount => _appleCount;
   static bool get isClassicSnake => _isClassicSnake;
   static Color get snakeColor => _snakeColor;
+  static String get tronDifficulty => _tronDifficulty;
+  static int get tronGridSize => _tronGridSize;
+  static int get tronSpeed => _tronSpeed;
+  static int get tronPlayerCount => _tronPlayerCount;
 
   static updateLang(String value) async {
     _lang = value;
@@ -151,5 +166,26 @@ class MySharedPreferences {
   static updateSnakeColor(Color value) async {
     _snakeColor = value;
     await prefs.setInt('snakeColor', value.value);
+  }
+
+  ///Tron
+  static updateTronDifficulty(String value) async {
+    _tronDifficulty = value;
+    await prefs.setString('tronDifficulty', value);
+  }
+
+  static updateTronGridSize(int value) async {
+    _tronGridSize = value;
+    await prefs.setInt('tronGridSize', value);
+  }
+
+  static updateTronSpeed(int value) async {
+    _tronSpeed = value;
+    await prefs.setInt('tronSpeed', value);
+  }
+
+  static updateTronPlayerCount(int value) async {
+    _tronPlayerCount = value;
+    await prefs.setInt('tronPlayerCount', value);
   }
 }

@@ -3,7 +3,9 @@ import 'dart:ui';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/palette.dart';
 import 'package:nam_ip_museum/games/tron/game/motorbike.dart';
+import 'package:nam_ip_museum/games/tron/game/my_game.dart';
 
 import '../tron_game.dart';
 
@@ -16,12 +18,12 @@ class Wall extends Component with HasGameRef<TronGame>, CollisionCallbacks {
   @override
   void render(Canvas canvas) {
     Paint paint = Paint()..color = motorbike.color;
-    paint.strokeWidth = 5;
+    paint.strokeWidth = MyGame.offset * 0.5;
     for (int i = 0; i < motorbike.points.length - 1; i++) {
       canvas.drawLine(motorbike.points[i], motorbike.points[i + 1], paint);
       if (i != 0) {
         double startAngle = _getAngle(motorbike.points[i-1], motorbike.points[i], motorbike.points[i + 1]);
-        canvas.drawArc(Rect.fromCircle(center: motorbike.points[i], radius: 2.5), startAngle, pi/2, true, paint);
+        canvas.drawArc(Rect.fromCircle(center: motorbike.points[i], radius: paint.strokeWidth/2), startAngle, pi/2, true, paint);
       }
     }
     super.render(canvas);
