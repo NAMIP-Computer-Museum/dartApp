@@ -2,6 +2,7 @@ import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:nam_ip_museum/games/snake/snake_game.dart';
+import 'package:nam_ip_museum/games/tron/overlays/horizontal_picker.dart';
 import 'package:wheel_chooser/wheel_chooser.dart';
 
 import '../../../utils/my_shared_preferences.dart';
@@ -36,7 +37,7 @@ class _SettingsState extends State<Settings> {
       height: double.infinity,
       color: Colors.black.withOpacity(0.5),
       child: Padding(
-        padding: const EdgeInsets.all(GameBackground.padding / 2),
+        padding: const EdgeInsets.all(GameBackground.padding / 4),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -75,19 +76,25 @@ class _SettingsState extends State<Settings> {
                     children: [
                       const Text("Grid Size:", style: TextStyle(fontSize: 17, color: Colors.white)),
                       const SizedBox(width: 20),
-                      SizedBox(
-                        height: 40,
-                        width: 150, // TODO: Make this responsive
-                        child: WheelChooser.integer(
+                      Expanded(
+                        child: HorizontalPicker(
                           controller: _gridSizeController,
-                          horizontal: true,
-                          onValueChanged: (i) => _gridSize = i,
-                          maxValue: 20,
-                          minValue: 8,
-                          step: 1,
-                          unSelectTextStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
-                          selectTextStyle: const TextStyle(color: Colors.white),
-                        ),
+                          height: 40,
+                          data: const ["8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
+                          activeItemTextColor: Colors.white,
+                          passiveItemsTextColor: Colors.white.withOpacity(0.7),
+                        )
+
+                        // WheelChooser.integer(
+                        //   controller: _gridSizeController,
+                        //   horizontal: true,
+                        //   onValueChanged: (i) => _gridSize = i,
+                        //   maxValue: 20,
+                        //   minValue: 8,
+                        //   step: 1,
+                        //   unSelectTextStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
+                        //   selectTextStyle: const TextStyle(color: Colors.white),
+                        // ),
                       )
                     ],
                   ),
@@ -96,15 +103,12 @@ class _SettingsState extends State<Settings> {
                     children: [
                       const Text("Apple count:", style: TextStyle(fontSize: 17, color: Colors.white)),
                       const SizedBox(width: 20),
-                      SizedBox(
-                        height: 40,
-                        width: 130, //TODO: make this dynamic
-                        child: WheelChooser.custom(
-                          startPosition: null,
+                      Expanded(
+                        child: HorizontalPicker(
                           controller: _appleCountController,
-                          horizontal: true,
-                          onValueChanged: (i) => _appleCount = i + 1,
-                          children: [
+                          height: 40,
+                          //onChanged: (i) => _appleCount = i + 1,
+                          items: [
                             Image.asset("assets/images/snake/apple.png", height: 15, width: 15,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -159,15 +163,12 @@ class _SettingsState extends State<Settings> {
                     children: [
                       const Text("Design:", style: TextStyle(fontSize: 17, color: Colors.white)),
                       const SizedBox(width: 20),
-                      SizedBox(
-                        height: 40,
-                        width: 150, // TODO: Make this responsive
-                        child: WheelChooser.custom(
-                          startPosition: null,
+                      Expanded(
+                        child: HorizontalPicker(
                           controller: _isClassicSnakeController,
-                          horizontal: true,
-                          onValueChanged: (i) => _isClassicSnake = (i == 0),
-                          children: [
+                          height: 40,
+                          //onValueChanged: (i) => _isClassicSnake = (i == 0),
+                          items: [
                             Align(
                               alignment: Alignment.center,
                               child: Container(
@@ -199,14 +200,14 @@ class _SettingsState extends State<Settings> {
                   Row(
                     children: [
                       const Text("Color:", style: TextStyle(fontSize: 17, color: Colors.white)),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: 15),
                       Container(
                         width: 20,
                         height: 20,
                         color: _snakeColor,
                       ),
-                      const SizedBox(width: 10),
-                      Expanded(
+                      const SizedBox(width: 15),
+                      FittedBox(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

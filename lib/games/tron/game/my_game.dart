@@ -18,19 +18,19 @@ class MyGame extends PositionComponent with HasGameRef<TronGame> {
   List<IaMotorbike> iaMotorbikes = [];
 
   @override
-  Future<void>? onLoad() {
+  Future<void>? onLoad() async {
     offset = (gameRef.size.x - 2 * padding) / nbCase;
     motorbike = MotorBike(const Color(0xFFFFE64D));
-    for (int i = 0 ; i < 1 ; i++) {
-      iaMotorbikes.add(IaMotorbike(const Color(0xFF6FC3DF)));
-    }
     position = Vector2(padding, padding);
     size = Vector2(gameRef.size.x - 2 * padding, gameRef.size.x - 2 * padding);
     add(Wall(motorbike));
     add(motorbike);
-    for (IaMotorbike iaMotorbike in iaMotorbikes) {
-      add(Wall(iaMotorbike));
-      add(iaMotorbike);
+    IaMotorbike.nextPosition = IaMotorbike.firstPosition.clone();
+    for (int i = 0 ; i < 3 ; i++) {
+      IaMotorbike iaMotorbike = IaMotorbike(const Color(0xFF6FC3DF));
+      iaMotorbikes.add(iaMotorbike);
+      await add(Wall(iaMotorbike));
+      await add(iaMotorbike);
     }
     return super.onLoad();
   }

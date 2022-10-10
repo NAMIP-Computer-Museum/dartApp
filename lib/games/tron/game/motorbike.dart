@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui';
 import 'package:collection/collection.dart';
 
@@ -68,7 +67,6 @@ class MotorBike extends SpriteComponent with HasGameRef<TronGame> {
       if (outOfBounds(actualCase[0]) || outOfBounds(actualCase[1]) || gameRef.isOccupied[actualCase[0]][actualCase[1]]) {
         if (this is IaMotorbike) {
           gameRef.removeIaMotorbike(this as IaMotorbike);
-          gameRef.win(); //TODO: change this
         } else {
           gameRef.gameOver();
         }
@@ -77,6 +75,7 @@ class MotorBike extends SpriteComponent with HasGameRef<TronGame> {
         cases = [];
       } else {
         cases.add(actualCase);
+        lastDirection = direction;
         gameRef.isOccupied[actualCase[0]][actualCase[1]] = true;
         if (this is IaMotorbike) {
           IaMotorbike ia = this as IaMotorbike;
@@ -103,7 +102,7 @@ class MotorBike extends SpriteComponent with HasGameRef<TronGame> {
   // }
 
   Future<void> getSprite() async {
-    switch (lastDirection) {
+    switch (direction) {
       case Direction.right:
         sprite = await Sprite.load("tron/motorbike/yellow_motorbike_right.png");
         width = motorbikeWidth;

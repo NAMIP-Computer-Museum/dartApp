@@ -12,17 +12,25 @@ class IaMotorbike extends MotorBike {
 
   String difficulty = "easy";
 
+  static final Vector2 firstPosition = Vector2(MyGame.offset * (MyGame.nbCase - 3), MyGame.nbCase~/2 * MyGame.offset + MyGame.offset/2);
+  static final Vector2 secondPosition = Vector2(MyGame.nbCase~/2 * MyGame.offset + MyGame.offset/2, MyGame.offset * 3);
+  static final Vector2 thirdPosition = Vector2(MyGame.nbCase~/2 * MyGame.offset + MyGame.offset/2, MyGame.offset * (MyGame.nbCase - 3));
+
+  static Vector2 nextPosition = firstPosition.clone();
+
   IaMotorbike(Color color) : super(color) {
-    lastDirection = Direction.left;
-    lastDirectionForUpdate = Direction.left;
+    Direction d = nextPosition == firstPosition ? Direction.left : nextPosition == secondPosition ? Direction.down : Direction.up;
+    lastDirection = d;
+    lastDirectionForUpdate = d;
   }
 
   @override
   Future<void>? onLoad() async {
-    sprite = await Sprite.load("tron/motorbike/yellow_motorbike_left.png");
-    width = motorbikeWidth;
-    height = motorbikeHeight;
-    position = Vector2(MyGame.offset * (MyGame.nbCase - 3), MyGame.nbCase~/2 * MyGame.offset + MyGame.offset/2);
+    sprite = await Sprite.load("tron/motorbike/yellow_motorbike_${lastDirection.toString().substring(10)}.png");
+    width = nextPosition == firstPosition ? motorbikeWidth : motorbikeHeight;
+    height = nextPosition == firstPosition ? motorbikeHeight : motorbikeWidth;
+    position = nextPosition;
+    nextPosition = nextPosition == firstPosition ? secondPosition : nextPosition == secondPosition ? thirdPosition : firstPosition;
     points.add(position.toOffset());
     anchor = Anchor.center;
   }
@@ -55,16 +63,16 @@ class IaMotorbike extends MotorBike {
   Direction? getEasyDirection() {
     List<Direction> directions = [];
     if (!outOfBounds(getCase()[0] - 1) && !gameRef.isOccupied[getCase()[0] - 1][getCase()[1]]) {
-      directions.add(Direction.up);
+      if (lastDirection != Direction.down) directions.add(Direction.up);
     }
     if (!outOfBounds(getCase()[0] + 1) && !gameRef.isOccupied[getCase()[0] + 1][getCase()[1]]) {
-      directions.add(Direction.down);
+      if (lastDirection != Direction.up) directions.add(Direction.down);
     }
     if (!outOfBounds(getCase()[1] - 1) && !gameRef.isOccupied[getCase()[0]][getCase()[1] - 1]) {
-      directions.add(Direction.left);
+      if (lastDirection != Direction.right) directions.add(Direction.left);
     }
     if (!outOfBounds(getCase()[1] + 1) && !gameRef.isOccupied[getCase()[0]][getCase()[1] + 1]) {
-      directions.add(Direction.right);
+      if (lastDirection != Direction.left) directions.add(Direction.right);
     }
     if (directions.isEmpty) {
       return null;

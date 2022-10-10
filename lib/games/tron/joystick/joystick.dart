@@ -68,25 +68,21 @@ class Joystick extends PositionComponent with HasGameRef<TronGame>, Tappable {
       case 0:
         if (gameRef.myGame.motorbike.lastDirection != Direction.down) {
           gameRef.myGame.motorbike.direction = Direction.up;
-          gameRef.myGame.motorbike.lastDirection = Direction.up;
         }
         break;
       case 1:
         if (gameRef.myGame.motorbike.lastDirection != Direction.up) {
           gameRef.myGame.motorbike.direction = Direction.down;
-          gameRef.myGame.motorbike.lastDirection = Direction.down;
         }
         break;
       case 2:
         if (gameRef.myGame.motorbike.lastDirection != Direction.right && gameRef.myGame.motorbike.lastDirection != Direction.idle) {
           gameRef.myGame.motorbike.direction = Direction.left;
-          gameRef.myGame.motorbike.lastDirection = Direction.left;
         }
         break;
       case 3:
         if (gameRef.myGame.motorbike.lastDirection != Direction.left) {
           gameRef.myGame.motorbike.direction = Direction.right;
-          gameRef.myGame.motorbike.lastDirection = Direction.right;
         }
         break;
     }
