@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:nam_ip_museum/games/snake/snake_game.dart';
 import 'package:nam_ip_museum/games/tron/overlays/horizontal_picker.dart';
-import 'package:wheel_chooser/wheel_chooser.dart';
 
 import '../../../utils/my_shared_preferences.dart';
 import '../game/game_background.dart';

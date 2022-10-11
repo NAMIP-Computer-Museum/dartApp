@@ -17,7 +17,7 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
 
-  final List<String> difficulties = ['Easy', 'Medium', 'Hard'];
+  final List<String> difficulties = ['Very Easy', 'Easy', 'Medium', 'Hard'];
   final List<int> gridSizes = [10, 15, 20, 25, 30];
 
   int _tronSpeed = MySharedPreferences.tronSpeed;

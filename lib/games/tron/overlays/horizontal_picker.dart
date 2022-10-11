@@ -61,18 +61,13 @@ class _HorizontalPickerState extends State<HorizontalPicker> {
   }
 
   Widget getWidget(String text, {bool isSelected = false}) {
-    return GestureDetector(
-      onTap: () {
-        print("tapped");
-      },
-      child: FittedBox(
-        child: RotatedBox(
-          quarterTurns: 1,
-          child: Text(
-            text,
-            style: TextStyle(
-              color: isSelected ? (widget.activeItemTextColor ?? Colors.white) : (widget.passiveItemsTextColor ?? Colors.white.withOpacity(0.7)),
-            ),
+    return FittedBox(
+      child: RotatedBox(
+        quarterTurns: 1,
+        child: Text(
+          text,
+          style: TextStyle(
+            color: isSelected ? (widget.activeItemTextColor ?? Colors.white) : (widget.passiveItemsTextColor ?? Colors.white.withOpacity(0.7)),
           ),
         ),
       ),

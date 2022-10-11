@@ -30,7 +30,7 @@ class MyGame extends PositionComponent with HasGameRef<TronGame> {
     size = Vector2(gameRef.size.x - 2 * padding, gameRef.size.x - 2 * padding);
     add(Wall(motorbike));
     add(motorbike);
-    IaMotorbike.nextPosition = IaMotorbike.firstPosition.clone();
+    IaMotorbike.nextPosition = Vector2(MyGame.offset * (MyGame.nbCase - 3), MyGame.nbCase~/2 * MyGame.offset + MyGame.offset/2);
     for (int i = 0 ; i < MySharedPreferences.tronPlayerCount ; i++) {
       IaMotorbike iaMotorbike = IaMotorbike(const Color(0xFF6FC3DF));
       iaMotorbikes.add(iaMotorbike);
