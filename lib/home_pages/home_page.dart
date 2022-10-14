@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/favorites/favorites_page.dart';
@@ -6,6 +7,7 @@ import 'package:nam_ip_museum/informations/about_us.dart';
 import 'package:nam_ip_museum/quiz/quiz_difficulty.dart';
 import 'package:nam_ip_museum/timeline/home_timeline.dart';
 import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
+import 'package:nam_ip_museum/utils/widgets.dart';
 import 'package:nam_ip_museum/videos/home_videos.dart';
 
 import '../informations/introduction.dart';
@@ -22,14 +24,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    if (kIsWeb) width = MediaQuery.of(context).size.height * 0.6;
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/binaryBackground.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
+      body: Widgets.containerWithBinaryBackground(
         child: Center(
           child: SingleChildScrollView(
             child: Column(

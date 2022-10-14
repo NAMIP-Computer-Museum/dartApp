@@ -17,8 +17,8 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
 
-  final List<String> difficulties = ['Very Easy', 'Easy', 'Medium', 'Hard'];
-  final List<int> gridSizes = [10, 15, 20, 25, 30];
+  final List<String> difficulties = ['Easy', 'Medium', 'Hard'];
+  final List<int> gridSizes = List.generate(21, (index) => index + 10);
 
   int _tronSpeed = MySharedPreferences.tronSpeed;
   int _gridSize = MySharedPreferences.tronGridSize;
@@ -158,7 +158,7 @@ class _SettingsState extends State<Settings> {
                             _playerCount = 1;
                             _difficulty = 'Medium';
                             _difficultyController.animateToItem(1, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
-                            _gridSizeController.animateToItem(2, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                            _gridSizeController.animateToItem(gridSizes.indexOf(20), duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
                             _playerCountController.animateToItem(0, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
                           });
                         },

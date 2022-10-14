@@ -14,13 +14,7 @@ class Introduction extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/binaryBackground.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+              Widgets.containerWithBinaryBackground(
                 child: Column(
                   children: [
                     Padding(

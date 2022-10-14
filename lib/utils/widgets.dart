@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:nam_ip_museum/utils/navigation_service.dart';
 
 import '../home_pages/home_page.dart';
 
@@ -24,15 +26,19 @@ class Widgets {
     );
   }
 
-  static Container containerWithBinaryBackground({required child}) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/binaryBackground.png'),
-          fit: BoxFit.cover,
+  static Widget containerWithBinaryBackground({required child}) {
+    return Center(
+      child: Container(
+        height: MediaQuery.of(NavigationService.getContext()).size.height,
+        width: kIsWeb ? MediaQuery.of(NavigationService.getContext()).size.height * 0.6 : MediaQuery.of(NavigationService.getContext()).size.width,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/binaryBackground.png'),
+            fit: BoxFit.cover,
+          ),
         ),
+        child: child,
       ),
-      child: child,
     );
   }
 }

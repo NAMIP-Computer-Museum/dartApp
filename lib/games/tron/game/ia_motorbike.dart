@@ -37,14 +37,6 @@ class IaMotorbike extends MotorBike {
 
   void updateDirection() {
     switch (difficulty) {
-      case "Very Easy":
-        List<Direction>? directions = getVeryEasyDirection(getCase());
-        if (directions != null) {
-          Direction d = directions[Random().nextInt(directions.length)];
-          direction = d;
-          lastDirection = d;
-        }
-        break;
       case "Easy":
         List<Direction>? directions = getEasyDirection(getCase());
         if (directions != null) {
@@ -54,13 +46,19 @@ class IaMotorbike extends MotorBike {
         }
         break;
       case "Medium":
-        Direction? d = getMediumDirection();
-        if (d != null) {
+        List<Direction>? directions = getMediumDirection(getCase());
+        if (directions != null) {
+          Direction d = directions[Random().nextInt(directions.length)];
           direction = d;
           lastDirection = d;
         }
         break;
       case "Hard":
+        Direction? d = getHardDirection();
+        if (d != null) {
+          direction = d;
+          lastDirection = d;
+        }
         break;
       default:
         break;
@@ -78,7 +76,7 @@ class IaMotorbike extends MotorBike {
     super.update(dt);
   }
 
-  List<Direction>? getVeryEasyDirection(List<int> actualCase) {
+  List<Direction>? getEasyDirection(List<int> actualCase) {
     List<Direction> directions = [];
     if (!outOfBounds(actualCase[0] - 1) && !gameRef.isOccupied[actualCase[0] - 1][actualCase[1]]) {
       if (lastDirection != Direction.down) directions.add(Direction.up);
@@ -104,14 +102,14 @@ class IaMotorbike extends MotorBike {
   }
 
 
-  List<Direction>? getEasyDirection(List<int> actualCase) {
+  List<Direction>? getMediumDirection(List<int> actualCase) {
     List<Direction> possibleDirection = [];
-    List<Direction>? directions = getVeryEasyDirection(actualCase);
+    List<Direction>? directions = getEasyDirection(actualCase);
     if (directions == null) return null;
     for (Direction direction in directions) {
       switch (direction) {
         case Direction.up:
-          List<Direction>? directions2 = getVeryEasyDirection([actualCase[0] - 1, actualCase[1]]);
+          List<Direction>? directions2 = getEasyDirection([actualCase[0] - 1, actualCase[1]]);
           if (directions2 != null) {
             for (int i = 0 ; i < directions2.length ; i++) {
               possibleDirection.add(direction);
@@ -119,7 +117,7 @@ class IaMotorbike extends MotorBike {
           }
           break;
         case Direction.down:
-          List<Direction>? directions2 = getVeryEasyDirection([actualCase[0] + 1, actualCase[1]]);
+          List<Direction>? directions2 = getEasyDirection([actualCase[0] + 1, actualCase[1]]);
           if (directions2 != null) {
             for (int i = 0 ; i < directions2.length ; i++) {
               possibleDirection.add(direction);
@@ -127,7 +125,7 @@ class IaMotorbike extends MotorBike {
           }
           break;
         case Direction.left:
-          List<Direction>? directions2 = getVeryEasyDirection([actualCase[0], actualCase[1] - 1]);
+          List<Direction>? directions2 = getEasyDirection([actualCase[0], actualCase[1] - 1]);
           if (directions2 != null) {
             for (int i = 0 ; i < directions2.length ; i++) {
               possibleDirection.add(direction);
@@ -135,7 +133,7 @@ class IaMotorbike extends MotorBike {
           }
           break;
         case Direction.right:
-          List<Direction>? directions2 = getVeryEasyDirection([actualCase[0], actualCase[1] + 1]);
+          List<Direction>? directions2 = getEasyDirection([actualCase[0], actualCase[1] + 1]);
           if (directions2 != null) {
             for (int i = 0 ; i < directions2.length ; i++) {
               possibleDirection.add(direction);
@@ -153,11 +151,11 @@ class IaMotorbike extends MotorBike {
   }
 
 
-  Direction? getMediumDirection() { // inspired by https://vks.ai/2016-09-07-ai-challenge-in-78-lines
+  Direction? getHardDirection() {
     List<List<String>> isOccupied = gameRef.isOccupied.map((e) => e.map(
       (e) => e ? "wall" : "rien"
     ).toList()).toList(); /// Map avec des cases vides (à remplir), des murs (impossible d'y aller), les ennemis et l'ia
-    List<Direction>? possibleDirection = getEasyDirection(getCase()); /// direction possible pour l'ia
+    List<Direction>? possibleDirection = getMediumDirection(getCase()); /// direction possible pour l'ia
     if (possibleDirection == null) return null;
     Map<Direction, int> directionScore = {}; /// score de chaque direction
 
@@ -248,8 +246,6 @@ class IaMotorbike extends MotorBike {
           }
         }
       }
-      print(direction);
-      print(isOccupied);
 
       directionScore[direction] = score;
       /// on remet la map comme avant pour la prochaine direction
@@ -258,9 +254,13 @@ class IaMotorbike extends MotorBike {
       ).toList()).toList();
     }
 
-    print(getCase());
-    print(directionScore);
-    print(directionScore.entries.reduce((a, b) => a.value > b.value ? a : b).key);
     return directionScore.entries.reduce((a, b) => a.value > b.value ? a : b).key;
+  }
+
+
+  Direction? minmax() { //algo minimax
+    //https://jbboin.github.io/doc/ai_lightcycle.pdf
+    //https://sifflez.org/misc/tronbot/
+    return null;
   }
 }

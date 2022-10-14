@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/games/snake/snake.dart';
@@ -10,16 +11,11 @@ class Games extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width;
+    if (kIsWeb) width = MediaQuery.of(context).size.height * 0.6;
     return Scaffold(
       appBar: Widgets.appBar(context),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/binaryBackground.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
+      body: Widgets.containerWithBinaryBackground(
         child: Center(
             child: FittedBox(
               child: Container(

@@ -27,7 +27,6 @@ class _SettingsState extends State<Settings> {
   Color _snakeColor = MySharedPreferences.snakeColor;
   final FixedExtentScrollController _gridSizeController = FixedExtentScrollController(initialItem: MySharedPreferences.snakeGridSize - 8);
   final FixedExtentScrollController _appleCountController = FixedExtentScrollController(initialItem: MySharedPreferences.appleCount - 1);
-  final FixedExtentScrollController _isClassicSnakeController = FixedExtentScrollController(initialItem: (MySharedPreferences.isClassicSnake) ? 0 : 1);
 
   @override
   Widget build(BuildContext context) {
@@ -152,34 +151,44 @@ class _SettingsState extends State<Settings> {
                       const Text("Design:", style: TextStyle(fontSize: 17, color: Colors.white)),
                       const SizedBox(width: 20),
                       Expanded(
-                        child: HorizontalPicker(
-                          controller: _isClassicSnakeController,
+                        child: SizedBox(
                           height: 40,
-                          onChanged: (i) => _isClassicSnake = (i == 0),
-                          items: [
-                            Align(
-                              alignment: Alignment.center,
-                              child: Container(
-                                color: Colors.white,
-                                width: 30,
-                                height: 30,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Container(
-                                    color: Colors.blue,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              GestureDetector(
+                                onTap: () => setState(() {
+                                  _isClassicSnake = true;
+                                }),
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 500),
+                                  color: Colors.white,
+                                  width: _isClassicSnake ? 35 : 25,
+                                  height: _isClassicSnake ? 35 : 25,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Container(
+                                      color: Colors.blue,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              width: 30,
-                              height: 30,
-                              decoration: const BoxDecoration(
-                                color: Colors.blue,
-                                shape: BoxShape.circle,
-                              ),
-                            )
-                          ],
+                              GestureDetector(
+                                onTap: () => setState(() {
+                                  _isClassicSnake = false;
+                                }),
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 500),
+                                  width: _isClassicSnake ? 25 : 35,
+                                  height: _isClassicSnake ? 25 : 35,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.blue,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
                         ),
                       )
                     ],
@@ -326,7 +335,6 @@ class _SettingsState extends State<Settings> {
                             _snakeColor = BasicPalette.blue.color;
                             _gridSizeController.animateToItem(7, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
                             _appleCountController.animateToItem(0, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
-                            _isClassicSnakeController.animateToItem(1, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
                           });
                         },
                         child: Container(

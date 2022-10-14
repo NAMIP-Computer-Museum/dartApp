@@ -1,4 +1,5 @@
 import 'package:flame/game.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nam_ip_museum/games/tron/overlays/game_finished.dart';
 import 'package:nam_ip_museum/games/tron/overlays/play_pause_button.dart';
@@ -14,25 +15,30 @@ class Tron extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Widgets.appBar(context),
-      body: GameWidget(
-        game: TronGame(),
-        overlayBuilderMap: {
-          'GameOver': (BuildContext context, TronGame game) {
-            return GameFinished(game: game, result: 'Game Over');
-          },
-          'Win': (BuildContext context, TronGame game) {
-            return GameFinished(game: game, result: 'You Win');
-          },
-          'Settings': (BuildContext context, TronGame game) {
-            return Settings(game: game,);
-          },
-          'SettingsButton': (BuildContext context, TronGame game) {
-            return SettingsButton(game: game,);
-          },
-          'PlayPauseButton': (BuildContext context, TronGame game) {
-            return PlayPauseButton(game: game,);
-          },
-        },
+      body: Center(
+        child: SizedBox(
+          width: kIsWeb ? MediaQuery.of(context).size.height * 0.6 : double.infinity,
+          child: GameWidget(
+            game: TronGame(),
+            overlayBuilderMap: {
+              'GameOver': (BuildContext context, TronGame game) {
+                return GameFinished(game: game, result: 'Game Over');
+              },
+              'Win': (BuildContext context, TronGame game) {
+                return GameFinished(game: game, result: 'You Win');
+              },
+              'Settings': (BuildContext context, TronGame game) {
+                return Settings(game: game,);
+              },
+              'SettingsButton': (BuildContext context, TronGame game) {
+                return SettingsButton(game: game,);
+              },
+              'PlayPauseButton': (BuildContext context, TronGame game) {
+                return PlayPauseButton(game: game,);
+              },
+            },
+          ),
+        ),
       ),
     );
   }

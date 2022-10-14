@@ -72,7 +72,7 @@ class MotorBike extends SpriteComponent with HasGameRef<TronGame> {
           gameRef.gameOver();
         }
         direction = Direction.idle;
-        //points = [];
+        points = [];
         cases = [];
       } else {
         cases.add(actualCase);
