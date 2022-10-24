@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/favorites/favorites_page.dart';
 import 'package:nam_ip_museum/games/games.dart';
+import 'package:nam_ip_museum/home_pages/web_view.dart';
 import 'package:nam_ip_museum/informations/about_us.dart';
 import 'package:nam_ip_museum/quiz/quiz_difficulty.dart';
 import 'package:nam_ip_museum/timeline/home_timeline.dart';
@@ -227,7 +228,13 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CustomWebView()));
+        },
+        child: const Icon(Icons.home),
+      ),
     );
   }
 }

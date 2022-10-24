@@ -33,7 +33,7 @@ class _QuizState extends State<Quiz> {
     }
   }
 
-  Future<void> readJson() async {
+  Future<void> initData() async {
     String stringData = "";
     String stringImagesData = "";
     switch (widget.difficulty) {
@@ -68,7 +68,7 @@ class _QuizState extends State<Quiz> {
 
   @override
   void initState() {
-    readJson();
+    initData();
     super.initState();
   }
 

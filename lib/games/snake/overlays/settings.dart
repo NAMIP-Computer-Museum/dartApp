@@ -163,8 +163,8 @@ class _SettingsState extends State<Settings> {
                                 child: AnimatedContainer(
                                   duration: const Duration(milliseconds: 500),
                                   color: Colors.white,
-                                  width: _isClassicSnake ? 35 : 25,
-                                  height: _isClassicSnake ? 35 : 25,
+                                  width: _isClassicSnake ? 35 : 20,
+                                  height: _isClassicSnake ? 35 : 20,
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Container(
