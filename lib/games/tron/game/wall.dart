@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/palette.dart';
 import 'package:nam_ip_museum/games/tron/game/motorbike.dart';
 import 'package:nam_ip_museum/games/tron/game/my_game.dart';
 

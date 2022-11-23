@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nam_ip_museum/favorites/favorites_page.dart';
 import 'package:nam_ip_museum/games/games.dart';
-import 'package:nam_ip_museum/home_pages/web_view.dart';
 import 'package:nam_ip_museum/informations/about_us.dart';
 import 'package:nam_ip_museum/quiz/quiz_difficulty.dart';
+import 'package:nam_ip_museum/rechercher/test_http.dart';
 import 'package:nam_ip_museum/timeline/home_timeline.dart';
 import 'package:nam_ip_museum/utils/my_shared_preferences.dart';
 import 'package:nam_ip_museum/utils/widgets.dart';
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                   width: 0.5 * width,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Rechercher()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const TestHTTP()));
                     },
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
@@ -229,12 +229,12 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CustomWebView()));
-        },
-        child: const Icon(Icons.home),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CustomWebView()));
+      //   },
+      //   child: const Icon(Icons.home),
+      // ),
     );
   }
 }

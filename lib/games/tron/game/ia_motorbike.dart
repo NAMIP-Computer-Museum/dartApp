@@ -256,11 +256,4 @@ class IaMotorbike extends MotorBike {
 
     return directionScore.entries.reduce((a, b) => a.value > b.value ? a : b).key;
   }
-
-
-  Direction? minmax() { //algo minimax
-    //https://jbboin.github.io/doc/ai_lightcycle.pdf
-    //https://sifflez.org/misc/tronbot/
-    return null;
-  }
 }

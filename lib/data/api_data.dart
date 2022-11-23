@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import '../models/person.dart';
 
@@ -9,9 +10,12 @@ class ApiData {
   static Map<int, Person> personsMap = {};
 
   static Future<void> loadAllPersons() async {
-    Uri url = Uri.https('sig.cetic.be', '/trajectware-0.6/v0/person/find', {"name": "all"});
+    Uri url = Uri.https('sig.cetic.be', '/trajectware-1/person/find');
     http.Response response = await http.get(url);
     List data = jsonDecode(utf8.decode(response.bodyBytes));
+    log(data.toString());
+    data = data.where((element) => element["birthdate"] != null).toList();
+    log(data.toString());
     List<Person> persons = [];
     for (final person in data) {
       persons.add(Person.fromMap(person));

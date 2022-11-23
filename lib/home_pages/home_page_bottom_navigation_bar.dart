@@ -30,10 +30,6 @@ class _HomePageBottomNavBarState extends State<HomePageBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("NAM-IP Museum"),
-        backgroundColor: Colors.red.shade900,
-      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

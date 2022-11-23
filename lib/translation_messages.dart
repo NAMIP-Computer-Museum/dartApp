@@ -42,6 +42,10 @@ class TranslationMessages extends Translations{
       'question2' : "Quand est décédé {person} ?",
       'question3' : "Quelle est le prénom de {lastname} ?",
       'question4' : "D'où vient {person} ?",
+
+      //TODO à completer pour les autres langues
+      'favoris': "Favoris",
+      'jeux': "Jeux",
     },
     'nl_NL': {
       'introduction': 'Inleiding',

@@ -34,7 +34,13 @@ class _FavoritePageState extends State<FavoritePage> {
 
   Widget _buildCard(Component component) {
     return Card(
-      child: Widgets.containerWithBinaryBackground(
+      child: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/binaryBackground.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: ListTile(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) => Datasheet.fromComponent(component: component,)));

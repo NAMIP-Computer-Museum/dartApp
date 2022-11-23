@@ -49,10 +49,10 @@ class _QuizState extends State<Quiz> {
         break;
     }
     final String response = await rootBundle.loadString(stringData);
-    final List<dynamic> data = await json.decode(response);
+    final List<dynamic> data = json.decode(response);
     data.shuffle();
     final String imagesDataResponse = await rootBundle.loadString(stringImagesData);
-    final Map<String, dynamic> imagesData = await json.decode(imagesDataResponse);
+    final Map<String, dynamic> imagesData = json.decode(imagesDataResponse);
     setState(() {
       for (int i = 0; i < 10; i++) {
         quiz.add(QuizInfos(
