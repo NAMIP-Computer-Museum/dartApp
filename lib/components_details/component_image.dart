@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nam_ip_museum/widgets.dart';
 import 'package:photo_view/photo_view.dart';
+
+import '../utils/widgets.dart';
 
 class ComponentImage extends StatelessWidget {
   final String img;

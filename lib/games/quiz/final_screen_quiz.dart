@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nam_ip_museum/quiz/quiz.dart';
 
-import '../home_pages/home_page.dart';
+import '../../home_pages/home_page.dart';
+import 'quiz.dart';
+
 
 class FinalScreenQuiz extends StatelessWidget {
   final int score;

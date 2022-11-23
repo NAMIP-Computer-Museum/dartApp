@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nam_ip_museum/models/type_component.dart';
+
+import '../models/type_component.dart';
 
 class DatasheetLegend extends StatelessWidget {
   final TypeComponent type;

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:nam_ip_museum/components_details/datasheet.dart';
+import 'package:get/get.dart';
 
-import '../db_helper.dart';
+import '../components_details/datasheet.dart';
+import '../data/db_helper.dart';
 import '../models/component.dart';
-import '../widgets.dart';
+import '../utils/widgets.dart';
 
 class Rechercher extends StatefulWidget {
   const Rechercher({Key? key}) : super(key: key);
@@ -94,8 +95,9 @@ class _RechercherState extends State<Rechercher> {
                       controller: textEditingController,
                       focusNode: focusNode,
                       onChanged: _onChange,
+                      style: const TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        hintText: 'Rechercher',
+                        hintText: 'rechercher'.tr,
                         hintStyle: TextStyle(color: Colors.grey.withOpacity(0.7)),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),

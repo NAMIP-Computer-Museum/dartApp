@@ -6,7 +6,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:io' as io;
 
-import 'models/component.dart';
+import '../models/component.dart';
 
 class DBHelper {
 
@@ -45,6 +45,12 @@ class DBHelper {
     if (maps?.length != 1) return null;
     List<Component> components = await getCopyListWithLogo(maps!);
     return components.first;
+  }
+
+  Future<List<Component>> getComponentByIDList(List<int> ids) async {
+    List<Component> microComponents = await getComponentsMicro();
+
+    return microComponents.where((element) => ids.contains(element.id)).toList();
   }
 
   Future<List<Component>> getCopyListWithLogo(List<Map<String, Object?>> maps) async {

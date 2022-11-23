@@ -1,4 +1,4 @@
-package com.example.nam_ip_museum;
+package be.nam_ip_micro_ordinateur.nam_ip_museum;
 
 import io.flutter.embedding.android.FlutterActivity;
 

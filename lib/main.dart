@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:nam_ip_museum/translation_messages.dart';
 
 import 'home_pages/home_page.dart';
+import 'translation_messages.dart';
+import 'utils/my_shared_preferences.dart';
+import 'utils/navigation_service.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  MySharedPreferences.init();
   runApp(const MyApp());
 }
 
@@ -22,6 +25,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'NAM-IP Museum',
       debugShowCheckedModeBanner: false,
+      navigatorKey: NavigationService.navigatorKey,
       translations: TranslationMessages(),
       locale: const Locale('fr', ''),
       theme: ThemeData(

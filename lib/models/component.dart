@@ -1,5 +1,7 @@
-import 'package:nam_ip_museum/functions.dart';
-import 'package:nam_ip_museum/models/type_component.dart';
+
+
+import '../functions.dart';
+import 'type_component.dart';
 
 class Component {
   late int id;

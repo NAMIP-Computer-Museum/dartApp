@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nam_ip_museum/videos/overlay_video.dart';
 import 'package:video_player/video_player.dart';
 
-import '../widgets.dart';
+import '../utils/widgets.dart';
+import 'overlay_video.dart';
 
 class Video extends StatefulWidget {
 

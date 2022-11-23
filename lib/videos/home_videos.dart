@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:nam_ip_museum/videos/video.dart';
 
 import '../models/video.dart';
-import '../widgets.dart';
+import '../utils/widgets.dart';
+import 'video.dart';
 
 class HomeVideos extends StatefulWidget {
   const HomeVideos({Key? key}) : super(key: key);

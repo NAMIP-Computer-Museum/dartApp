@@ -4,14 +4,16 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:nam_ip_museum/db_helper.dart';
+import 'package:nam_ip_museum/data/db_helper.dart';
 import 'package:nam_ip_museum/functions.dart';
 import 'package:nam_ip_museum/models/component.dart';
 import 'package:nam_ip_museum/models/type_component.dart';
 import 'package:nam_ip_museum/components_details/component_image.dart';
 import 'package:nam_ip_museum/components_details/legende_datasheet.dart';
 import 'package:nam_ip_museum/videos/video.dart';
-import 'package:nam_ip_museum/widgets.dart';
+import 'package:nam_ip_museum/utils/widgets.dart';
+
+import '../utils/my_shared_preferences.dart';
 
 class Datasheet extends StatefulWidget {
   late final String img;
@@ -41,6 +43,7 @@ class _DatasheetState extends State<Datasheet> {
   String urlVideo = '';
   bool detailDataLoaded = false;
   bool descDataLoaded = false;
+  late bool isFavorite = MySharedPreferences.favorites.contains(widget.id);
 
   @override
   void initState() {
@@ -167,7 +170,26 @@ class _DatasheetState extends State<Datasheet> {
                       child: Image.asset(widget.img)
                     ),
                     const SizedBox(height: 20),
-                    Text(widget.title, style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(widget.title, style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
+                        const SizedBox(width: 20),
+                        GestureDetector(
+                          onTap: () async {
+                            setState(() {
+                              isFavorite = !isFavorite;
+                            });
+                            if (isFavorite) {
+                              await MySharedPreferences.addFavorite(widget.id);
+                            } else {
+                              await MySharedPreferences.removeFavorite(widget.id);
+                            }
+                          },
+                          child: Icon(isFavorite ? Icons.favorite : Icons.favorite_border, color: Colors.pinkAccent, size: 30),
+                        ),
+                      ],
+                    ),
                     const Divider(color: Colors.white, thickness: 2),
                     DatasheetLegend(type: widget.type, data: componentData),
                     componentData.isEmpty ? const SizedBox(height: 0, width: 0) : const Divider(color: Colors.white, thickness: 2),

@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:nam_ip_museum/quiz/final_screen_quiz.dart';
 
-import '../models/quiz_infos.dart';
-import '../widgets.dart';
+import '../../models/quiz_infos.dart';
+import '../../utils/widgets.dart';
+import 'final_screen_quiz.dart';
+
 
 class Quiz extends StatefulWidget {
   final String? difficulty;
