@@ -23,7 +23,7 @@ class _VideoState extends State<Video> {
       strictRelatedVideos: true,
     );
     _controller =
-        YoutubePlayerController.fromVideoId(videoId: widget.videoData.id, params: params);
+        YoutubePlayerController.fromVideoId(videoId: widget.videoData.id, params: params); //
   }
 
   @override
